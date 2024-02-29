@@ -7,6 +7,7 @@ var moveQueue : QUEUED_MOVE
 var isMoving : bool = false
 var targetPosition : Vector3
 var targetRotation : Vector3
+var active : bool = true
 
 #TODO this should only be active during selection. Especially for inputs. Might want a state machine, or just control active inactive from game manager
 
@@ -29,7 +30,10 @@ func _input(event):
 			moveQueue = QUEUED_MOVE.MOVE_DOWN
 		elif Input.is_action_just_pressed("cwRot"):
 			moveQueue = QUEUED_MOVE.ROT_CW
+			
 		if Input.is_action_just_pressed("select"):
+			GameManager.PlaceablePlaced(heldObj, self.get_parent_node_3d(), [])
+			heldObj = null			
 			#drop obj if clear, else throw error and honk
 			pass
 	else:
@@ -60,7 +64,7 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 			rotVector.y = -1*PI/2
 	
 
-	
+	#TODO move this to process move with lerp
 	if heldObj.checkForMove(moveVector, rotVector, self.get_parent()):
 		global_transform = heldObj.ghost.global_transform
 		isMoving = false
