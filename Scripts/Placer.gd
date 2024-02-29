@@ -59,16 +59,13 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 		QUEUED_MOVE.ROT_CW:
 			rotVector.y = -1*PI/2
 	
-	heldObj.ghost.position += moveVector
-	heldObj.ghost.rotation += rotVector
+
 	
-	print(heldObj.ghost.get_overlapping_areas()[0].get_parent().name)
-	for area in heldObj.ghost.get_overlapping_areas():
-		if area.get_parent() is FieldSlot:
-			global_transform = heldObj.ghost.global_transform
-			isMoving = false
+	if heldObj.checkForMove(moveVector, rotVector, self.get_parent()):
+		global_transform = heldObj.ghost.global_transform
+		isMoving = false
 	
-	heldObj.ghost.global_transform = global_transform #reset ghost so it aligns with the held obj
+	heldObj.resetGhost()
 	
 	return false
 
