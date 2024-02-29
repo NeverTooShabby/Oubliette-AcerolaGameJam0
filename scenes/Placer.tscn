@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2akpyxyi326g"]
+
+[ext_resource type="Script" path="res://Scripts/Placer.gd" id="1_hl3yb"]
+
+[node name="Placer" type="Node3D"]
+script = ExtResource("1_hl3yb")

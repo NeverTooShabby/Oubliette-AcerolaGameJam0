@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dij7r1m3g0jo1"]
+
+[ext_resource type="Script" path="res://scenes/Field.gd" id="1_7o6o4"]
+[ext_resource type="PackedScene" uid="uid://c0m5iynptdc4g" path="res://scenes/FieldSlot.tscn" id="2_oqik8"]
+[ext_resource type="PackedScene" uid="uid://d2akpyxyi326g" path="res://scenes/Placer.tscn" id="2_srd8f"]
+
+[node name="Field" type="Node3D"]
+script = ExtResource("1_7o6o4")
+
+[node name="Placer" parent="." instance=ExtResource("2_srd8f")]
+
+[node name="FieldSlot" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="FieldSlot2" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="FieldSlot3" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="FieldSlot4" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="FieldSlot5" parent="." instance=ExtResource("2_oqik8")]
+
+[node name="FieldSlot6" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="FieldSlot7" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="FieldSlot8" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="FieldSlot9" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)

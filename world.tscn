@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://lry4ck3mn8oe"]
+
+[ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_da6gp"]
+sky_top_color = Color(0, 0.741176, 1, 1)
+sky_curve = 0.126134
+ground_bottom_color = Color(0.254902, 0.215686, 0.172549, 1)
+
+[sub_resource type="Sky" id="Sky_xisn2"]
+sky_material = SubResource("ProceduralSkyMaterial_da6gp")
+
+[sub_resource type="Environment" id="Environment_lav30"]
+background_mode = 2
+background_energy_multiplier = 0.84
+sky = SubResource("Sky_xisn2")
+
+[node name="World" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53973, 6.05004)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lav30")
+
+[node name="Field" parent="." instance=ExtResource("1_1mvll")]
