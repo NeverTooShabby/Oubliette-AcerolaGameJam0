@@ -1,8 +1,7 @@
 extends Node3D
 
 class_name Placeable
-
-@onready var ghost = $Area3D
+@onready var ghost : Area3D = $Area3D
 
 
 

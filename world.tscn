@@ -1,26 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=7 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_da6gp"]
-sky_top_color = Color(0, 0.741176, 1, 1)
-sky_curve = 0.126134
-ground_bottom_color = Color(0.254902, 0.215686, 0.172549, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
+sky_top_color = Color(0.596078, 0.756863, 1, 1)
+ground_bottom_color = Color(0.901961, 0.866667, 0.835294, 1)
 
-[sub_resource type="Sky" id="Sky_xisn2"]
-sky_material = SubResource("ProceduralSkyMaterial_da6gp")
+[sub_resource type="Sky" id="Sky_i41m7"]
+sky_material = SubResource("ProceduralSkyMaterial_2n2dj")
 
-[sub_resource type="Environment" id="Environment_lav30"]
+[sub_resource type="Environment" id="Environment_x1u6c"]
 background_mode = 2
-background_energy_multiplier = 0.84
-sky = SubResource("Sky_xisn2")
+sky = SubResource("Sky_i41m7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v35fx"]
+albedo_color = Color(0.552941, 0.72549, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6n83a"]
+material = SubResource("StandardMaterial3D_v35fx")
+size = Vector2(10, 10)
 
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53973, 6.05004)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_lav30")
+transform = Transform3D(1, 0, 0, 0, 0.00207692, 0.999998, 0, -0.999998, 0.00207692, 0, 2.746, 0)
 
 [node name="Field" parent="." instance=ExtResource("1_1mvll")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x1u6c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5757, 0)
+mesh = SubResource("QuadMesh_6n83a")
