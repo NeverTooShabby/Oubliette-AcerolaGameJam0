@@ -1,22 +1,22 @@
 extends Node3D
 class_name Placeable
 
-@onready var ghost : Node3D = $ghost
-
-var ghostPts : Array
-var placementValid : bool
-@onready var segment_areas_node = $SegmentAreas
-
-var segmentAreas : Array
-
-enum State {NONE, HELD, PLACED, LOCKED}
-
-var currentState : State = State.HELD
-
 const BAD_PLACEMENT = preload("res://materials/badPlacement.tres")
 const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
-@onready var selectionBorder = $SelectionBorder
-@onready var visual_mesh = $VisualMesh
+
+@onready var ghost : Node3D = $ghost
+@onready var segment_areas_node : Node3D = $SegmentAreas
+@onready var selectionBorder : MeshInstance3D = $SelectionBorder
+@onready var visual_mesh : MeshInstance3D = $VisualMesh
+
+var ghostPts : Array
+var segmentAreas : Array
+
+var isMoving : bool
+var placementValid : bool
+
+enum State {NONE, HELD, PLACED, LOCKED}
+var currentState : State = State.HELD
 
 func selectionBorderColor(goodPlacement : bool = placementValid):
 	if(goodPlacement):
