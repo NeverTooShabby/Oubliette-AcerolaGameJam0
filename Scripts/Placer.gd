@@ -89,12 +89,10 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 	if heldObj.checkForMove(moveVector, rotVector, self):
 		targetPosition = position + moveVector
 		targetRotation = heldObj.rotation + rotVector
-		heldObj.resetGhost()
 		isMoving = true
 		move_t = 0.0
 		return true #not sure if return gets used anywhere
 	
-	heldObj.resetGhost()
 	
 	return false
 	
