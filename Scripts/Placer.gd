@@ -1,4 +1,5 @@
 extends Node3D
+class_name Placer
 
 var heldObj : Placeable
 
@@ -12,8 +13,8 @@ var isMoving : bool = false
 
 var active : bool = true
 
-var startTransform : Transform3D
-var targetTransform : Transform3D
+var targetPosition : Vector3
+var targetRotation : Vector3
 var move_t : float
 var lerpScale : float = 2.0
 
@@ -66,6 +67,7 @@ func handleInputs():
 	#else: possible timeout for buffer limit
 
 func checkMove(move : QUEUED_MOVE) -> bool:
+	
 	var moveVector : Vector3 = Vector3.ZERO
 	var rotVector : Vector3 = Vector3.ZERO
 	curMove = MOVE_TYPE.TRANSLATE
@@ -84,8 +86,9 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 			rotVector.y = -1*PI/2
 	
 	#TODO move this to process move with lerp
-	if heldObj.checkForMove(moveVector, rotVector, self.get_parent()):
-		targetTransform = heldObj.ghost.global_transform
+	if heldObj.checkForMove(moveVector, rotVector, self):
+		targetPosition = position + moveVector
+		targetRotation = heldObj.rotation + rotVector
 		heldObj.resetGhost()
 		isMoving = true
 		move_t = 0.0
@@ -101,20 +104,19 @@ func moveEnd():
 	#TODO add sound here
 
 func processMove():
-	var transformObj : Node3D
 	match curMove:
 		MOVE_TYPE.TRANSLATE:
-			transformObj = self
+			position = position.lerp(targetPosition, move_t * lerpScale)
+
+			if position.is_equal_approx(targetPosition):
+				moveEnd()
 
 		MOVE_TYPE.ROTATE:
-			transformObj = heldObj
+			heldObj.rotation = heldObj.rotation.lerp(targetRotation, move_t * lerpScale)
 
-	transformObj.global_transform = transformObj.global_transform.interpolate_with(targetTransform, move_t * lerpScale)
-	
-	if transformObj.global_transform.is_equal_approx(targetTransform):
-		moveEnd()
+			if heldObj.rotation.is_equal_approx(targetRotation):
+				moveEnd()
 
-	
 func _physics_process(delta):
 	if isMoving: #should probably use a new state for this
 		move_t += delta

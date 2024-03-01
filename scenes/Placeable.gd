@@ -68,14 +68,19 @@ func checkValidPlacement() -> bool:
 func _process(delta):
 	pass
 	
-func checkForMove(move : Vector3, rot : Vector3, field : Field) -> bool:
+func checkForMove(move : Vector3, rot : Vector3, placerObj : Placer) -> bool:
 	var goodMove : bool = true
+	var field = placerObj.get_parent_node_3d()
+	var curParent = get_parent_node_3d()
+	ghost.reparent(placerObj)
 	ghost.position += move
 	ghost.rotation += rot
 	
 	for pt in ghostPts:
 		if (pt.global_position.x > field.maxPoint.global_position.x or pt.global_position.z > field.maxPoint.global_position.z or pt.global_position.x < field.minPoint.global_position.x or pt.global_position.z < field.minPoint.global_position.z):
 			goodMove = false
+	
+	ghost.reparent(curParent)
 			
 	return goodMove
 	

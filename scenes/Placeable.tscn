@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://djg3p281to7qm"]
+[gd_scene load_steps=8 format=3 uid="uid://djg3p281to7qm"]
 
 [ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_pmi2m"]
 [ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_ai5m0"]
@@ -14,6 +14,9 @@ material = SubResource("StandardMaterial3D_p7c0i")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
 size = Vector3(0.9, 0.9, 0.9)
+
+[sub_resource type="PrismMesh" id="PrismMesh_cieru"]
+size = Vector3(0.1, 0.1, 0.25)
 
 [node name="Placeable" type="Node3D"]
 script = ExtResource("1_pmi2m")
@@ -37,3 +40,6 @@ shape = SubResource("BoxShape3D_qehql")
 [node name="ghost" type="Node3D" parent="."]
 
 [node name="ghost_pt" type="Node3D" parent="ghost"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+mesh = SubResource("PrismMesh_cieru")
