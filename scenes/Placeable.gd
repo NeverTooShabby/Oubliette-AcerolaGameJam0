@@ -7,7 +7,7 @@ const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
 @onready var ghost : Node3D = $ghost
 @onready var segment_areas_node : Node3D = $SegmentAreas
 @onready var selectionBorder : MeshInstance3D = $SelectionBorder
-@onready var visual_mesh : MeshInstance3D = $VisualMesh
+@onready var visual_mesh : PlaceableVisualMesh = $VisualMesh
 
 var ghostPts : Array
 var segmentAreas : Array
@@ -16,7 +16,8 @@ var isMoving : bool
 var placementValid : bool
 
 enum State {NONE, HELD, PLACED, LOCKED}
-var currentState : State = State.HELD
+var currentState : State = State.NONE
+
 
 func selectionBorderColor(goodPlacement : bool = placementValid):
 	if(goodPlacement):
@@ -26,11 +27,14 @@ func selectionBorderColor(goodPlacement : bool = placementValid):
 		
 func piecePickedUp():
 	currentState = State.HELD
+	visual_mesh.changeState(visual_mesh.State.FLOAT)
+
 
 func piecePlaced(placedField : Field):
 	selectionBorder.visible=false
 	visual_mesh.visible = true
 	currentState = State.PLACED
+	visual_mesh.changeState(visual_mesh.State.POSITION)	
 	#do something to move into position... project texture onto field? probably trigger this from GM
 	reparent(placedField)
 	
@@ -73,7 +77,7 @@ func checkForMove(move : Vector3, rot : Vector3, placerObj : Placer) -> bool:
 	var field = placerObj.get_parent_node_3d()
 	var curParent = get_parent_node_3d()
 	
-	ghost.global_position += move #only works if the field aligns with the global position. Should find other way, but reparenting to make it relative to the placer fucked everything up
+	ghost.global_position += move #TODO beyond the scope of the jam. only works if the field aligns with the global position. Should find other way, but reparenting to make it relative to the placer fucked everything up
 	ghost.rotation += rot
 	
 	for pt in ghostPts:
@@ -82,6 +86,8 @@ func checkForMove(move : Vector3, rot : Vector3, placerObj : Placer) -> bool:
 	
 	resetGhost()
 	return goodMove
+	
+
 	
 func _physics_process(delta):
 	if currentState == State.HELD:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://djg3p281to7qm"]
+[gd_scene load_steps=10 format=3 uid="uid://djg3p281to7qm"]
 
 [ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_pmi2m"]
 [ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_ai5m0"]
+[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_ashet"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
 material = ExtResource("2_ai5m0")
@@ -33,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 
 visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
+script = ExtResource("3_ashet")
 
 [node name="SegmentAreas" type="Node3D" parent="."]
 
