@@ -76,7 +76,7 @@ func checkForMove(move : Vector3, rot : Vector3, field : Field) -> bool:
 	for pt in ghostPts:
 		if (pt.global_position.x > field.maxPoint.global_position.x or pt.global_position.z > field.maxPoint.global_position.z or pt.global_position.x < field.minPoint.global_position.x or pt.global_position.z < field.minPoint.global_position.z):
 			goodMove = false
-	
+			
 	return goodMove
 	
 func _physics_process(delta):

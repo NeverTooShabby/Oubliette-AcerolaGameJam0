@@ -3,11 +3,20 @@ extends Node3D
 var heldObj : Placeable
 
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW, PLACE} #one button is rot is simpler
-var moveQueue : QUEUED_MOVE 
+var moveQueue : QUEUED_MOVE
+
+enum MOVE_TYPE {TRANSLATE, ROTATE, NONE} #one button is rot is simpler
+var curMove : MOVE_TYPE
+
 var isMoving : bool = false
-var targetPosition : Vector3
-var targetRotation : Vector3
+
 var active : bool = true
+
+var startTransform : Transform3D
+var targetTransform : Transform3D
+var move_t : float
+var lerpScale : float = 2.0
+
 
 #TODO this should only be active during selection. Especially for inputs. Might want a state machine, or just control active inactive from game manager
 
@@ -52,14 +61,15 @@ func handleInputs():
 			#negative effect, shake?
 			pass
 	elif moveQueue != QUEUED_MOVE.NONE: #how tf could this be none?
-		var newPosition = checkMove(moveQueue)
+		checkMove(moveQueue)
 		moveQueue = QUEUED_MOVE.NONE
 	#else: possible timeout for buffer limit
 
 func checkMove(move : QUEUED_MOVE) -> bool:
-	var checkRay : RayCast3D = RayCast3D.new()
 	var moveVector : Vector3 = Vector3.ZERO
 	var rotVector : Vector3 = Vector3.ZERO
+	curMove = MOVE_TYPE.TRANSLATE
+	
 	match move:
 		QUEUED_MOVE.MOVE_UP:
 			moveVector.z = -GameManager.gridSize
@@ -70,23 +80,44 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 		QUEUED_MOVE.MOVE_RIGHT:
 			moveVector.x = GameManager.gridSize
 		QUEUED_MOVE.ROT_CW:
+			curMove = MOVE_TYPE.ROTATE
 			rotVector.y = -1*PI/2
 	
-
 	#TODO move this to process move with lerp
 	if heldObj.checkForMove(moveVector, rotVector, self.get_parent()):
-		global_transform = heldObj.ghost.global_transform
-		isMoving = false
+		targetTransform = heldObj.ghost.global_transform
+		heldObj.resetGhost()
+		isMoving = true
+		move_t = 0.0
+		return true #not sure if return gets used anywhere
 	
 	heldObj.resetGhost()
 	
 	return false
+	
+func moveEnd():
+	isMoving = false
+	curMove = MOVE_TYPE.NONE
+	#TODO add sound here
 
 func processMove():
-	pass
+	var transformObj : Node3D
+	match curMove:
+		MOVE_TYPE.TRANSLATE:
+			transformObj = self
+
+		MOVE_TYPE.ROTATE:
+			transformObj = heldObj
+
+	transformObj.global_transform = transformObj.global_transform.interpolate_with(targetTransform, move_t * lerpScale)
+	
+	if transformObj.global_transform.is_equal_approx(targetTransform):
+		moveEnd()
+
 	
 func _physics_process(delta):
-	if isMoving:
+	if isMoving: #should probably use a new state for this
+		move_t += delta
 		processMove()
 	else:
 		handleInputs()
