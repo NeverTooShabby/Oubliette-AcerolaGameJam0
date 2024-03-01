@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://djg3p281to7qm"]
+[gd_scene load_steps=7 format=3 uid="uid://djg3p281to7qm"]
 
 [ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_pmi2m"]
 [ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_ai5m0"]
@@ -6,22 +6,32 @@
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
 material = ExtResource("2_ai5m0")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
+albedo_color = Color(0, 0.486275, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
+material = SubResource("StandardMaterial3D_p7c0i")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
 size = Vector3(0.9, 0.9, 0.9)
 
 [node name="Placeable" type="Node3D"]
 script = ExtResource("1_pmi2m")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="SelectionBorder" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oxt4k")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="VisualMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_3dcdy")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="SegmentAreas" type="Node3D" parent="."]
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="SegmentAreas"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="ghost" type="Node3D" parent="."]

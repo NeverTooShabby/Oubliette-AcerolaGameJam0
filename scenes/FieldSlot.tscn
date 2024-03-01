@@ -11,7 +11,7 @@ height = 0.2
 [node name="FieldSlot" type="Node3D"]
 script = ExtResource("1_k3p8u")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="SelectionBorder" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_j1nu2")
 
 [node name="Area3D" type="Area3D" parent="."]

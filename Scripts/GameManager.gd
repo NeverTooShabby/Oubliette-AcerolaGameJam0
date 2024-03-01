@@ -4,7 +4,8 @@ const gridSize: float = 1.0 #size of boxes making up field grid
 
 func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array):
 	#field slots is an array of fieldslots for playing effects
-	placed.placementColor(false)
-	placed.reparent(placedField)
+	placed.piecePlaced(placedField)
+	for slot in fieldSlots:
+		slot.isOccupied = true
 	#reparent to field, play effects
 	pass

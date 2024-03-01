@@ -14,9 +14,11 @@ script = ExtResource("1_7o6o4")
 
 [node name="FieldSlot" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+isOccupied = true
 
 [node name="FieldSlot2" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+isOccupied = true
 
 [node name="FieldSlot3" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)

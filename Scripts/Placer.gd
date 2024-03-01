@@ -2,7 +2,7 @@ extends Node3D
 
 var heldObj : Placeable
 
-enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW} #one button is rot is simpler
+enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW, PLACE} #one button is rot is simpler
 var moveQueue : QUEUED_MOVE 
 var isMoving : bool = false
 var targetPosition : Vector3
@@ -32,8 +32,8 @@ func _input(event):
 			moveQueue = QUEUED_MOVE.ROT_CW
 			
 		if Input.is_action_just_pressed("select"):
-			GameManager.PlaceablePlaced(heldObj, self.get_parent_node_3d(), [])
-			heldObj = null			
+			moveQueue = QUEUED_MOVE.PLACE
+			
 			#drop obj if clear, else throw error and honk
 			pass
 	else:
@@ -42,7 +42,16 @@ func _input(event):
 		
 
 func handleInputs():
-	if moveQueue != QUEUED_MOVE.NONE: #how tf could this be none?
+	if moveQueue == QUEUED_MOVE.PLACE and heldObj:
+		if heldObj.checkValidPlacement():
+			GameManager.PlaceablePlaced(heldObj, self.get_parent_node_3d(), heldObj.get_fieldSlots())
+			moveQueue = QUEUED_MOVE.NONE
+			heldObj = null
+		else:
+			#honka honka
+			#negative effect, shake?
+			pass
+	elif moveQueue != QUEUED_MOVE.NONE: #how tf could this be none?
 		var newPosition = checkMove(moveQueue)
 		moveQueue = QUEUED_MOVE.NONE
 	#else: possible timeout for buffer limit
