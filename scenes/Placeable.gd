@@ -4,6 +4,9 @@ class_name Placeable
 const BAD_PLACEMENT = preload("res://materials/badPlacement.tres")
 const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
 
+
+
+
 @onready var ghost : Node3D = $ghost
 @onready var segment_areas_node : Node3D = $SegmentAreas
 @onready var selectionBorder : MeshInstance3D = $SelectionBorder
@@ -34,6 +37,7 @@ func piecePlaced(placedField : Field):
 	selectionBorder.visible=false
 	currentState = State.PLACED
 	visual_mesh.PutDown()
+	AudioManager.PlaySound(AudioLibrary.positivePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
 	#do something to move into position... project texture onto field? probably trigger this from GM
 	reparent(placedField)
 	

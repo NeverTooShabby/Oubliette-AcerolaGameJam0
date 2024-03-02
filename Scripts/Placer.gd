@@ -10,6 +10,7 @@ var moveQueue : QUEUED_MOVE
 enum MOVE_TYPE {TRANSLATE, ROTATE, NONE} #one button is rot is simpler
 var curMove : MOVE_TYPE
 
+
 var isMoving : bool = false
 
 var active : bool = true
@@ -57,12 +58,13 @@ func handleInputs():
 	if moveQueue == QUEUED_MOVE.PLACE and heldObj:
 		if heldObj.checkValidPlacement():
 			GameManager.PlaceablePlaced(heldObj, self.get_parent_node_3d(), heldObj.get_fieldSlots())
-			moveQueue = QUEUED_MOVE.NONE
 			heldObj = null
 		else:
-			#honka honka
+			AudioManager.PlaySound(AudioLibrary.negativePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
 			#negative effect, shake?
 			pass
+		moveQueue = QUEUED_MOVE.NONE
+			
 	elif moveQueue != QUEUED_MOVE.NONE: #how tf could this be none?
 		checkMove(moveQueue)
 		moveQueue = QUEUED_MOVE.NONE
@@ -95,7 +97,7 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 		move_t = 0.0
 		return true #not sure if return gets used anywhere
 	
-	
+	AudioManager.PlaySound(AudioLibrary.negativeMoveSound, 1.0, 0.05, 1.0, 0.0, self)
 	return false
 	
 func moveEnd():
@@ -107,13 +109,11 @@ func processMove():
 	match curMove:
 		MOVE_TYPE.TRANSLATE:
 			position = position.lerp(targetPosition, move_t * lerpScale)
-
 			if position.is_equal_approx(targetPosition):
 				moveEnd()
 
 		MOVE_TYPE.ROTATE:
 			heldObj.rotation = heldObj.rotation.lerp(targetRotation, move_t * lerpScale)
-
 			if heldObj.rotation.is_equal_approx(targetRotation):
 				moveEnd()
 
