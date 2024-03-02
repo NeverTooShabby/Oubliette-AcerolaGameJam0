@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=8 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
+[ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/hand.tscn" id="1_nwjo1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -24,6 +25,23 @@ size = Vector2(10, 10)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.625651, 0.780103, 0, -0.780103, 0.625651, 0, 3.53753, 3.39772)
+cull_mask = 1048573
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Camera3D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(982, 512)
+render_target_update_mode = 4
+
+[node name="Hand" parent="Camera3D/SubViewportContainer/SubViewport" instance=ExtResource("1_nwjo1")]
+cull_mask = 1047554
 
 [node name="Field" parent="." instance=ExtResource("1_1mvll")]
 
