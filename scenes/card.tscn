@@ -12,7 +12,7 @@ offset = Vector3(0, 250, 0)
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n6e6k"]
 noise = SubResource("FastNoiseLite_7gwhy")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_t5dsw"]
+[sub_resource type="LabelSettings" id="LabelSettings_gmmv0"]
 
 [node name="Card" type="Node3D"]
 script = ExtResource("1_6f86v")
@@ -30,7 +30,7 @@ custom_aabb = AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
 text = "Text Description test stasd adf as s dad asd asd asd asd asd asd sd sd 
 fgdsdaf"
 font_size = 12
-autowrap_mode = 3
+autowrap_mode = 2
 
 [node name="CardFace" type="MeshInstance3D" parent="."]
 layers = 17
@@ -38,11 +38,42 @@ mesh = SubResource("BoxMesh_i3x4a")
 
 [node name="Decal" type="Decal" parent="CardFace"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.11655, 0.0261006)
-visible = false
 layers = 16
 size = Vector3(0.75, 0.75, 0.75)
 texture_albedo = SubResource("NoiseTexture2D_n6e6k")
 cull_mask = 1047568
 
 [node name="Decal2" type="Decal" parent="CardFace"]
-texture_albedo = SubResource("CanvasTexture_t5dsw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="MeshInstance3D"]
+
+[node name="Control" type="Control" parent="MeshInstance3D/CanvasLayer2"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 261.0
+offset_bottom = 342.0
+
+[node name="Label" type="Label" parent="MeshInstance3D/CanvasLayer2/Control"]
+layout_mode = 2
+offset_left = 66.0
+offset_top = 62.0
+offset_right = 170.0
+offset_bottom = 145.0
+text = "test
+test test testetest
+test
+test
+test
+"
+label_settings = SubResource("LabelSettings_gmmv0")
+
+[node name="Container" type="Container" parent="MeshInstance3D/CanvasLayer2/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
