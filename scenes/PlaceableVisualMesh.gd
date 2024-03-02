@@ -3,12 +3,15 @@ class_name PlaceableVisualMesh
 
 enum State {NONE, FLOAT, POSITION, INPOSITION}
 var curState : State = State.NONE
+var nextState : State
 
 var sway_t : float = 0.0
-var swayVertAmp : float = 0.1
-var swayRotAmp : float = PI
-var swayVertFreq : float = 0.5
-var swayRotFreq : float = 0.5
+var swayVertAmp : float = 0.05
+var swayRotAmp : float = 0.025
+var swayVertFreq : float = 0.1
+var swayRotFreq : float = 0.2
+
+const floatPos : Vector3 = Vector3(0, 0.2, 0)
 
 var inPosition : bool = false
 
@@ -37,19 +40,28 @@ func _physics_process(delta):
 func sway(delta):
 	sway_t += delta * 2 * PI
 	position.y = swayVertAmp * sin(swayVertFreq * sway_t)
-	rotation.y = swayRotAmp * sin(swayRotFreq * sway_t)
-	pass
+	rotation.z = swayRotAmp * sin(swayRotFreq * sway_t)
 	
-func assignNewTarget():
+func assignNewTarget(newPos : Vector3):
 	targetRotation = Vector3.ZERO
-	targetPosition = Vector3(0, -1 * GameManager.gridSize, 0)
+	targetPosition = newPos
 	
 func moveToPosition():
 	position = position.lerp(targetPosition, 1.0)
 	rotation = position.lerp(targetRotation, 1.0)
 	
 	if (position.is_equal_approx(targetPosition) and rotation.is_equal_approx(targetRotation)):
-		changeState(State.INPOSITION)
+		changeState(nextState)
+		
+func PickUp():
+	assignNewTarget(floatPos)
+	nextState = State.FLOAT
+	changeState(State.POSITION)
+	
+func PutDown():
+	assignNewTarget(Vector3.ZERO)
+	nextState = State.INPOSITION
+	changeState(State.POSITION)
 	
 
 func changeState(newState : State):
@@ -57,14 +69,15 @@ func changeState(newState : State):
 	match curState:
 		State.FLOAT:
 			visible = true
+			inPosition = false
 			#handle transparent visible
 		State.POSITION:
 			visible = true
 			inPosition = false
-			assignNewTarget()
 			#handle transparency
 			pass
 		State.INPOSITION:
 			visible = true
 			inPosition = true
+		
 			pass

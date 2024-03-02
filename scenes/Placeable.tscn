@@ -6,12 +6,14 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
 material = ExtResource("2_ai5m0")
+size = Vector3(1, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
 albedo_color = Color(0, 0.486275, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 material = SubResource("StandardMaterial3D_p7c0i")
+orientation = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
 size = Vector3(0.9, 0.9, 0.9)
@@ -27,10 +29,10 @@ size = Vector3(0.25, 0.1, 0.25)
 script = ExtResource("1_pmi2m")
 
 [node name="SelectionBorder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 mesh = SubResource("BoxMesh_oxt4k")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
@@ -41,6 +43,12 @@ script = ExtResource("3_ashet")
 [node name="Area3D" type="Area3D" parent="SegmentAreas"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="Area3D2" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D2"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="ghost" type="Node3D" parent="."]

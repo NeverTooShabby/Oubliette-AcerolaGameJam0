@@ -27,14 +27,13 @@ func selectionBorderColor(goodPlacement : bool = placementValid):
 		
 func piecePickedUp():
 	currentState = State.HELD
-	visual_mesh.changeState(visual_mesh.State.FLOAT)
+	visual_mesh.PickUp()
 
 
 func piecePlaced(placedField : Field):
 	selectionBorder.visible=false
-	visual_mesh.visible = true
 	currentState = State.PLACED
-	visual_mesh.changeState(visual_mesh.State.POSITION)	
+	visual_mesh.PutDown()
 	#do something to move into position... project texture onto field? probably trigger this from GM
 	reparent(placedField)
 	

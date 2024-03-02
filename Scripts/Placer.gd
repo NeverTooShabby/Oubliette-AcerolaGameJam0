@@ -3,6 +3,7 @@ class_name Placer
 
 var heldObj : Placeable
 
+
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW, PLACE} #one button is rot is simpler
 var moveQueue : QUEUED_MOVE
 
@@ -19,10 +20,10 @@ var move_t : float
 var lerpScale : float = 2.0
 
 
-#TODO this should only be active during selection. Especially for inputs. Might want a state machine, or just control active inactive from game manager
-
+#TODO this needs to be reworked to either take an exisitng placeable as a parameter, or take the parameters of a new placeable (shape, #units, color) and generate a new one. As is is for testing
 func newPlaceable():
 	if(!heldObj):
+		position = Vector3.ZERO #new items spawn at center, move from there
 		var objtype = load("res://scenes/Placeable.tscn") #this don't seem right. I need to be able to instantiate one of the ominoes, rock, bomb? Maybe gamemanager holds a dictionary of all of these or better yet, it preloads all of them 
 		var newobj = objtype.instantiate()
 		add_child(newobj)
