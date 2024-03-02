@@ -10,9 +10,9 @@ noise = SubResource("FastNoiseLite_8ui8s")
 [resource]
 script = ExtResource("1_mb5s0")
 cardType = 0
-cardName = "Place Single"
+cardName = "Place Double"
 cardColor = 0
-cardDescription = "Place a single colorless block"
+cardDescription = "Place a double colorless block"
 art = SubResource("NoiseTexture3D_yrkgx")
 baseValue = 0
 placeableObjectResourcePath = "res://objects/placeables/TwoBlock.tscn"

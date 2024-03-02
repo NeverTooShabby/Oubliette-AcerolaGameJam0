@@ -21,6 +21,10 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	toggleState()
 	pass
 	
+func AddCardToHand(cardData : CardData):
+	print(cardData)
+	playerHand.addCard(cardData)
+	
 func PlayCard(playedCard : Card):
 	print(playedCard)
 	toggleState()

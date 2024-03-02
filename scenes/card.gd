@@ -3,6 +3,7 @@ class_name Card
 
 @export var data : CardData:
 	set(value):
+		print("data setter")
 		var card_face = $Front
 		var card_template = $Front/SubViewport/CardTemplate
 		

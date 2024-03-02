@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
-[ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/hand.tscn" id="1_nwjo1"]
+[ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/handScene.tscn" id="1_nwjo1"]
 [ext_resource type="Script" path="res://debug_ui/DebugButtons.gd" id="3_7d7uj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
@@ -44,7 +44,6 @@ size = Vector2i(982, 512)
 render_target_update_mode = 4
 
 [node name="Hand" parent="Camera3D/SubViewportContainer/SubViewport" instance=ExtResource("1_nwjo1")]
-cull_mask = 1047554
 
 [node name="Field" parent="." instance=ExtResource("1_1mvll")]
 
@@ -69,7 +68,7 @@ layout_mode = 0
 offset_right = 269.0
 offset_bottom = 342.0
 
-[node name="Button" type="Button" parent="Control/VBoxContainer"]
+[node name="Add Card" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 text = "Add Card To Hand"
 
@@ -86,5 +85,6 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Play Card"
 
+[connection signal="button_down" from="Control/VBoxContainer/Add Card" to="Control" method="_on_add_card_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/Button2" to="Control" method="_on_button_2_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/Play Card" to="Control" method="_on_play_card_button_down"]

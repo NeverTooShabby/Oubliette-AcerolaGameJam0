@@ -12,4 +12,9 @@ func _process(delta):
 
 
 func _on_play_card_button_down():
-	GameManager.playerHand.cardSlots.playLastCard()
+	GameManager.playerHand.playLastCard()
+
+
+func _on_add_card_button_down():
+	GameManager.AddCardToHand(load("res://objects/placeables/TwoBlock.tres"))
+	pass
