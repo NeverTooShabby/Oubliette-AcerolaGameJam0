@@ -1,3 +1,48 @@
-[gd_scene format=3 uid="uid://decgufyycgfw6"]
+[gd_scene load_steps=6 format=3 uid="uid://decgufyycgfw6"]
+
+[ext_resource type="Script" path="res://scenes/card.gd" id="1_6f86v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i3x4a"]
+size = Vector3(1, 1.4, 0.01)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7gwhy"]
+frequency = 0.0178
+offset = Vector3(0, 250, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n6e6k"]
+noise = SubResource("FastNoiseLite_7gwhy")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_t5dsw"]
 
 [node name="Card" type="Node3D"]
+script = ExtResource("1_6f86v")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CardTitle" type="Label3D" parent="CanvasLayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.583345, 0.00600004)
+text = "Title"
+font_size = 28
+
+[node name="CardText" type="Label3D" parent="CanvasLayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.339942, 0.00600004)
+custom_aabb = AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
+text = "Text Description test stasd adf as s dad asd asd asd asd asd asd sd sd 
+fgdsdaf"
+font_size = 12
+autowrap_mode = 3
+
+[node name="CardFace" type="MeshInstance3D" parent="."]
+layers = 17
+mesh = SubResource("BoxMesh_i3x4a")
+
+[node name="Decal" type="Decal" parent="CardFace"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.11655, 0.0261006)
+visible = false
+layers = 16
+size = Vector3(0.75, 0.75, 0.75)
+texture_albedo = SubResource("NoiseTexture2D_n6e6k")
+cull_mask = 1047568
+
+[node name="Decal2" type="Decal" parent="CardFace"]
+texture_albedo = SubResource("CanvasTexture_t5dsw")
