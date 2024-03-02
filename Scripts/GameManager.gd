@@ -3,6 +3,8 @@ extends Node
 enum GameState {FIELDVIEW, HANDVIEW}
 var state : GameState = GameState.HANDVIEW
 
+var PlayerField : Field
+
 var mainCam : Camera3D
 var handCam : Camera3D
 
@@ -15,6 +17,13 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	for slot in fieldSlots:
 		slot.isOccupied = true
 	#reparent to field, play effects
+	toggleState()
+	pass
+	
+func PlayCard(playedCard : Card):
+	print(playedCard)
+	toggleState()
+	PlayerField.playedPiece(playedCard)
 	pass
 
 func toggleState():

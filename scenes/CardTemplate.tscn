@@ -75,7 +75,7 @@ offset_right = 200.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="CardText"]
+[node name="Text" type="Label" parent="CardText"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 offset_top = 29.0

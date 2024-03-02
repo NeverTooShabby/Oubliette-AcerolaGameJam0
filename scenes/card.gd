@@ -10,13 +10,15 @@ class_name Card
 		
 		card_template.get_node("Title").text = data.cardName
 		card_template.get_node("CardText/Text").text = data.cardDescription
-		card_template.get_nude("Art").texture = data.art
+		card_template.get_node("Art").texture = data.art
 		
 #apparently should delete viewport after instantiating to save resources. Probably won't be needed
 
-var cardType
-var cardImage
-var cardColor #probably part of image class
+var PlaceableObject : Placeable
+
+var cardType 
+var cardImage #derived from held object
+var cardColor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

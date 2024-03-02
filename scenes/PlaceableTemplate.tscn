@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://djg3p281to7qm"]
 
-[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_pmi2m"]
-[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_ai5m0"]
-[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_ashet"]
+[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_kmfp8"]
+[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_gljq3"]
+[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_lhn7h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
-material = ExtResource("2_ai5m0")
+material = ExtResource("2_gljq3")
 size = Vector3(1, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
@@ -26,7 +26,7 @@ material = SubResource("StandardMaterial3D_5re78")
 size = Vector3(0.25, 0.1, 0.25)
 
 [node name="Placeable" type="Node3D"]
-script = ExtResource("1_pmi2m")
+script = ExtResource("1_kmfp8")
 
 [node name="SelectionBorder" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
@@ -36,7 +36,7 @@ mesh = SubResource("BoxMesh_oxt4k")
 visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
-script = ExtResource("3_ashet")
+script = ExtResource("3_lhn7h")
 
 [node name="SegmentAreas" type="Node3D" parent="."]
 

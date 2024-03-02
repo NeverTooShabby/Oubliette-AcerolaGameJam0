@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgr1ni7kcaokb"]
+
+[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_ikhtu"]
+[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_72ovn"]
+[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_kjmnf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
+material = ExtResource("2_72ovn")
+size = Vector3(1, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
+albedo_color = Color(0, 0.486275, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
+material = SubResource("StandardMaterial3D_p7c0i")
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
+size = Vector3(0.9, 0.9, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5re78"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_cieru"]
+material = SubResource("StandardMaterial3D_5re78")
+size = Vector3(0.25, 0.1, 0.25)
+
+[node name="Placeable" type="Node3D"]
+script = ExtResource("1_ikhtu")
+
+[node name="SelectionBorder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+mesh = SubResource("BoxMesh_oxt4k")
+
+[node name="VisualMesh" type="MeshInstance3D" parent="."]
+visible = false
+cast_shadow = 0
+mesh = SubResource("QuadMesh_3dcdy")
+script = ExtResource("3_kjmnf")
+
+[node name="SegmentAreas" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="SegmentAreas"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="Area3D2" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D2"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="ghost" type="Node3D" parent="."]
+
+[node name="ghost_pt" type="Node3D" parent="ghost"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="ghost_pt2" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+mesh = SubResource("PrismMesh_cieru")

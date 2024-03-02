@@ -8,9 +8,17 @@ var cols : int = 3
 var boundingBox : BoxShape3D
 @onready var maxPoint : Node3D = $maxPoint #use these instead of calculating the values on the fly in case of headaches arising if this ends up in a non-cardinal world position
 @onready var minPoint : Node3D = $minPoint
+@onready var placer : Placer = $Placer
 
+func setAsPlayerField():
+	GameManager.PlayerField = self
+	
+func playedPiece(newCard : Card):
+	placer.newPlaceable(newCard.data)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	setAsPlayerField() #TODO this needs to be done when the field is generated. One for player, one for enemy
 	boundingBox = boundingBoxShape3D.shape
 	boundingBox.size.x = cols * GameManager.gridSize
 	boundingBox.size.z = rows * GameManager.gridSize

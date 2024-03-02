@@ -2,7 +2,7 @@ extends Resource
 
 class_name CardData
 
-enum CardType {PIECE, TYPE}
+enum CardType {PIECE, OTHER}
 enum CardColor {COLORLESS, RED, BLUE, GREEN}
 
 
@@ -12,3 +12,5 @@ enum CardColor {COLORLESS, RED, BLUE, GREEN}
 @export_multiline var cardDescription : String
 @export var art : Texture
 @export var baseValue : int
+
+@export var placeableObjectResourcePath : String

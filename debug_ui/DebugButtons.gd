@@ -9,3 +9,7 @@ func _on_button_2_button_down():
 
 func _process(delta):
 	gameMode.text = str(GameManager.state)
+
+
+func _on_play_card_button_down():
+	GameManager.handCam.cardSlots.playLastCard()

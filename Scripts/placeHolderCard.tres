@@ -17,3 +17,4 @@ cardColor = 0
 cardDescription = "Place Piece of Color"
 art = SubResource("NoiseTexture3D_hmlsa")
 baseValue = 2
+placeableObjectResourcePath = "res://objects/placeables/TwoBlock.tscn"

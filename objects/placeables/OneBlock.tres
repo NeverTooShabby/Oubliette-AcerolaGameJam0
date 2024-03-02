@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://ce3e4487id5wl"]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_0cydm"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ui8s"]
+seed = 3
+frequency = 0.015
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_yrkgx"]
+noise = SubResource("FastNoiseLite_8ui8s")
+
+[resource]
+script = ExtResource("1_0cydm")
+cardType = 0
+cardName = "Place Double"
+cardColor = 0
+cardDescription = "Place a colorless double block"
+art = SubResource("NoiseTexture3D_yrkgx")
+baseValue = 0
+placeableObjectResourcePath = "res://objects/placeables/OneBlock.tscn"

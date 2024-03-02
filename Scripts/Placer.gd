@@ -22,14 +22,13 @@ var lerpScale : float = 2.0
 
 
 #TODO this needs to be reworked to either take an exisitng placeable as a parameter, or take the parameters of a new placeable (shape, #units, color) and generate a new one. As is is for testing
-func newPlaceable():
-	if(!heldObj):
-		position = Vector3.ZERO #new items spawn at center, move from there
-		var objtype = load("res://scenes/Placeable.tscn") #this don't seem right. I need to be able to instantiate one of the ominoes, rock, bomb? Maybe gamemanager holds a dictionary of all of these or better yet, it preloads all of them 
-		var newobj = objtype.instantiate()
-		add_child(newobj)
-		heldObj = newobj
-		heldObj.piecePickedUp()
+func newPlaceable(newData : CardData):
+	position = Vector3.ZERO #new items spawn at center, move from there
+	var newObj = load(newData.placeableObjectResourcePath).instantiate()
+	#TODO set color from card data + special rules
+	add_child(newObj)
+	heldObj = newObj
+	heldObj.piecePickedUp()
 	
 func _input(event):
 	if heldObj: #TODO remove this safety when placer is properly controlled by gm and can't act when it's not holding something
@@ -49,10 +48,6 @@ func _input(event):
 			
 			#drop obj if clear, else throw error and honk
 			pass
-	else:
-		if Input.is_action_just_pressed("select"): #just for testing
-			newPlaceable() 
-		
 
 func handleInputs():
 	if moveQueue == QUEUED_MOVE.PLACE and heldObj:
