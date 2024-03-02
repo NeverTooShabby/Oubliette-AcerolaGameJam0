@@ -1,10 +1,14 @@
-extends Camera3D
+extends Node3D
+class_name Hand
 
 @onready var cardSlots = $CardSlots
+@onready var camera = $HandCam
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GameManager.handCam = self #absolutely fucked way to do this
+	GameManager.handCam = camera #absolutely fucked way to do this. Don't think it needs hand cam actually
+	GameManager.playerHand = self
 	pass # Replace with function body.
 	
 

@@ -1,28 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm66n6bsum1cc"]
+[gd_scene load_steps=3 format=3 uid="uid://bm66n6bsum1cc"]
 
 [ext_resource type="Script" path="res://scenes/handCam.gd" id="1_7xmil"]
-[ext_resource type="PackedScene" uid="uid://decgufyycgfw6" path="res://scenes/card.tscn" id="1_na5td"]
-[ext_resource type="Script" path="res://scenes/CardSlot.gd" id="2_n307b"]
-[ext_resource type="Script" path="res://scenes/CardSlots.gd" id="2_y18w1"]
-[ext_resource type="Resource" uid="uid://ce3e4487id5wl" path="res://objects/placeables/OneBlock.tres" id="4_luihj"]
-[ext_resource type="Resource" uid="uid://cw5e0jfrg5v7m" path="res://objects/placeables/TwoBlock.tres" id="5_rx5ba"]
+[ext_resource type="PackedScene" uid="uid://detfg3heqs1ln" path="res://scenes/CardSlots.tscn" id="2_8la0q"]
 
-[node name="Hand" type="Camera3D"]
+[node name="Hand" type="Node3D"]
 script = ExtResource("1_7xmil")
 
-[node name="CardSlots" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
-script = ExtResource("2_y18w1")
+[node name="HandCam" type="Camera3D" parent="."]
+cull_mask = 1048574
 
-[node name="CardSlot" type="Node3D" parent="CardSlots"]
-transform = Transform3D(0.949316, 0, -0.314324, 0, 1, 0, 0.314324, 0, 0.949316, 1.31938, 0, 0)
-script = ExtResource("2_n307b")
-
-[node name="Card" parent="CardSlots/CardSlot" instance=ExtResource("1_na5td")]
-data = ExtResource("4_luihj")
-
-[node name="CardSlot2" type="Node3D" parent="CardSlots"]
-script = ExtResource("2_n307b")
-
-[node name="Card2" parent="CardSlots/CardSlot2" instance=ExtResource("1_na5td")]
-data = ExtResource("5_rx5ba")
+[node name="CardSlots" parent="." instance=ExtResource("2_8la0q")]

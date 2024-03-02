@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://detfg3heqs1ln"]
+
+[ext_resource type="Script" path="res://scenes/CardSlots.gd" id="1_o1qoc"]
+[ext_resource type="Script" path="res://scenes/CardSlot.gd" id="2_bvtda"]
+[ext_resource type="PackedScene" uid="uid://decgufyycgfw6" path="res://scenes/card.tscn" id="3_cb2tn"]
+[ext_resource type="Resource" uid="uid://ce3e4487id5wl" path="res://objects/placeables/OneBlock.tres" id="4_ofyq5"]
+[ext_resource type="Resource" uid="uid://cw5e0jfrg5v7m" path="res://objects/placeables/TwoBlock.tres" id="5_s0u0u"]
+
+[node name="CardSlots" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+script = ExtResource("1_o1qoc")
+
+[node name="CardSlot" type="Node3D" parent="."]
+transform = Transform3D(0.949316, 0, -0.314324, 0, 1, 0, 0.314324, 0, 0.949316, 1.31938, 0, 0)
+script = ExtResource("2_bvtda")
+
+[node name="Card" parent="CardSlot" instance=ExtResource("3_cb2tn")]
+data = ExtResource("4_ofyq5")
+
+[node name="CardSlot2" type="Node3D" parent="."]
+script = ExtResource("2_bvtda")
+
+[node name="Card2" parent="CardSlot2" instance=ExtResource("3_cb2tn")]
+data = ExtResource("5_s0u0u")

@@ -12,4 +12,4 @@ func _process(delta):
 
 
 func _on_play_card_button_down():
-	GameManager.handCam.cardSlots.playLastCard()
+	GameManager.playerHand.cardSlots.playLastCard()

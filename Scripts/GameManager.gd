@@ -7,6 +7,7 @@ var PlayerField : Field
 
 var mainCam : Camera3D
 var handCam : Camera3D
+var playerHand : Hand
 
 
 const gridSize: float = 1.0 #size of boxes making up field grid
@@ -29,7 +30,7 @@ func PlayCard(playedCard : Card):
 func toggleState():
 	if state == GameState.FIELDVIEW:
 		state = GameState.HANDVIEW
-		handCam.visible = true
+		playerHand.visible = true
 	else:
 		state = GameState.FIELDVIEW
-		handCam.visible = false
+		playerHand.visible = false
