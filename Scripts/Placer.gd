@@ -121,5 +121,5 @@ func _physics_process(delta):
 	if isMoving: #should probably use a new state for this
 		move_t += delta
 		processMove()
-	else:
+	elif GameManager.state == GameManager.GameState.FIELDVIEW:
 		handleInputs()
