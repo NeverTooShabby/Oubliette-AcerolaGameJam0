@@ -27,17 +27,17 @@ func addCard(newCardData : CardData):
 
 	
 func reparentCards():
-	for slot in cardSlots:
+	for slot : CardSlot in cardSlots:
 		slot.heldCard.reparent(self.get_parent_node_3d())
 		
 		
 func parentBack():
-	for slot in cardSlots:
+	for slot : CardSlot in cardSlots:
 		if slot.heldCard:
 			slot.heldCard.reparent(slot)
 	
 func resizeHand(changeHandSize : int):
-	var numCards = cardSlots.size()
+	var numCards : int = cardSlots.size()
 	reparentCards()	
 	
 	if changeHandSize > 0:
@@ -52,7 +52,7 @@ func resizeHand(changeHandSize : int):
 		position.x = -0.5 * (cardWidth + cardSpacing) * (numCards - 1) #not 100% on why this has to be -1. Trust
 		
 		#var minCardX = (((numCards * cardWidth) + ((numCards - 1) * cardSpacing)) * -0.5) + (0.5 * cardWidth)
-		for i in range(0, numCards):
+		for i : int in range(0, numCards):
 			cardSlots[i].position.x = ((cardWidth + cardSpacing) * i)
 			
 	parentBack()
@@ -60,7 +60,7 @@ func resizeHand(changeHandSize : int):
 func dealCards(numCards : int):
 	if(selectedSlot and cardSlots.size() > 0):
 		selectedSlot.deselect()
-	for i in range(numCards):
+	for i : int in range(numCards):
 		addCard(cardGenerator.GenerateCard())
 		await SignalBus.CardDelt
 	if(numCards > 1):
@@ -96,7 +96,7 @@ func selectSlot(slot : CardSlot):
 		slot.select()
 	
 func deselectAllSlots():
-	for slot in cardSlots:
+	for slot : CardSlot in cardSlots:
 		slot.deselect()
 
 func _input(event : InputEvent ):
@@ -122,7 +122,7 @@ func handleInputs():
 	#for now this doesn't do anything, will possibly come into play when animations are involved, but pretty sure those will be handeled on per slot basis
 	
 func selectCenterCard():
-	var numCards = cardSlots.size()
+	var numCards : int = cardSlots.size()
 	if numCards > 0:
 		selectSlot(cardSlots[floor(numCards/2.0)])
 	
