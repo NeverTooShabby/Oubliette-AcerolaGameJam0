@@ -1,11 +1,10 @@
 extends Node3D
 class_name Card
 
-enum State {DEAL, FLOAT, SELECTED, MOVE}
+enum State {DEAL, FLOAT, SELECTED, MOVE, PLAY}
 var curState : State
 
 var sway_t : float = 0.0
-var currentGlobal : Transform3D
 
 var swayVertAmp : float = 0.01
 var swayRotAmp : float = 0.01
@@ -14,6 +13,9 @@ var swayRotFreq : float = 0.5
 
 var offScreenPos : Vector3 = Vector3(4.0, -3.0, 0.0)
 var offScreenRot : Vector3 = Vector3(0.0, 0.0, -2*PI/3)
+
+var cardPlayedHeight : float = 0.5
+var cardPlayedRot : float = 4*PI
 
 var lerpSpeed : float = 20.0
 
@@ -50,16 +52,10 @@ func deal():
 	targetPosition = Vector3.ZERO
 	targetRotation = Vector3.ZERO
 	
-#func move():
-	#curPos = targetPosition
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func play():
+	targetPosition.y = cardPlayedHeight
+	targetRotation.y = cardPlayedRot
+	curState = State.PLAY
 	
 func sway(delta):
 	sway_t += delta * 2 * PI
@@ -78,8 +74,10 @@ func _physics_process(delta):
 			sway(delta)
 		State.MOVE:
 			moveComplete()
-			
-	currentGlobal = global_transform
+			SignalBus.CardMoveComplete.emit() #this will proc for all of the cards, only should be last, but they all move together. inefficient but not a real problem
+		State.PLAY:
+			if moveComplete():
+				SignalBus.CardPlayAnimationComplete.emit()
 	
 func moveComplete() -> bool:
 	var checkMove : bool = position.is_equal_approx(targetPosition) and rotation.is_equal_approx(targetRotation)

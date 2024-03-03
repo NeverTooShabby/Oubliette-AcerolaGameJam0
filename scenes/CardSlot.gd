@@ -9,10 +9,10 @@ func _process(delta):
 	
 #there is a reason this is in card slot... probably has something to do with animating the card independently
 func select():
-	position.y = heldCard.selectedHeight
+	heldCard.targetPosition.y += heldCard.selectedHeight
 	
 func deselect():
-	position.y = 0
+	heldCard.targetPosition.y -= heldCard.selectedHeight
 
 func _physics_process(delta):
 	pass

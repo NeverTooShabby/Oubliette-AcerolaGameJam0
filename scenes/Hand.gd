@@ -22,6 +22,7 @@ func addCard(newCardData : CardData):
 	newCardSlot.heldCard = newCard
 	newCard.deal()
 	newCard.data = newCardData
+
 	
 func reparentCards():
 	for slot in cardSlots:
@@ -61,12 +62,16 @@ func resizeHand(changeHandSize : int):
 		parentBack()		
 	pass
 	
-func dealHand():
-	var handSize : int = 5 #TODO this should come from somewhere else... gamemanager probablyt
-	for i in range(handSize):
+func dealCards(numCards : int):
+	if(selectedSlot):
+		selectedSlot.deselect()
+	for i in range(numCards):
 		addCard(cardGenerator.GenerateCard())
 		await SignalBus.CardDelt
-	selectSlot(cardSlots[floor(handSize/2.0)])
+	if(numCards > 1):
+		selectSlot(cardSlots[floor(numCards/2.0)])
+	else:
+		selectSlot(cardSlots[-1])
 	
 func playLastCard():
 	setupCardSlots()
@@ -79,12 +84,19 @@ func setupCardSlots():
 			if slot is CardSlot:
 				slot.findHeldCard()
 				cardSlots.append(slot)
+				
+func cardAnimFinished() -> bool:
+	await SignalBus.CardPlayAnimationComplete
+	return true
 	
 func playCard(slot : CardSlot):
-	cardSlots.erase(slot)
-	resizeHand(-1)
-	GameManager.PlayCard(slot.heldCard)
-	slot.queue_free()
+	slot.heldCard.play()
+	var finished = await cardAnimFinished()
+	if finished: 
+		GameManager.PlayCard(slot.heldCard)
+		cardSlots.erase(slot)
+		resizeHand(-1)
+		slot.queue_free()
 	
 func setTargets():
 	for i in range(cardSlots.size()):

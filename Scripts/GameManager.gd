@@ -25,7 +25,7 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	
 func AddCardToHand(cardData : CardData):
 	print(cardData)
-	playerHand.addCard(cardData)
+	playerHand.dealCards(1)
 	
 func PlayCard(playedCard : Card):
 	print(playedCard)
@@ -34,7 +34,7 @@ func PlayCard(playedCard : Card):
 	pass
 	
 func DealHand():
-	playerHand.dealHand()
+	playerHand.dealCards(5)
 
 func toggleState():
 	if state == GameState.FIELDVIEW:
