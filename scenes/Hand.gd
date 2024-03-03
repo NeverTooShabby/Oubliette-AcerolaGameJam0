@@ -33,36 +33,29 @@ func reparentCards():
 		
 func parentBack():
 	for slot in cardSlots:
-		slot.heldCard.reparent(slot)
+		if slot.heldCard:
+			slot.heldCard.reparent(slot)
 	
 func resizeHand(changeHandSize : int):
-	#TODO animate these position changes
-	reparentCards()
 	var numCards = cardSlots.size()
-	position.x = -0.5 * (cardWidth + cardSpacing) * numCards
-	
+	reparentCards()	
 	
 	if changeHandSize > 0:
-		parentBack()
+		position.x = -0.5 * (cardWidth + cardSpacing) * numCards
+		
 		var newCardSlot : CardSlot = CardSlot.new()
 		add_child(newCardSlot)
 		newCardSlot.position.x = (cardWidth + cardSpacing) * cardSlots.size()
 		cardSlots.append(newCardSlot)
 		
 	else:
-		position.x = -0.5 * (cardWidth + cardSpacing) * numCards
+		position.x = -0.5 * (cardWidth + cardSpacing) * (numCards - 1) #not 100% on why this has to be -1. Trust
+		
 		#var minCardX = (((numCards * cardWidth) + ((numCards - 1) * cardSpacing)) * -0.5) + (0.5 * cardWidth)
 		for i in range(0, numCards):
 			cardSlots[i].position.x = ((cardWidth + cardSpacing) * i)
-			prints("setting card pos for index: ", i)
-		parentBack()
-	#else:
-		#if numCards == 1:
-			#position.x = 0
-			#cardSlots[0].position.x = 0
-		#elif numCards > 0:
-			#position.x = 0.5 * (cardWidth + cardSpacing)
-	pass
+			
+	parentBack()
 	
 func dealCards(numCards : int):
 	if(selectedSlot and cardSlots.size() > 0):

@@ -24,11 +24,9 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	pass
 	
 func AddCardToHand(cardData : CardData):
-	print(cardData)
 	playerHand.dealCards(1)
 	
 func PlayCard(playedCard : Card):
-	print(playedCard)
 	toggleState()
 	playerField.playedPiece(playedCard)
 	pass

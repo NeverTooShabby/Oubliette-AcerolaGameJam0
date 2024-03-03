@@ -24,7 +24,6 @@ var targetRotation : Vector3
 
 @export var data : CardData:
 	set(value):
-		print("data setter")
 		var card_face = $Front
 		var card_template = $Front/SubViewport/CardTemplate
 		
@@ -54,7 +53,6 @@ func deal():
 	
 func play():
 	targetPosition.y = cardPlayedHeight
-	print(targetPosition)
 	targetRotation.y = cardPlayedRot
 	curState = State.PLAY
 	
