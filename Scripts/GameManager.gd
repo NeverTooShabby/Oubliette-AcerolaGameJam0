@@ -20,6 +20,7 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	for slot in fieldSlots:
 		slot.isOccupied = true
 	#reparent to field, play effects
+	await SignalBus.PiecePlaceFinished
 	toggleState()
 	pass
 	

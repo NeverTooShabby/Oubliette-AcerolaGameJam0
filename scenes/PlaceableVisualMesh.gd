@@ -1,7 +1,7 @@
 extends MeshInstance3D
 class_name PlaceableVisualMesh
 
-enum State {NONE, FLOAT, POSITION, INPOSITION}
+enum State {NONE, FLOAT, POSITION, INPOSITION, PLACED}
 var curState : State = State.NONE
 var nextState : State
 
@@ -12,6 +12,8 @@ var swayVertFreq : float = 0.1
 var swayRotFreq : float = 0.2
 
 const floatPos : Vector3 = Vector3(0, 0.2, 0)
+
+var undergroundTarget : Vector3 = Vector3(0, -0.6, 0) # used so the piece sinks under the ground and the decal is applied to  the surface of the ground
 
 var inPosition : bool = false
 
@@ -33,7 +35,7 @@ func _physics_process(delta):
 		State.FLOAT:
 			sway(delta)
 		State.POSITION:
-			moveToPosition()
+			moveToPosition(delta)
 		State.INPOSITION:
 			pass
 			
@@ -46,9 +48,11 @@ func assignNewTarget(newPos : Vector3):
 	targetRotation = Vector3.ZERO
 	targetPosition = newPos
 	
-func moveToPosition():
-	position = position.lerp(targetPosition, 1.0)
-	rotation = position.lerp(targetRotation, 1.0)
+func moveToPosition(delta):
+	#TODO interpolation that isn't as ass slow on the back end. Either that or create own is equal approx with a higher tollerance
+	position = position.lerp(targetPosition, 10.0 * delta)
+	rotation = rotation.lerp(targetRotation, 10.0 * delta)
+	
 	
 	if (position.is_equal_approx(targetPosition) and rotation.is_equal_approx(targetRotation)):
 		changeState(nextState)
@@ -59,12 +63,13 @@ func PickUp():
 	changeState(State.POSITION)
 	
 func PutDown():
-	assignNewTarget(Vector3.ZERO)
-	nextState = State.INPOSITION
+	assignNewTarget(undergroundTarget)
+	nextState = State.PLACED
 	changeState(State.POSITION)
 	
 
 func changeState(newState : State):
+	prints("state to change to",newState)
 	curState = newState
 	match curState:
 		State.FLOAT:
@@ -79,5 +84,10 @@ func changeState(newState : State):
 		State.INPOSITION:
 			visible = true
 			inPosition = true
+		State.PLACED:
+			visible = true
+			inPosition = true
+			print("placed")
+			SignalBus.PiecePlaceFinished.emit()
 		
 			pass

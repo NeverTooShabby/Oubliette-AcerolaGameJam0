@@ -29,6 +29,8 @@ func newPlaceable(newData : CardData):
 	add_child(newObj)
 	heldObj = newObj
 	heldObj.piecePickedUp()
+	newObj.setColor(newData.cardColor)
+	
 	
 func _input(event):
 	if heldObj: #TODO remove this safety when placer is properly controlled by gm and can't act when it's not holding something

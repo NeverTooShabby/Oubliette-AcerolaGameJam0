@@ -7,6 +7,6 @@
 script = ExtResource("1_7xmil")
 
 [node name="HandCam" type="Camera3D" parent="."]
-cull_mask = 1048574
+cull_mask = 1048566
 
 [node name="Hand" parent="." instance=ExtResource("2_8la0q")]

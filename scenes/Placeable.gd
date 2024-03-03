@@ -11,6 +11,7 @@ const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
 @onready var segment_areas_node : Node3D = $SegmentAreas
 @onready var selectionBorder : MeshInstance3D = $SelectionBorder
 @onready var visual_mesh : PlaceableVisualMesh = $VisualMesh
+@onready var decal = $VisualMesh/Decal
 
 var ghostPts : Array
 var segmentAreas : Array
@@ -39,6 +40,7 @@ func piecePlaced(placedField : Field):
 	visual_mesh.PutDown()
 	AudioManager.PlaySound(AudioLibrary.positivePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
 	#do something to move into position... project texture onto field? probably trigger this from GM
+	await SignalBus.PiecePlaceFinished
 	reparent(placedField)
 	
 func get_fieldSlots() -> Array:
@@ -71,6 +73,23 @@ func checkValidPlacement() -> bool:
 	placementValid = true
 	selectionBorderColor()
 	return true
+	
+func setColor(newColor : CardData.CardColor):
+	var color : Color
+	match newColor:
+		CardData.CardColor.RED:
+			color = Color.RED
+		CardData.CardColor.BLUE:
+			color = Color.BLUE
+		CardData.CardColor.GREEN:
+			color = Color.GREEN
+		CardData.CardColor.COLORLESS:
+			color = Color.WHITE
+			
+	visual_mesh.mesh.material.albedo_color = color
+	decal.modulate = color
+	print("changed color")
+	pass
 
 func _process(delta):
 	pass

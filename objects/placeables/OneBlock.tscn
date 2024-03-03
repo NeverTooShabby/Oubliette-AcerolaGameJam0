@@ -1,14 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://brq615yitd5wg"]
+[gd_scene load_steps=12 format=3 uid="uid://brq615yitd5wg"]
 
 [ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_2xjke"]
 [ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_xa2cn"]
 [ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_qpiro"]
+[ext_resource type="Texture2D" uid="uid://clhm0v3tyw7pk" path="res://objects/placeables/textures/one_block.png" id="3_swbx1"]
+[ext_resource type="Texture2D" uid="uid://dywnj7q3pttxd" path="res://objects/placeables/textures/one_block_emission_mask.png" id="5_evwpk"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
 material = ExtResource("2_xa2cn")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
-albedo_color = Color(0, 0.486275, 1, 1)
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = ExtResource("3_swbx1")
+emission_energy_multiplier = 0.88
+emission_texture = ExtResource("3_swbx1")
+backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 material = SubResource("StandardMaterial3D_p7c0i")
@@ -31,10 +38,18 @@ script = ExtResource("1_2xjke")
 mesh = SubResource("BoxMesh_oxt4k")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("3_qpiro")
+
+[node name="Decal" type="Decal" parent="VisualMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 8
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("3_swbx1")
+texture_emission = ExtResource("5_evwpk")
+emission_energy = 9.62
+cull_mask = 1047560
 
 [node name="SegmentAreas" type="Node3D" parent="."]
 
