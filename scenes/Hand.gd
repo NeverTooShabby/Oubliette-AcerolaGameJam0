@@ -8,6 +8,10 @@ var cardWidth : float = 1.0 #might want to pull from card
 
 @onready var cardGenerator : CardGenerator = $CardGenerator
 
+enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
+var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
+var selectedSlot : CardSlot
+
 func addCard(newCardData : CardData):
 	setupCardSlots()
 	resizeHand(1)
@@ -31,6 +35,7 @@ func resizeHand(changeHandSize : int):
 		cardSlots.append(newCardSlot)
 		
 	else:
+		print("resizing down")
 		var numCards = cardSlots.size()
 		if numCards == 1:
 			position.x = 0
@@ -43,8 +48,10 @@ func resizeHand(changeHandSize : int):
 	pass
 	
 func dealHand():
-	for i in range(5):
+	var handSize : int = 5 #TODO this should come from somewhere else... gamemanager probablyt
+	for i in range(handSize):
 		addCard(cardGenerator.GenerateCard())
+	selectSlot(cardSlots[floor(handSize/2.0)])
 	
 func playLastCard():
 	setupCardSlots()
@@ -67,10 +74,58 @@ func playCard(slot : CardSlot):
 func setTargets():
 	for i in range(cardSlots.size()):
 		pass
+		
+func selectSlot(slot : CardSlot):
+	selectedSlot = slot
+	slot.select()
 
-func _input(event):
-	if(Input.is_action_just_pressed("test")):
-		print("test called from hand")
+func _input(event : InputEvent ):
+		if Input.is_action_just_pressed("left"):
+			moveQueue = QUEUED_MOVE.MOVE_LEFT
+		elif Input.is_action_just_pressed("right"):
+			moveQueue = QUEUED_MOVE.MOVE_RIGHT
+		elif Input.is_action_just_pressed("select"):
+			moveQueue = QUEUED_MOVE.SELECT
+			
+func handleInputs():
+	match moveQueue:
+		QUEUED_MOVE.MOVE_LEFT:
+			moveLeft()
+				
+		QUEUED_MOVE.MOVE_RIGHT:
+			moveRight()
+			
+		QUEUED_MOVE.SELECT:
+			playCard(selectedSlot)
+			var numCards : int = cardSlots.size()
+			if numCards > 0:
+				selectSlot(cardSlots[floor(numCards/2.0)])
+				
+	moveQueue = QUEUED_MOVE.NONE
+	#for now this doesn't do anything, will possibly come into play when animations are involved, but pretty sure those will be handeled on per slot basis
+	
+func moveRight():
+	if cardSlots.size() > 1: #should probably give some feedback when it is zero or one. A shake and honk maybe.
+		var curIndex : int = cardSlots.find(selectedSlot)
+		selectedSlot.deselect()
+		
+		if curIndex != cardSlots.size() - 1:
+			selectSlot(cardSlots[curIndex + 1])
+		else:
+			selectSlot(cardSlots[0])
+			
+func moveLeft():
+	if cardSlots.size() > 1: #should probably give some feedback when it is zero or one. A shake and honk maybe.
+		var curIndex : int = cardSlots.find(selectedSlot)
+		selectedSlot.deselect()
+		
+		if curIndex != 0:
+			selectSlot(cardSlots[curIndex - 1])
+		else:
+			selectSlot(cardSlots[-1])
+func _physics_process(delta):
+	if moveQueue != QUEUED_MOVE.NONE:
+		handleInputs()
 
 func SpreadCards():
 	pass

@@ -47,4 +47,6 @@ func toggleState():
 		playerField.set_process_input(true)
 		playerHand.set_process_input(false)
 		
-		
+func _input(event):
+	#handle pause menu shit right here
+	pass
