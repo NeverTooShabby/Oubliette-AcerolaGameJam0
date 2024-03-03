@@ -12,12 +12,13 @@ func addCard(newCardData : CardData):
 	setupCardSlots()
 	resizeHand(1)
 	var newCardSlot = cardSlots[-1]
-	var newCard = load("res://scenes/card.tscn").instantiate()
+	var newCard = load("res://scenes/card.tscn").instantiate() #this throws an error/warrning, because the viewport texture is not defined or some shit. Doesn't cause a crash so I'm leaving it in
 	newCardSlot.add_child(newCard) #probably need to add animation here
 	newCardSlot.heldCard = newCard
 	newCard.data = newCardData
 	
 func resizeHand(changeHandSize : int):
+	#TODO animate these position changes
 	if changeHandSize > 0:
 		#should be slot.targetposition, then lerp there on physics process
 		if cardSlots.size() == 0:
@@ -66,6 +67,10 @@ func playCard(slot : CardSlot):
 func setTargets():
 	for i in range(cardSlots.size()):
 		pass
+
+func _input(event):
+	if(Input.is_action_just_pressed("test")):
+		print("test called from hand")
 
 func SpreadCards():
 	pass

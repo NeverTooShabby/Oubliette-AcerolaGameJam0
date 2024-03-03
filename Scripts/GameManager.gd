@@ -3,7 +3,7 @@ extends Node
 enum GameState {FIELDVIEW, HANDVIEW}
 var state : GameState = GameState.HANDVIEW
 
-var PlayerField : Field
+var playerField : Field
 
 var mainCam : Camera3D
 var handCam : Camera3D
@@ -28,7 +28,7 @@ func AddCardToHand(cardData : CardData):
 func PlayCard(playedCard : Card):
 	print(playedCard)
 	toggleState()
-	PlayerField.playedPiece(playedCard)
+	playerField.playedPiece(playedCard)
 	pass
 	
 func DealHand():
@@ -38,6 +38,13 @@ func toggleState():
 	if state == GameState.FIELDVIEW:
 		state = GameState.HANDVIEW
 		playerHand.visible = true
+		playerHand.set_process_input(true)
+		playerField.set_process_input(false)
+		
 	else:
 		state = GameState.FIELDVIEW
 		playerHand.visible = false
+		playerField.set_process_input(true)
+		playerHand.set_process_input(false)
+		
+		

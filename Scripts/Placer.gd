@@ -46,7 +46,9 @@ func _input(event):
 		if Input.is_action_just_pressed("select"):
 			moveQueue = QUEUED_MOVE.PLACE
 			
-			#drop obj if clear, else throw error and honk
+		if Input.is_action_just_pressed("test"):
+			print("test called from placer")
+			
 			pass
 
 func handleInputs():
@@ -116,5 +118,5 @@ func _physics_process(delta):
 	if isMoving: #should probably use a new state for this
 		move_t += delta
 		processMove()
-	elif GameManager.state == GameManager.GameState.FIELDVIEW:
+	else:
 		handleInputs()

@@ -11,7 +11,7 @@ var boundingBox : BoxShape3D
 @onready var placer : Placer = $Placer
 
 func setAsPlayerField():
-	GameManager.PlayerField = self
+	GameManager.playerField = self
 	
 func playedPiece(newCard : Card):
 	placer.newPlaceable(newCard.data)
