@@ -18,3 +18,7 @@ func _on_play_card_button_down():
 func _on_add_card_button_down():
 	GameManager.AddCardToHand(load("res://objects/placeables/TwoBlock.tres"))
 	pass
+
+
+func _on_deal_hand_pressed():
+	GameManager.DealHand()

@@ -68,6 +68,10 @@ layout_mode = 0
 offset_right = 269.0
 offset_bottom = 342.0
 
+[node name="Deal Hand" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Deal Hand (5 Cards)"
+
 [node name="Add Card" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 text = "Add Card To Hand"
@@ -85,6 +89,7 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Play Card"
 
+[connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="button_down" from="Control/VBoxContainer/Add Card" to="Control" method="_on_add_card_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/Button2" to="Control" method="_on_button_2_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/Play Card" to="Control" method="_on_play_card_button_down"]

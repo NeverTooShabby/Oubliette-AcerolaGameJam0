@@ -21,6 +21,8 @@ var cardType
 var cardImage #derived from held object
 var cardColor
 
+var selectedHeight : float = 0.5
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

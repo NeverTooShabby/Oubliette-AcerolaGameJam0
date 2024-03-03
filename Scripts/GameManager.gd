@@ -30,6 +30,9 @@ func PlayCard(playedCard : Card):
 	toggleState()
 	PlayerField.playedPiece(playedCard)
 	pass
+	
+func DealHand():
+	playerHand.dealHand()
 
 func toggleState():
 	if state == GameState.FIELDVIEW:
