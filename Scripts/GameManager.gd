@@ -39,8 +39,9 @@ func DealHand():
 func toggleState():
 	if state == GameState.FIELDVIEW:
 		state = GameState.HANDVIEW
-		playerHand.visible = true
 		playerHand.set_process_input(true)
+		playerHand.visible = true
+		playerHand.returnToHandView()
 		playerField.set_process_input(false)
 		
 	else:

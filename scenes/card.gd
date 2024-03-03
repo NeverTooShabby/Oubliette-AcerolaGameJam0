@@ -54,6 +54,7 @@ func deal():
 	
 func play():
 	targetPosition.y = cardPlayedHeight
+	print(targetPosition)
 	targetRotation.y = cardPlayedRot
 	curState = State.PLAY
 	

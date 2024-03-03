@@ -13,6 +13,8 @@ enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD}
 var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
 var selectedSlot : CardSlot
 
+var isPlaying : bool
+
 func addCard(newCardData : CardData):
 	setupCardSlots()
 	resizeHand(1)
@@ -36,12 +38,11 @@ func parentBack():
 func resizeHand(changeHandSize : int):
 	#TODO animate these position changes
 	reparentCards()
+	var numCards = cardSlots.size()
+	position.x = -0.5 * (cardWidth + cardSpacing) * numCards
+	
+	
 	if changeHandSize > 0:
-		#should be slot.targetposition, then lerp there on physics process
-		if cardSlots.size() == 0:
-			position.x = 0
-		else:
-			position.x -= 0.5 * (cardWidth + cardSpacing)
 		parentBack()
 		var newCardSlot : CardSlot = CardSlot.new()
 		add_child(newCardSlot)
@@ -49,21 +50,22 @@ func resizeHand(changeHandSize : int):
 		cardSlots.append(newCardSlot)
 		
 	else:
-		print("resizing down")
-		var numCards = cardSlots.size()
-		if numCards == 1:
-			position.x = 0
-			cardSlots[0].position.x = 0
-		elif numCards > 0:
-			position.x += 0.5 * (cardWidth + cardSpacing)
-			#var minCardX = (((numCards * cardWidth) + ((numCards - 1) * cardSpacing)) * -0.5) + (0.5 * cardWidth)
-			for i in range(0, numCards-1):
-				cardSlots[i].position.x = ((cardWidth + cardSpacing) * i)
-		parentBack()		
+		position.x = -0.5 * (cardWidth + cardSpacing) * numCards
+		#var minCardX = (((numCards * cardWidth) + ((numCards - 1) * cardSpacing)) * -0.5) + (0.5 * cardWidth)
+		for i in range(0, numCards):
+			cardSlots[i].position.x = ((cardWidth + cardSpacing) * i)
+			prints("setting card pos for index: ", i)
+		parentBack()
+	#else:
+		#if numCards == 1:
+			#position.x = 0
+			#cardSlots[0].position.x = 0
+		#elif numCards > 0:
+			#position.x = 0.5 * (cardWidth + cardSpacing)
 	pass
 	
 func dealCards(numCards : int):
-	if(selectedSlot):
+	if(selectedSlot and cardSlots.size() > 0):
 		selectedSlot.deselect()
 	for i in range(numCards):
 		addCard(cardGenerator.GenerateCard())
@@ -73,10 +75,6 @@ func dealCards(numCards : int):
 	else:
 		selectSlot(cardSlots[-1])
 	
-func playLastCard():
-	setupCardSlots()
-	playCard(cardSlots[-1])
-	
 func setupCardSlots():
 		#this is just here for testing. slot array and held card should be dynamically assigned during dealing
 	if cardSlots.size() == 0:
@@ -84,27 +82,29 @@ func setupCardSlots():
 			if slot is CardSlot:
 				slot.findHeldCard()
 				cardSlots.append(slot)
-				
-func cardAnimFinished() -> bool:
-	await SignalBus.CardPlayAnimationComplete
-	return true
 	
 func playCard(slot : CardSlot):
+	isPlaying = true
 	slot.heldCard.play()
-	var finished = await cardAnimFinished()
-	if finished: 
-		GameManager.PlayCard(slot.heldCard)
-		cardSlots.erase(slot)
-		resizeHand(-1)
-		slot.queue_free()
+	await SignalBus.CardPlayAnimationComplete
+	GameManager.PlayCard(slot.heldCard)
+	cardSlots.erase(slot)
+	slot.queue_free()
 	
-func setTargets():
-	for i in range(cardSlots.size()):
-		pass
+func returnToHandView():
+	resizeHand(0)
+	isPlaying = false
+	selectCenterCard()
 		
 func selectSlot(slot : CardSlot):
-	selectedSlot = slot
-	slot.select()
+	deselectAllSlots()
+	if not isPlaying:
+		selectedSlot = slot
+		slot.select()
+	
+func deselectAllSlots():
+	for slot in cardSlots:
+		slot.deselect()
 
 func _input(event : InputEvent ):
 		if Input.is_action_just_pressed("left"):
@@ -124,17 +124,18 @@ func handleInputs():
 			
 		QUEUED_MOVE.SELECT:
 			playCard(selectedSlot)
-			var numCards : int = cardSlots.size()
-			if numCards > 0:
-				selectSlot(cardSlots[floor(numCards/2.0)])
 				
 	moveQueue = QUEUED_MOVE.NONE
 	#for now this doesn't do anything, will possibly come into play when animations are involved, but pretty sure those will be handeled on per slot basis
 	
+func selectCenterCard():
+	var numCards = cardSlots.size()
+	if numCards > 0:
+		selectSlot(cardSlots[floor(numCards/2.0)])
+	
 func moveRight():
 	if cardSlots.size() > 1: #should probably give some feedback when it is zero or one. A shake and honk maybe.
 		var curIndex : int = cardSlots.find(selectedSlot)
-		selectedSlot.deselect()
 		
 		if curIndex != cardSlots.size() - 1:
 			selectSlot(cardSlots[curIndex + 1])
@@ -144,15 +145,15 @@ func moveRight():
 func moveLeft():
 	if cardSlots.size() > 1: #should probably give some feedback when it is zero or one. A shake and honk maybe.
 		var curIndex : int = cardSlots.find(selectedSlot)
-		selectedSlot.deselect()
 		
 		if curIndex != 0:
 			selectSlot(cardSlots[curIndex - 1])
 		else:
 			selectSlot(cardSlots[-1])
+			
 func _physics_process(delta):
 	if moveQueue != QUEUED_MOVE.NONE:
-		handleInputs()
-
-func SpreadCards():
-	pass
+		if not isPlaying:
+			handleInputs()
+		else:
+			moveQueue = QUEUED_MOVE.NONE #cancel moves entered while play animation is active
