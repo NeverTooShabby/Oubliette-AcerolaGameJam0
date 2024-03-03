@@ -1,6 +1,25 @@
 extends Node3D
 class_name Card
 
+enum State {DEAL, FLOAT, SELECTED, MOVE}
+var curState : State
+
+var sway_t : float = 0.0
+var currentGlobal : Transform3D
+
+var swayVertAmp : float = 0.01
+var swayRotAmp : float = 0.01
+var swayVertFreq : float = 0.2
+var swayRotFreq : float = 0.5
+
+var offScreenPos : Vector3 = Vector3(4.0, -3.0, 0.0)
+var offScreenRot : Vector3 = Vector3(0.0, 0.0, -2*PI/3)
+
+var lerpSpeed : float = 20.0
+
+var targetPosition : Vector3
+var targetRotation : Vector3
+
 @export var data : CardData:
 	set(value):
 		print("data setter")
@@ -23,16 +42,49 @@ var cardColor
 
 var selectedHeight : float = 0.5
 
-
+func deal():
+	curState = State.DEAL
+	#TODO this should be controlled by global position of a 3d node in hand, passed via parameter
+	position = offScreenPos #refNode.global_position - global_position
+	rotation = offScreenRot 
+	targetPosition = Vector3.ZERO
+	targetRotation = Vector3.ZERO
+	
+#func move():
+	#curPos = targetPosition
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-func setCardDisplay(cardData : Object):
-	#set title, image (image color if it isn't baked into the image), and text
-	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func sway(delta):
+	sway_t += delta * 2 * PI
+	targetPosition.x = swayVertAmp * sin(swayVertFreq * sway_t)
+	targetRotation.y = swayRotAmp * sin(swayRotFreq * sway_t)
+
+func _physics_process(delta):
+	position = position.lerp(targetPosition, lerpSpeed * delta)
+	rotation = rotation.lerp(targetRotation, lerpSpeed * delta)
+	
+	match curState:
+		State.DEAL:
+			if moveComplete():
+				SignalBus.CardDelt.emit()
+		State.FLOAT:
+			sway(delta)
+		State.MOVE:
+			moveComplete()
+			
+	currentGlobal = global_transform
+	
+func moveComplete() -> bool:
+	var checkMove : bool = position.is_equal_approx(targetPosition) and rotation.is_equal_approx(targetRotation)
+	if checkMove:
+		curState = State.FLOAT
+		sway_t = 0.0
+	
+	return checkMove

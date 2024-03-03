@@ -10,6 +10,8 @@ var handCam : Camera3D
 var playerHand : Hand
 
 
+
+
 const gridSize: float = 1.0 #size of boxes making up field grid
 
 func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array):

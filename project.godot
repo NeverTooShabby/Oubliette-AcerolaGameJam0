@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GameManager="*res://Scripts/GameManager.gd"
 AudioManager="*res://Scripts/AudioManager.gd"
 AudioLibrary="*res://Scripts/AudioLibrary.gd"
+SignalBus="*res://Scripts/SignalBus.gd"
 
 [input]
 
@@ -68,3 +69,9 @@ test={
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+
+[rendering]
+
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/msaa_3d=3
+anti_aliasing/quality/screen_space_aa=1

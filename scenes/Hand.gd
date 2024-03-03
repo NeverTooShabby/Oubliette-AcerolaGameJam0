@@ -6,6 +6,7 @@ var slotTargets : Array
 var cardSpacing : float = 0.2
 var cardWidth : float = 1.0 #might want to pull from card
 
+@export var fixedCardRef : Node3D
 @onready var cardGenerator : CardGenerator = $CardGenerator
 
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
@@ -19,16 +20,28 @@ func addCard(newCardData : CardData):
 	var newCard = load("res://scenes/card.tscn").instantiate() #this throws an error/warrning, because the viewport texture is not defined or some shit. Doesn't cause a crash so I'm leaving it in
 	newCardSlot.add_child(newCard) #probably need to add animation here
 	newCardSlot.heldCard = newCard
+	newCard.deal()
 	newCard.data = newCardData
+	
+func reparentCards():
+	for slot in cardSlots:
+		slot.heldCard.reparent(self.get_parent_node_3d())
+		
+		
+func parentBack():
+	for slot in cardSlots:
+		slot.heldCard.reparent(slot)
 	
 func resizeHand(changeHandSize : int):
 	#TODO animate these position changes
+	reparentCards()
 	if changeHandSize > 0:
 		#should be slot.targetposition, then lerp there on physics process
 		if cardSlots.size() == 0:
 			position.x = 0
 		else:
 			position.x -= 0.5 * (cardWidth + cardSpacing)
+		parentBack()
 		var newCardSlot : CardSlot = CardSlot.new()
 		add_child(newCardSlot)
 		newCardSlot.position.x = (cardWidth + cardSpacing) * cardSlots.size()
@@ -45,12 +58,14 @@ func resizeHand(changeHandSize : int):
 			#var minCardX = (((numCards * cardWidth) + ((numCards - 1) * cardSpacing)) * -0.5) + (0.5 * cardWidth)
 			for i in range(0, numCards-1):
 				cardSlots[i].position.x = ((cardWidth + cardSpacing) * i)
+		parentBack()		
 	pass
 	
 func dealHand():
 	var handSize : int = 5 #TODO this should come from somewhere else... gamemanager probablyt
 	for i in range(handSize):
 		addCard(cardGenerator.GenerateCard())
+		await SignalBus.CardDelt
 	selectSlot(cardSlots[floor(handSize/2.0)])
 	
 func playLastCard():
