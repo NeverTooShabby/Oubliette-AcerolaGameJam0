@@ -13,6 +13,9 @@ const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
 @onready var visual_mesh : PlaceableVisualMesh = $VisualMesh
 @onready var decal = $VisualMesh/Decal
 
+var baseVal : int
+var curVal : int
+
 var ghostPts : Array
 var segmentAreas : Array
 

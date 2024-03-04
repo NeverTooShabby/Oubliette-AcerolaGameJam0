@@ -25,11 +25,17 @@ var lerpScale : float = 2.0
 func newPlaceable(newData : CardData):
 	position = Vector3.ZERO #new items spawn at center, move from there
 	var newObj = load(newData.placeableObjectResourcePath).instantiate()
-	#TODO set color from card data + special rules
+	
 	add_child(newObj)
 	heldObj = newObj
 	heldObj.piecePickedUp()
-	newObj.setColor(newData.cardColor)
+	
+	#TODO this should be done in placeable, pass the newData and calculate all this shit
+	heldObj.setColor(newData.cardColor)
+	heldObj.baseVal = newData.baseValue
+	heldObj.curVal = newData.baseValue
+	print(heldObj.curVal)
+	
 	
 	
 func _input(event):

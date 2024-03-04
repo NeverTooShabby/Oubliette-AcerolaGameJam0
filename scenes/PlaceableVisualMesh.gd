@@ -23,7 +23,7 @@ var targetPosition : Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mesh.orientation
+	print(mesh.orientation) #looking into it
 	pass # Replace with function body.
 
 
