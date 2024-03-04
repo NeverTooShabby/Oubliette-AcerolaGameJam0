@@ -2,9 +2,10 @@ extends Node
 
 var effectsVolume : float = 1.0
 
-func PlaySound(stream : AudioStream, pitchScale : float = 1.0, pitchVariance : float = 0.0, volScalePercent : float = 1.0, volVariancePercent : float = 0.0, calledBy : Object = self):
+func PlaySound(stream : AudioStream, pitchScale : float = 1.0, pitchVariance : float = 0.0, volScalePercent : float = 1.0, volVariancePercent : float = 0.0, calledBy : Object = self, AudioBusName : String = "Master"):
 	if (volScalePercent > 0): #idk what kind of asshole would try to play sound with vol scale = 0, but there you go. Might want to change this if other code needs to know about the sound playing
 		var soundInstance : AudioStreamPlayer = AudioStreamPlayer.new()
+		soundInstance.bus = AudioBusName
 		soundInstance.stream = stream
 		var volScaleDb : float = PercentToDb(effectsVolume * volScalePercent)
 		var volVarianceDb : float

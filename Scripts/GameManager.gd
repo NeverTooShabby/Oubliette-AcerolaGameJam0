@@ -16,6 +16,16 @@ var playerScore : int = 0
 
 const gridSize: float = 1.0 #size of boxes making up field grid
 
+signal toggle_game_paused(isPaused : bool)
+
+var game_paused : bool = false:
+	get:
+		return game_paused
+	set(value):
+		game_paused = value
+		get_tree().paused = game_paused
+		emit_signal("toggle_game_paused", game_paused)
+
 func calcPlayerScore():
 	var placeables : Array[Placeable] #it might make sense to keep this array in Field, but checking score by incrementing through field slots makes sense because I can check neighbors and global effects at the same time
 	#except not quite. Score for each placeable, including effects should be calculated after any change is made in case I want to report on the grid or some shit
@@ -74,6 +84,6 @@ func toggleState():
 		playerField.set_process_input(true)
 		playerHand.set_process_input(false)
 		
-func _input(event):
-	#handle pause menu shit right here
-	pass
+func _input(event : InputEvent):
+	if(event.is_action_pressed("menu")):
+		game_paused = !game_paused

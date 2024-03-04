@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=11 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
 [ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/handScene.tscn" id="1_nwjo1"]
 [ext_resource type="Script" path="res://debug_ui/DebugButtons.gd" id="3_7d7uj"]
+[ext_resource type="PackedScene" uid="uid://con1wfa3wg5dy" path="res://pause_menu.tscn" id="5_iutai"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -91,6 +92,10 @@ horizontal_alignment = 1
 
 [node name="PlayerScore" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="button_down" from="Control/VBoxContainer/Add Card" to="Control" method="_on_add_card_button_down"]
