@@ -13,6 +13,7 @@ size = Vector3(1, 1, 2)
 albedo_color = Color(0, 0.486275, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_p7c0i")
 orientation = 1
 
@@ -34,10 +35,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 mesh = SubResource("BoxMesh_oxt4k")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-visible = false
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("3_lhn7h")
+
+[node name="Decal" type="Decal" parent="VisualMesh"]
+cull_mask = 1047560
 
 [node name="SegmentAreas" type="Node3D" parent="."]
 

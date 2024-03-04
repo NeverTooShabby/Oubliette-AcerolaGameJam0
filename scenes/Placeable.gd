@@ -75,20 +75,10 @@ func checkValidPlacement() -> bool:
 	return true
 	
 func setColor(newColor : CardData.CardColor):
-	var color : Color
-	match newColor:
-		CardData.CardColor.RED:
-			color = Color.RED
-		CardData.CardColor.BLUE:
-			color = Color.BLUE
-		CardData.CardColor.GREEN:
-			color = Color.GREEN
-		CardData.CardColor.COLORLESS:
-			color = Color.WHITE
+	var color = GameManager.ColorFromCardDataEnum(newColor)
 			
 	visual_mesh.mesh.material.albedo_color = color
 	decal.modulate = color
-	print("changed color")
 	pass
 
 func _process(delta):

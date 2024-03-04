@@ -13,8 +13,9 @@ material = ExtResource("2_xa2cn")
 resource_local_to_scene = true
 transparency = 1
 albedo_texture = ExtResource("3_swbx1")
+emission_enabled = true
 emission_energy_multiplier = 0.88
-emission_texture = ExtResource("3_swbx1")
+emission_texture = ExtResource("5_evwpk")
 backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
@@ -44,7 +45,6 @@ script = ExtResource("3_qpiro")
 
 [node name="Decal" type="Decal" parent="VisualMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-layers = 8
 size = Vector3(1, 1, 1)
 texture_albedo = ExtResource("3_swbx1")
 texture_emission = ExtResource("5_evwpk")
@@ -63,4 +63,5 @@ shape = SubResource("BoxShape3D_qehql")
 [node name="ghost_pt" type="Node3D" parent="ghost"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")

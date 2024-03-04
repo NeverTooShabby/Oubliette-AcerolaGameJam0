@@ -23,6 +23,7 @@ var targetPosition : Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	mesh.orientation
 	pass # Replace with function body.
 
 
@@ -41,7 +42,7 @@ func _physics_process(delta):
 			
 func sway(delta):
 	sway_t += delta * 2 * PI
-	position.y = swayVertAmp * sin(swayVertFreq * sway_t)
+	position.y = floatPos.y + swayVertAmp * sin(swayVertFreq * sway_t)
 	rotation.z = swayRotAmp * sin(swayRotFreq * sway_t)
 	
 func assignNewTarget(newPos : Vector3):

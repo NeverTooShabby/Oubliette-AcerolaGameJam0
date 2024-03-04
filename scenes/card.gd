@@ -32,7 +32,7 @@ var targetRotation : Vector3
 		card_template.get_node("Title").text = data.cardName
 		card_template.get_node("CardText/Text").text = data.cardDescription
 		card_template.get_node("Art").texture = data.art
-		
+		card_template.get_node("Art").modulate = GameManager.ColorFromCardDataEnum(data.cardColor)
 #apparently should delete viewport after instantiating to save resources. Probably won't be needed
 
 var PlaceableObject : Placeable

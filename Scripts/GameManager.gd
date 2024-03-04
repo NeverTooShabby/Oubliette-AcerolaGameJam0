@@ -14,6 +14,19 @@ var playerHand : Hand
 
 const gridSize: float = 1.0 #size of boxes making up field grid
 
+func ColorFromCardDataEnum(colorIndex : CardData.CardColor) -> Color:
+	var color : Color
+	match colorIndex:
+		CardData.CardColor.RED:
+			color = Color.RED
+		CardData.CardColor.BLUE:
+			color = Color.BLUE
+		CardData.CardColor.GREEN:
+			color = Color.GREEN
+		CardData.CardColor.COLORLESS:
+			color = Color.WHITE
+	return color
+
 func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array):
 	#field slots is an array of fieldslots for playing effects
 	placed.piecePlaced(placedField)

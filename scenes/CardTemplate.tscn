@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://8xvmty8wasie"]
+[gd_scene load_steps=8 format=3 uid="uid://8xvmty8wasie"]
 
 [sub_resource type="Gradient" id="Gradient_s5xqi"]
 colors = PackedColorArray(0, 0.352941, 0.501961, 1, 0.267027, 0.484511, 0.423114, 1)
@@ -7,13 +7,14 @@ colors = PackedColorArray(0, 0.352941, 0.501961, 1, 0.267027, 0.484511, 0.423114
 gradient = SubResource("Gradient_s5xqi")
 
 [sub_resource type="LabelSettings" id="LabelSettings_6r7ir"]
-font_size = 50
+font_size = 35
+
+[sub_resource type="Gradient" id="Gradient_n625v"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cdy5r"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sg56u"]
-width = 400
-height = 300
+color_ramp = SubResource("Gradient_n625v")
 noise = SubResource("FastNoiseLite_cdy5r")
 
 [sub_resource type="LabelSettings" id="LabelSettings_fp8rw"]
