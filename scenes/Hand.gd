@@ -7,6 +7,10 @@ var cardSpacing : float = 0.2
 var cardWidth : float = 1.0 #might want to pull from card
 
 @export var fixedCardRef : Node3D
+@export var leftAberrationRef : Node3D
+@export var rightAberrationRef : Node3D
+
+
 @onready var cardGenerator : CardGenerator = $CardGenerator
 
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
@@ -24,7 +28,14 @@ func addCard(newCardData : CardData):
 	newCardSlot.heldCard = newCard
 	newCard.deal()
 	newCard.data = newCardData
-
+	
+func addAberrationCard(newAberrationCardData : AberrationCardData):
+	var newAbberationCard = load("res://scenes/aberrationCard.tscn").instantiate() #this throws an error/warrning, because the viewport texture is not defined or some shit. Doesn't cause a crash so I'm leaving it in
+	var thisCardSlot = cardSlots[-1]
+	thisCardSlot.add_child(newAbberationCard) #probably need to add animation here
+	thisCardSlot.heldCard = newAbberationCard
+	newAbberationCard.aberrationCardData = newAberrationCardData
+	newAbberationCard.deal()
 	
 func reparentCards():
 	for slot : CardSlot in cardSlots:
@@ -67,6 +78,24 @@ func dealCards(numCards : int):
 		selectSlot(cardSlots[floor(numCards/2.0)])
 	else:
 		selectSlot(cardSlots[-1])
+		
+func dealAberrations():
+	var leftCardSlot : CardSlot = CardSlot.new()
+	leftAberrationRef.add_child(leftCardSlot)
+	cardSlots.append(leftCardSlot)
+	addAberrationCard(cardGenerator.GenerateAberration(true))
+		
+	await SignalBus.CardDelt
+	
+	var rightCardSlot : CardSlot = CardSlot.new()
+	rightAberrationRef.add_child(rightCardSlot)
+	cardSlots.append(rightCardSlot)
+	addAberrationCard(cardGenerator.GenerateAberration(false))
+	await SignalBus.CardDelt
+	
+	selectSlot(cardSlots[-1])
+	
+	pass
 	
 func setupCardSlots():
 		#this is just here for testing. slot array and held card should be dynamically assigned during dealing

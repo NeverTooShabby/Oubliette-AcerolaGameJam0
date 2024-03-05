@@ -21,6 +21,7 @@ GameManager="*res://Scripts/GameManager.gd"
 AudioManager="*res://Scripts/AudioManager.gd"
 AudioLibrary="*res://Scripts/AudioLibrary.gd"
 SignalBus="*res://Scripts/SignalBus.gd"
+CardDataLibrary="*res://Scripts/CardDataLibrary.gd"
 
 [input]
 

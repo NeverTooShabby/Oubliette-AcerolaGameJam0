@@ -22,3 +22,8 @@ func _on_add_card_button_down():
 
 func _on_deal_hand_pressed():
 	GameManager.DealHand()
+
+
+func _on_deal_aberration_pressed():
+	GameManager.DealAberration()
+	pass # Replace with function body.

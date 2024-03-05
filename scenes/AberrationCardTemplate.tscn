@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8yj4mduxnh3n"]
+
+[sub_resource type="Gradient" id="Gradient_s5xqi"]
+colors = PackedColorArray(0, 0.352941, 0.501961, 1, 0.267027, 0.484511, 0.423114, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wqmk8"]
+gradient = SubResource("Gradient_s5xqi")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6r7ir"]
+font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_fp8rw"]
+font_size = 35
+
+[node name="Aberration Template" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 584.0
+offset_bottom = 584.0
+
+[node name="BackGround" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_wqmk8")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 89.0
+grow_horizontal = 2
+text = "Aberration Name"
+label_settings = SubResource("LabelSettings_6r7ir")
+horizontal_alignment = 1
+
+[node name="CardText" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -359.0
+offset_right = 198.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Condition" type="Label" parent="CardText"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+offset_left = 4.0
+offset_top = 57.0
+offset_right = 404.0
+offset_bottom = 315.0
+size_flags_vertical = 1
+text = "This is the description for positive effect"
+label_settings = SubResource("LabelSettings_fp8rw")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TargetValue" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -240.0
+offset_right = 103.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 180
+text = "69"
+horizontal_alignment = 1
+
+[node name="ScoreTarget" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -35.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score Target"
+horizontal_alignment = 1

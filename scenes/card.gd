@@ -22,7 +22,7 @@ var lerpSpeed : float = 20.0
 var targetPosition : Vector3
 var targetRotation : Vector3
 
-@export var data : CardData:
+var data : CardData:
 	set(value):
 		var card_face = $Front
 		var card_template = $Front/SubViewport/CardTemplate

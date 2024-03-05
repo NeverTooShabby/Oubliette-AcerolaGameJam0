@@ -11,7 +11,9 @@ var playerHand : Hand
 
 var playerScore : int = 0
 
+var aberrationNumber : int = 1
 
+var curTarget : int = 0
 
 
 const gridSize: float = 1.0 #size of boxes making up field grid
@@ -69,6 +71,9 @@ func PlayCard(playedCard : Card):
 	
 func DealHand():
 	playerHand.dealCards(5)
+	
+func DealAberration():
+	playerHand.dealAberrations()
 
 func toggleState():
 	if state == GameState.FIELDVIEW:

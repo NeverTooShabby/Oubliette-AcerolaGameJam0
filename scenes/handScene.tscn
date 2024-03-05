@@ -9,4 +9,12 @@ script = ExtResource("1_7xmil")
 [node name="HandCam" type="Camera3D" parent="."]
 cull_mask = 1048566
 
-[node name="Hand" parent="." instance=ExtResource("2_8la0q")]
+[node name="Hand" parent="." node_paths=PackedStringArray("leftAberrationRef", "rightAberrationRef") instance=ExtResource("2_8la0q")]
+leftAberrationRef = NodePath("../LeftAberrationAnchor")
+rightAberrationRef = NodePath("../RightAberrationAnchor")
+
+[node name="LeftAberrationAnchor" type="Node3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -1, 0, -1.75)
+
+[node name="RightAberrationAnchor" type="Node3D" parent="."]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1, 0, -1.75)
