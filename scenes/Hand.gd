@@ -121,16 +121,23 @@ func playCard(slot : CardSlot):
 	slot.queue_free()
 	
 func returnToHandView():
-	if cardSlots.size() != 0:
-		resizeHand(0)
-		selectCenterCard()
 	
 	isPlaying = false
 	
-		
+	if cardSlots.size() != 0:
+		resizeHand(0)
+		selectCenterCard()
+
 func selectSlot(slot : CardSlot):
 	deselectAllSlots()
+	print("deselected all slots")
+	
+	#selectedSlot = slot
+	#slot.select()
+	
+	#??? This was how it was before. Seems like how it should be, but was stalling here until next input?
 	if not isPlaying:
+		print("sending select command to slot")
 		selectedSlot = slot
 		slot.select()
 	
@@ -175,6 +182,8 @@ func handleInputs():
 			
 		QUEUED_MOVE.SELECT:
 			if curDealType == DEAL_TYPE.CARD:
+				if not selectedSlot: #in case shit isn't getting selected right. This is a hack
+					selectedSlot = cardSlots[-1]
 				playCard(selectedSlot)
 			elif curDealType == DEAL_TYPE.ABERRATION:
 				playAberration(selectedSlot)
@@ -184,6 +193,7 @@ func handleInputs():
 	
 func selectCenterCard():
 	var numCards : int = cardSlots.size()
+	print("selecting center")
 	if numCards > 0:
 		selectSlot(cardSlots[floor(numCards/2.0)])
 	
