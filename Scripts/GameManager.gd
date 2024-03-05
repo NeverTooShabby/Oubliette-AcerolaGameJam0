@@ -1,5 +1,6 @@
 extends Node
 
+
 enum GameState {FIELDVIEW, HANDVIEW, ABERRATIONVIEW} #ABERRATIONVIEW zooms in on trap door. For intro and for aberration selection
 var state : GameState = GameState.HANDVIEW
 var nextState : GameState
@@ -15,6 +16,8 @@ var playerScore : int = 0
 var aberrationNumber : int = 1
 
 var curTarget : int = 0
+
+var aberrationScore : AberrationScore
 
 
 const gridSize: float = 1.0 #size of boxes making up field grid
@@ -76,6 +79,7 @@ func PlayAberration(playedAberration : AberrationCard):
 	curTarget = playedAberration.aberrationCardData.targetValue
 	
 	toggleState(GameState.ABERRATIONVIEW)
+	aberrationScore.aberrationScore = curTarget
 	#go to field view -- or new view -- to watch the score get set, possible other animations
 	#return to hand view and deal cards
 	pass
