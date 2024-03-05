@@ -29,6 +29,11 @@ var aberrationCardData : AberrationCardData:
 		card_template.get_node("CardText/Condition").text = aberrationCardData.EffectText
 		card_template.get_node("TargetValue").text = str(aberrationCardData.targetValue)
 		
+func play(): #overloads base function to do animations differently and shiiiiiit
+	targetPosition.z += cardPlayedHeight
+	#dissolve shader animation
+	curState = State.PLAY
+		
 func setOffscreenPos(index : int):
 	var posMult : int = 1
 	

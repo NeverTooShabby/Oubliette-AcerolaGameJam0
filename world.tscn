@@ -97,6 +97,9 @@ horizontal_alignment = 1
 [node name="PlayerScore" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
 
+[node name="CurrentTarget" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]

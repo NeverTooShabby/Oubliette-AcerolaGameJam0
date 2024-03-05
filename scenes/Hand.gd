@@ -13,11 +13,18 @@ var cardWidth : float = 1.0 #might want to pull from card
 
 @onready var cardGenerator : CardGenerator = $CardGenerator
 
+enum DEAL_TYPE {ABERRATION, CARD}
+var curDealType : DEAL_TYPE
+
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
 var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
 var selectedSlot : CardSlot
 
 var isPlaying : bool
+
+func setDealType(newDealType : DEAL_TYPE):
+	#other fiddly stuff can go here - turning off inputs or something
+	curDealType = newDealType
 
 func addCard(newCardData : CardData):
 	setupCardSlots()
@@ -114,9 +121,12 @@ func playCard(slot : CardSlot):
 	slot.queue_free()
 	
 func returnToHandView():
-	resizeHand(0)
+	if cardSlots.size() != 0:
+		resizeHand(0)
+		selectCenterCard()
+	
 	isPlaying = false
-	selectCenterCard()
+	
 		
 func selectSlot(slot : CardSlot):
 	deselectAllSlots()
@@ -136,6 +146,25 @@ func _input(event : InputEvent ):
 		elif Input.is_action_just_pressed("select"):
 			moveQueue = QUEUED_MOVE.SELECT
 			
+func playAberration(slot : CardSlot):
+	print("aberration played")
+	isPlaying = true
+	slot.heldCard.play()
+	var cardToPlay = slot.heldCard
+	await SignalBus.CardPlayAnimationComplete
+	
+	#delete all cards and clear the array of card slots
+	selectedSlot.deselect()
+	
+	for cardslot in cardSlots:
+		cardslot.queue_free()
+		
+	cardSlots.clear()
+	prints("card slot size: ", cardSlots.size())
+	
+	GameManager.PlayAberration(cardToPlay)
+	
+			
 func handleInputs():
 	match moveQueue:
 		QUEUED_MOVE.MOVE_LEFT:
@@ -145,8 +174,11 @@ func handleInputs():
 			moveRight()
 			
 		QUEUED_MOVE.SELECT:
-			playCard(selectedSlot)
-				
+			if curDealType == DEAL_TYPE.CARD:
+				playCard(selectedSlot)
+			elif curDealType == DEAL_TYPE.ABERRATION:
+				playAberration(selectedSlot)
+			
 	moveQueue = QUEUED_MOVE.NONE
 	#for now this doesn't do anything, will possibly come into play when animations are involved, but pretty sure those will be handeled on per slot basis
 	

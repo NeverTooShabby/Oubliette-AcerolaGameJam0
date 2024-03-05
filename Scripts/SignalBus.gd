@@ -6,3 +6,4 @@ signal CardDelt
 signal CardMoveComplete
 signal CardPlayAnimationComplete
 signal PiecePlaceFinished
+signal AberrationAnimationComplete

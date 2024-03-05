@@ -54,6 +54,7 @@ func deal():
 func play():
 	targetPosition.y = cardPlayedHeight
 	targetRotation.y = cardPlayedRot
+	#dissolve shader animation
 	curState = State.PLAY
 	
 func sway(delta):

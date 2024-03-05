@@ -1,7 +1,8 @@
 extends Node
 
-enum GameState {FIELDVIEW, HANDVIEW}
+enum GameState {FIELDVIEW, HANDVIEW, ABERRATIONVIEW} #ABERRATIONVIEW zooms in on trap door. For intro and for aberration selection
 var state : GameState = GameState.HANDVIEW
+var nextState : GameState
 
 var playerField : Field
 
@@ -58,36 +59,63 @@ func PlaceablePlaced(placed : Placeable, placedField : Field, fieldSlots : Array
 	#reparent to field, play effects
 	await SignalBus.PiecePlaceFinished
 	calcPlayerScore()
-	toggleState()
+	toggleState(GameState.HANDVIEW)
 	pass
 	
 func AddCardToHand(cardData : CardData):
+	playerHand.curDealType = playerHand.DEAL_TYPE.CARD	
 	playerHand.dealCards(1)
 	
 func PlayCard(playedCard : Card):
-	toggleState()
+	toggleState(GameState.FIELDVIEW)
 	playerField.playedPiece(playedCard)
 	pass
 	
+func PlayAberration(playedAberration : AberrationCard):
+	nextState = GameState.HANDVIEW #this is in place for when end case/next aberration is implemented. Aberration view will be used as an inbetween, showing a distinc animation for each	
+	curTarget = playedAberration.aberrationCardData.targetValue
+	
+	toggleState(GameState.ABERRATIONVIEW)
+	#go to field view -- or new view -- to watch the score get set, possible other animations
+	#return to hand view and deal cards
+	pass
+	
 func DealHand():
+	playerHand.curDealType = playerHand.DEAL_TYPE.CARD
 	playerHand.dealCards(5)
 	
 func DealAberration():
+	playerHand.curDealType = playerHand.DEAL_TYPE.ABERRATION
 	playerHand.dealAberrations()
 
-func toggleState():
-	if state == GameState.FIELDVIEW:
-		state = GameState.HANDVIEW
-		playerHand.set_process_input(true)
-		playerHand.visible = true
-		playerHand.returnToHandView()
-		playerField.set_process_input(false)
-		
-	else:
-		state = GameState.FIELDVIEW
-		playerHand.visible = false
-		playerField.set_process_input(true)
-		playerHand.set_process_input(false)
+func toggleState(newState : GameState):
+	match newState:
+		GameState.HANDVIEW:
+			#cam focus wide field view
+			#if hand not empty, animate hand raising
+			state = GameState.HANDVIEW
+			playerHand.set_process_input(true)
+			playerHand.visible = true
+			playerHand.returnToHandView()
+			playerField.set_process_input(false)
+		GameState.FIELDVIEW:
+			#cam focus the field
+			#if hand not empty, animate hand lowering
+			state = GameState.FIELDVIEW
+			playerHand.visible = false
+			playerField.set_process_input(true)
+			playerHand.set_process_input(false)
+		GameState.ABERRATIONVIEW:
+			#cam target the door
+			state = GameState.ABERRATIONVIEW
+			playerField.set_process_input(false)
+			playerHand.set_process_input(false)
+			
+			#await SignalBus.AberrationAnimationComplete
+			#
+			toggleState(nextState)
+			DealHand()
+			print("deal hand command processed")
 		
 func _input(event : InputEvent):
 	if(event.is_action_pressed("menu")):
