@@ -20,12 +20,14 @@ size = Vector3(3, 1, 3)
 script = ExtResource("1_7o6o4")
 
 [node name="FieldViewCam" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.91247, 0.409143, 0, -0.409143, 0.91247, 0.12556, 2.11226, 2.01411)
+transform = Transform3D(1, 0, 0, 0, 0.690117, 0.723697, 0, -0.723697, 0.690117, 0, 2.112, 2.014)
 script = ExtResource("2_vfx5f")
 priority_override = false
 priority = 10
 follow_mode = 0
-look_at_mode = 0
+look_at_mode = 3
+look_at_group = Array[NodePath]([NodePath("../maxPoint"), NodePath("../minPoint")])
+look_at_parameters/look_at_target_offset = Vector3(0, 0, 0)
 tween_parameters = null
 tween_on_load = false
 inactive_update_mode = 0

@@ -2,11 +2,12 @@ extends Node
 @onready var gameMode = $VBoxContainer/GameMode
 @onready var player_score = $VBoxContainer/PlayerScore
 @onready var current_target = $VBoxContainer/CurrentTarget
+@onready var game_over_screen = $"../GameOverScreen"
 
 
 func _on_button_2_button_down():
 	#GameManager.toggleState()
-	printerr("button not currently attached")
+	game_over_screen.turnOn()
 	pass # Replace with function body.
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=24 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://TrapDoor.gd" id="8_1i166"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="8_o783u"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_6wea4"]
+[ext_resource type="Script" path="res://GameOverScreen.gd" id="11_i4rt7"]
+[ext_resource type="Texture2D" uid="uid://cjy88146d6df0" path="res://textures/blood-splatter-png-44464.png" id="12_1f4m0"]
+[ext_resource type="Texture2D" uid="uid://cqyrwar0ue25h" path="res://textures/blood-splatter-png-44466.png" id="13_h8n8n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -55,7 +58,7 @@ subdivide_height = 2
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.91247, 0.409143, 0, -0.409143, 0.91247, 0.12556, 2.11226, 2.01411)
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
 cull_mask = 1048573
 script = ExtResource("1_3ulpc")
 
@@ -123,7 +126,7 @@ text = "Add Card To Hand"
 
 [node name="Button2" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
-text = "Field View/ Hand View"
+text = "Test Game Over Screen"
 
 [node name="GameMode" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -144,14 +147,12 @@ layout_mode = 2
 script = ExtResource("8_1i166")
 
 [node name="TrapDoorViewCam" type="Node3D" parent="TrapDoor"]
-transform = Transform3D(0.998674, -0.00844724, 0.0507798, 0, 0.986444, 0.164095, -0.0514777, -0.163878, 0.985137, 0.12556, 1.20036, -0.451362)
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
 script = ExtResource("8_o783u")
 priority_override = false
-priority = 0
+priority = 20
 follow_mode = 0
-look_at_mode = 2
-look_at_target = NodePath("../../AberrationScore")
-look_at_parameters/look_at_target_offset = Vector3(0, 0, 0)
+look_at_mode = 0
 tween_parameters = SubResource("Resource_tcfvw")
 tween_on_load = false
 inactive_update_mode = 0
@@ -160,6 +161,72 @@ camera_3D_resource = null
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TrapDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.820547, -3)
 mesh = SubResource("BoxMesh_s1gcg")
+
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+script = ExtResource("11_i4rt7")
+
+[node name="Control" type="Control" parent="GameOverScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BgColor" type="ColorRect" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.333333, 0.0627451, 0, 1)
+
+[node name="Splatters" type="ColorRect" parent="GameOverScreen"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+clip_children = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Blood-splatter-png-44464" type="Sprite2D" parent="GameOverScreen/Splatters"]
+position = Vector2(208, 219)
+rotation = 1.51924
+scale = Vector2(0.628002, 0.589938)
+texture = ExtResource("12_1f4m0")
+
+[node name="Blood-splatter-png-44466" type="Sprite2D" parent="GameOverScreen/Splatters"]
+position = Vector2(845, 437)
+rotation = -0.0565604
+scale = Vector2(-1, 1)
+texture = ExtResource("13_h8n8n")
+
+[node name="GameOver" type="Label" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 150
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpace" type="Label" parent="GameOverScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = 90.0
+offset_right = 87.5
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+text = "Press Space To Restart"
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]
