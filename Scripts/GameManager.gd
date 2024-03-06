@@ -102,6 +102,9 @@ func toggleState(newState : GameState):
 		GameState.INTRO:
 			state = GameState.INTRO
 			aberrationCamera.set_priority(20)
+			playerField.set_process_input(false)
+			playerHand.set_process_input(false)
+			SignalBus.IntroAnimStart.emit()
 			
 		GameState.HANDVIEW:
 			#cam focus wide field view
@@ -138,8 +141,6 @@ func toggleState(newState : GameState):
 			playerField.set_process_input(false)
 			playerHand.set_process_input(false)
 			SignalBus.GameOverStart.emit()
-			await SignalBus.GameOverAnimationsOver
-			isReadyForRestart = true
 
 		
 func _input(event : InputEvent):

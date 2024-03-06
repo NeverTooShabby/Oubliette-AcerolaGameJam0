@@ -10,3 +10,4 @@ signal AberrationAnimationComplete
 signal trapDoorViewTweenComplete
 signal GameOverAnimationsOver
 signal GameOverStart
+signal IntroAnimStart

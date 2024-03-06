@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=25 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://GameOverScreen.gd" id="11_i4rt7"]
 [ext_resource type="Texture2D" uid="uid://cjy88146d6df0" path="res://textures/blood-splatter-png-44464.png" id="12_1f4m0"]
 [ext_resource type="Texture2D" uid="uid://cqyrwar0ue25h" path="res://textures/blood-splatter-png-44466.png" id="13_h8n8n"]
+[ext_resource type="Script" path="res://IntroScreen.gd" id="13_use0h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -224,7 +225,46 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
 text = "Press Space To Restart"
 
+[node name="IntroScreen" type="CanvasLayer" parent="."]
+script = ExtResource("13_use0h")
+
+[node name="Control" type="Control" parent="IntroScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="IntroScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 150
+text = "OUBLIETTE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpace" type="Label" parent="IntroScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = 90.0
+offset_right = 87.5
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+text = "Press Space To Start"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
 

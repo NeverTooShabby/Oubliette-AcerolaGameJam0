@@ -1,4 +1,5 @@
-extends CanvasLayer
+extends AnimatedGraphic
+
 @onready var splatters : ColorRect = $Splatters
 @onready var game_over : Label = $GameOver
 @onready var press_space : Label = $PressSpace
@@ -12,28 +13,24 @@ func _ready():
 	SignalBus.GameOverStart.connect(_startAnimation)
 	turnOff()
 
-func _startAnimation():
-	turnOn()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 	
-func turnOff():
-	set_process_input(false)
+func resetGraphics():
 	bg_color.color = Color(0.333333, 0.0627451, 0, 0)
 	blood_splatter_1.visible = false
 	blood_splatter_2.visible = false
 	game_over.set("theme_override_colors/font_color", Color(1,1,1,0))
 	press_space.set("theme_override_colors/font_color", Color(1,1,1,0))
 	
-	hide()
-	
-func _input(event):
-	if event.is_action_pressed("select"):
-		turnOff()
-		GameManager.toggleState(GameManager.GameState.INTRO)
+func nextGameState():
+	GameManager.toggleState(GameManager.GameState.INTRO)
+
 	
 func turnOn():
+	resetGraphics()
 	show()
 	var tween = get_tree().create_tween()
 	tween.tween_property(bg_color, "color", Color(0.333333, 0.0627451, 0, 1), 0.5)
@@ -58,4 +55,3 @@ func turnOn():
 	await tween3.finished
 	
 	SignalBus.GameOverAnimationsOver.emit()
-
