@@ -1,9 +1,11 @@
 extends Node
 
 
-enum GameState {FIELDVIEW, HANDVIEW, ABERRATIONVIEW} #ABERRATIONVIEW zooms in on trap door. For intro and for aberration selection
+enum GameState {INTRO, FIELDVIEW, HANDVIEW, ABERRATIONVIEW, GAMEOVER} #ABERRATIONVIEW zooms in on trap door. For intro and for aberration selection
 var state : GameState = GameState.HANDVIEW
 var nextState : GameState
+
+var isReadyForRestart : bool = false
 
 var aberrationCamera : PhantomCamera3D
 var fieldViewCamera : PhantomCamera3D
@@ -97,6 +99,10 @@ func DealAberration():
 
 func toggleState(newState : GameState):
 	match newState:
+		GameState.INTRO:
+			state = GameState.INTRO
+			aberrationCamera.set_priority(20)
+			
 		GameState.HANDVIEW:
 			#cam focus wide field view
 			#if hand not empty, animate hand raising
@@ -128,6 +134,13 @@ func toggleState(newState : GameState):
 			toggleState(nextState)
 			DealHand()
 			print("deal hand command processed")
+		GameState.GAMEOVER:
+			playerField.set_process_input(false)
+			playerHand.set_process_input(false)
+			SignalBus.GameOverStart.emit()
+			await SignalBus.GameOverAnimationsOver
+			isReadyForRestart = true
+
 		
 func _input(event : InputEvent):
 	if(event.is_action_pressed("menu")):

@@ -139,10 +139,6 @@ layout_mode = 2
 [node name="CurrentTarget" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
-
 [node name="TrapDoor" type="Node3D" parent="."]
 script = ExtResource("8_1i166")
 
@@ -196,7 +192,7 @@ scale = Vector2(0.628002, 0.589938)
 texture = ExtResource("12_1f4m0")
 
 [node name="Blood-splatter-png-44466" type="Sprite2D" parent="GameOverScreen/Splatters"]
-position = Vector2(845, 437)
+position = Vector2(983, 429)
 rotation = -0.0565604
 scale = Vector2(-1, 1)
 texture = ExtResource("13_h8n8n")
@@ -227,6 +223,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
 text = "Press Space To Restart"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]

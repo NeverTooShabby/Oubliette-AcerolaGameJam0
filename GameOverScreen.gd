@@ -9,14 +9,17 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalBus.GameOverStart.connect(_startAnimation)
 	turnOff()
 
-
+func _startAnimation():
+	turnOn()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 	
 func turnOff():
+	set_process_input(false)
 	bg_color.color = Color(0.333333, 0.0627451, 0, 0)
 	blood_splatter_1.visible = false
 	blood_splatter_2.visible = false
@@ -24,6 +27,11 @@ func turnOff():
 	press_space.set("theme_override_colors/font_color", Color(1,1,1,0))
 	
 	hide()
+	
+func _input(event):
+	if event.is_action_pressed("select"):
+		turnOff()
+		GameManager.toggleState(GameManager.GameState.INTRO)
 	
 func turnOn():
 	show()
@@ -40,11 +48,14 @@ func turnOn():
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(game_over, "theme_override_colors/font_color", Color(1, 1, 1, 1), 2)
 	
+	set_process_input(true)
+	
 	await get_tree().create_timer(1).timeout
+	
 	
 	var tween3 = get_tree().create_tween()
 	tween3.tween_property(press_space, "theme_override_colors/font_color", Color(1, 1, 1, 1), 1)
 	await tween3.finished
 	
-	
+	SignalBus.GameOverAnimationsOver.emit()
 

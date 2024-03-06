@@ -7,7 +7,7 @@ extends Node
 
 func _on_button_2_button_down():
 	#GameManager.toggleState()
-	game_over_screen.turnOn()
+	GameManager.toggleState(GameManager.GameState.GAMEOVER)
 	pass # Replace with function body.
 
 

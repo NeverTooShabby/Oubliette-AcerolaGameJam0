@@ -8,3 +8,5 @@ signal CardPlayAnimationComplete
 signal PiecePlaceFinished
 signal AberrationAnimationComplete
 signal trapDoorViewTweenComplete
+signal GameOverAnimationsOver
+signal GameOverStart
