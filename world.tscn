@@ -1,11 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=21 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
 [ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/handScene.tscn" id="1_nwjo1"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_82stg"]
 [ext_resource type="Script" path="res://debug_ui/DebugButtons.gd" id="3_7d7uj"]
 [ext_resource type="PackedScene" uid="uid://con1wfa3wg5dy" path="res://pause_menu.tscn" id="5_iutai"]
 [ext_resource type="PackedScene" uid="uid://fen8wqb4wug6" path="res://scenes/aberrationScore.tscn" id="6_b0dl5"]
+[ext_resource type="Script" path="res://TrapDoor.gd" id="8_1i166"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="8_o783u"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_6wea4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -37,12 +41,26 @@ albedo_texture = SubResource("ViewportTexture_saqbe")
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_r6gb6")
 
+[sub_resource type="Resource" id="Resource_tcfvw"]
+script = ExtResource("10_6wea4")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_s1gcg"]
+size = Vector3(2, 1, 2)
+subdivide_width = 2
+subdivide_height = 2
+
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.625651, 0.780103, 0, -0.780103, 0.625651, 0, 3.53753, 3.39772)
+transform = Transform3D(1, 0, 0, 0, 0.91247, 0.409143, 0, -0.409143, 0.91247, 0.12556, 2.11226, 2.01411)
 cull_mask = 1048573
 script = ExtResource("1_3ulpc")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("2_82stg")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
 anchors_preset = 15
@@ -73,7 +91,7 @@ layers = 9
 mesh = SubResource("QuadMesh_6n83a")
 
 [node name="AberrationScore" parent="." instance=ExtResource("6_b0dl5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.794609, -2.31702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.794609, -2.88724)
 mesh = SubResource("QuadMesh_jxwoe")
 skeleton = NodePath("../CanvasLayer")
 
@@ -122,7 +140,30 @@ layout_mode = 2
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
 
+[node name="TrapDoor" type="Node3D" parent="."]
+script = ExtResource("8_1i166")
+
+[node name="TrapDoorViewCam" type="Node3D" parent="TrapDoor"]
+transform = Transform3D(0.998674, -0.00844724, 0.0507798, 0, 0.986444, 0.164095, -0.0514777, -0.163878, 0.985137, 0.12556, 1.20036, -0.451362)
+script = ExtResource("8_o783u")
+priority_override = false
+priority = 0
+follow_mode = 0
+look_at_mode = 2
+look_at_target = NodePath("../../AberrationScore")
+look_at_parameters/look_at_target_offset = Vector3(0, 0, 0)
+tween_parameters = SubResource("Resource_tcfvw")
+tween_on_load = false
+inactive_update_mode = 0
+camera_3D_resource = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrapDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.820547, -3)
+mesh = SubResource("BoxMesh_s1gcg")
+
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]
 [connection signal="button_down" from="Control/VBoxContainer/Add Card" to="Control" method="_on_add_card_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/Button2" to="Control" method="_on_button_2_button_down"]
+[connection signal="tween_completed" from="TrapDoor/TrapDoorViewCam" to="TrapDoor" method="_on_trap_door_view_cam_tween_completed"]
+[connection signal="tween_started" from="TrapDoor/TrapDoorViewCam" to="TrapDoor" method="_on_trap_door_view_cam_tween_started"]

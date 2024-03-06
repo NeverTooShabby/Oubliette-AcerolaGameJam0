@@ -23,6 +23,10 @@ AudioLibrary="*res://Scripts/AudioLibrary.gd"
 SignalBus="*res://Scripts/SignalBus.gd"
 CardDataLibrary="*res://Scripts/CardDataLibrary.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
 [input]
 
 ui_accept={

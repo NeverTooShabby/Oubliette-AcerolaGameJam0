@@ -18,7 +18,16 @@ func _ready():
 
 func light():
 	visible = true
-	#animate
+	mesh.material.albedo_color = Color(1,1,1,0)
+	await SignalBus.trapDoorViewTweenComplete
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(mesh.material, "albedo_color", Color(1,0,0,1), 1)
+	tween.finished.connect(_tween_finished)
+	
+
+func _tween_finished():
+	SignalBus.AberrationAnimationComplete.emit()
 	
 func extinguish():
 	visible = false

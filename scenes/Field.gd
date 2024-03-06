@@ -27,6 +27,7 @@ func playedPiece(newCard : Card):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameManager.fieldViewCamera = $FieldViewCam
 	fieldSlots = FindFieldSlotValues()
 	setAsPlayerField() #TODO this needs to be done when the field is generated. One for player, one for enemy
 	boundingBox = boundingBoxShape3D.shape
@@ -41,3 +42,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_field_view_cam_tween_completed():
+	print("field cam tween complete")
+
+
+func _on_field_view_cam_tween_started():
+	print("field tween started")

@@ -7,3 +7,4 @@ signal CardMoveComplete
 signal CardPlayAnimationComplete
 signal PiecePlaceFinished
 signal AberrationAnimationComplete
+signal trapDoorViewTweenComplete

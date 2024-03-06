@@ -130,14 +130,12 @@ func returnToHandView():
 
 func selectSlot(slot : CardSlot):
 	deselectAllSlots()
-	print("deselected all slots")
 	
 	#selectedSlot = slot
 	#slot.select()
 	
 	#??? This was how it was before. Seems like how it should be, but was stalling here until next input?
 	if not isPlaying:
-		print("sending select command to slot")
 		selectedSlot = slot
 		slot.select()
 	
@@ -154,7 +152,6 @@ func _input(event : InputEvent ):
 			moveQueue = QUEUED_MOVE.SELECT
 			
 func playAberration(slot : CardSlot):
-	print("aberration played")
 	isPlaying = true
 	slot.heldCard.play()
 	var cardToPlay = slot.heldCard
@@ -167,7 +164,6 @@ func playAberration(slot : CardSlot):
 		cardslot.queue_free()
 		
 	cardSlots.clear()
-	prints("card slot size: ", cardSlots.size())
 	
 	GameManager.PlayAberration(cardToPlay)
 	
@@ -193,7 +189,6 @@ func handleInputs():
 	
 func selectCenterCard():
 	var numCards : int = cardSlots.size()
-	print("selecting center")
 	if numCards > 0:
 		selectSlot(cardSlots[floor(numCards/2.0)])
 	

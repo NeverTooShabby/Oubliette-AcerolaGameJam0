@@ -5,6 +5,9 @@ enum GameState {FIELDVIEW, HANDVIEW, ABERRATIONVIEW} #ABERRATIONVIEW zooms in on
 var state : GameState = GameState.HANDVIEW
 var nextState : GameState
 
+var aberrationCamera : PhantomCamera3D
+var fieldViewCamera : PhantomCamera3D
+
 var playerField : Field
 
 var mainCam : Camera3D
@@ -97,12 +100,15 @@ func toggleState(newState : GameState):
 		GameState.HANDVIEW:
 			#cam focus wide field view
 			#if hand not empty, animate hand raising
+			aberrationCamera.set_priority(0)
+			
 			state = GameState.HANDVIEW
 			playerHand.set_process_input(true)
 			playerHand.visible = true
 			playerHand.returnToHandView()
 			playerField.set_process_input(false)
 		GameState.FIELDVIEW:
+			aberrationCamera.set_priority(0)
 			#cam focus the field
 			#if hand not empty, animate hand lowering
 			state = GameState.FIELDVIEW
@@ -110,13 +116,15 @@ func toggleState(newState : GameState):
 			playerField.set_process_input(true)
 			playerHand.set_process_input(false)
 		GameState.ABERRATIONVIEW:
+			aberrationCamera.set_priority(20)
+			
 			#cam target the door
 			state = GameState.ABERRATIONVIEW
 			playerField.set_process_input(false)
 			playerHand.set_process_input(false)
 			
-			#await SignalBus.AberrationAnimationComplete
-			#
+			await SignalBus.AberrationAnimationComplete
+			
 			toggleState(nextState)
 			DealHand()
 			print("deal hand command processed")
