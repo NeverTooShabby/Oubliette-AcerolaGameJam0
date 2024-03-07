@@ -32,6 +32,8 @@ func nextGameState():
 func turnOn():
 	resetGraphics()
 	show()
+	
+	#this is the wrong way to do it. Should use tween_intervals between and use the same tween object. But here's the thing: I won't. Not sure how it works with doing non-tween stuff between
 	var tween = get_tree().create_tween()
 	tween.tween_property(bg_color, "color", Color(0.333333, 0.0627451, 0, 1), 0.5)
 	await tween.finished
@@ -39,8 +41,11 @@ func turnOn():
 	await get_tree().create_timer(0.5).timeout
 	blood_splatter_1.visible = true
 	#TODO play splat sound
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.3).timeout
 	blood_splatter_2.visible = true
+	
+	await get_tree().create_timer(0.25).timeout
+	
 	
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(game_over, "theme_override_colors/font_color", Color(1, 1, 1, 1), 2)
@@ -52,6 +57,7 @@ func turnOn():
 	
 	var tween3 = get_tree().create_tween()
 	tween3.tween_property(press_space, "theme_override_colors/font_color", Color(1, 1, 1, 1), 1)
-	await tween3.finished
+	tween3.tween_callback(animationFinished) #pretty sure there's a way to do this with the signal + .bind. I just don't know how
 	
-	SignalBus.GameOverAnimationsOver.emit()
+func animationFinished():
+	SignalBus.GameOverAnimationsOver.emit()	

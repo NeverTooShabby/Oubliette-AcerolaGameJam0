@@ -21,6 +21,7 @@ func turnOn():
 	show()
 
 	var tween2 = get_tree().create_tween()
+	tween2.tween_interval(1)
 	tween2.tween_property(title, "theme_override_colors/font_color", Color(1, 1, 1, 1), 2)
 	
 	
