@@ -1,6 +1,9 @@
 extends Card
 class_name AberrationCard
 
+@onready var cardStock = $cardStock
+
+
 func _ready():
 	sway_t = 0.0
 
@@ -17,6 +20,12 @@ func _ready():
 	cardPlayedRot = 4*PI
 
 	lerpSpeed = 20.0
+	
+	var stockIndex = randi_range(0, CardDataLibrary.aberrationStocks.size() - 1)
+	cardStock.mesh.material.albedo_texture = load(CardDataLibrary.aberrationStocks[stockIndex][0])
+	cardStock.mesh.material.normal_texture = load(CardDataLibrary.aberrationStocks[stockIndex][1])
+	
+	cardStock.rotation.z = randi_range(0,3) * PI/2
 	
 var aberrationCardData : AberrationCardData:
 	set(value):
