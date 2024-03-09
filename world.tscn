@@ -1,13 +1,17 @@
-[gd_scene load_steps=26 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=29 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
 [ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/handScene.tscn" id="1_nwjo1"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_82stg"]
 [ext_resource type="Script" path="res://debug_ui/DebugButtons.gd" id="3_7d7uj"]
+[ext_resource type="Texture2D" uid="uid://dgj1n8cljmxmd" path="res://assets/textures/tiles/Tiles085_4K-JPG_Color.jpg" id="5_a7qbt"]
 [ext_resource type="PackedScene" uid="uid://con1wfa3wg5dy" path="res://pause_menu.tscn" id="5_iutai"]
 [ext_resource type="PackedScene" uid="uid://fen8wqb4wug6" path="res://scenes/aberrationScore.tscn" id="6_b0dl5"]
+[ext_resource type="Texture2D" uid="uid://72vkm364cp52" path="res://assets/textures/tiles/Tiles085_4K-JPG_AmbientOcclusion.jpg" id="6_b45ql"]
+[ext_resource type="Texture2D" uid="uid://df45re4yxm333" path="res://assets/textures/tiles/Tiles085_4K-JPG_NormalGL.jpg" id="7_alfoh"]
 [ext_resource type="Script" path="res://TrapDoor.gd" id="8_1i166"]
+[ext_resource type="Texture2D" uid="uid://ce2jssi8ju3mq" path="res://assets/textures/tiles/Tiles085_4K-JPG_Roughness.jpg" id="8_gs0nf"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="8_o783u"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_6wea4"]
 [ext_resource type="Script" path="res://GameOverScreen.gd" id="11_i4rt7"]
@@ -27,12 +31,20 @@ sky_material = SubResource("ProceduralSkyMaterial_2n2dj")
 background_mode = 2
 sky = SubResource("Sky_i41m7")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v35fx"]
-albedo_color = Color(0.509804, 0.788235, 0.698039, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ivm7"]
+albedo_texture = ExtResource("5_a7qbt")
+roughness_texture = ExtResource("8_gs0nf")
+normal_enabled = true
+normal_texture = ExtResource("7_alfoh")
+ao_enabled = true
+ao_texture = ExtResource("6_b45ql")
+uv1_scale = Vector3(6.25, 6.25, 6.25)
+texture_filter = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_6n83a"]
-material = SubResource("StandardMaterial3D_v35fx")
-size = Vector2(10, 10)
+lightmap_size_hint = Vector2i(52, 52)
+material = SubResource("StandardMaterial3D_2ivm7")
+size = Vector2(50, 50)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_saqbe"]
 viewport_path = NodePath("SubViewport")
@@ -52,15 +64,10 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_s1gcg"]
-size = Vector3(2, 1, 2)
-subdivide_width = 2
-subdivide_height = 2
-
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.57398)
 cull_mask = 1048573
 current = true
 script = ExtResource("1_3ulpc")
@@ -92,7 +99,7 @@ render_target_update_mode = 4
 environment = SubResource("Environment_x1u6c")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.49, -0.5, -15.5)
 layers = 9
 mesh = SubResource("QuadMesh_6n83a")
 
@@ -143,6 +150,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TrapDoor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12298)
 script = ExtResource("8_1i166")
 
 [node name="TrapDoorViewCam" type="Node3D" parent="TrapDoor"]
@@ -157,9 +165,8 @@ tween_on_load = false
 inactive_update_mode = 0
 camera_3D_resource = null
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TrapDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.820547, -3)
-mesh = SubResource("BoxMesh_s1gcg")
+[node name="trapdoor" parent="TrapDoor" instance=ExtResource("15_mp4ee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.085, -0.430907, -2.93185)
 
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 script = ExtResource("11_i4rt7")
@@ -268,9 +275,6 @@ text = "Press Space To Start"
 visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
-
-[node name="trapdoor" parent="." instance=ExtResource("15_mp4ee")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0846133, 0.68577, -3.28759)
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]
