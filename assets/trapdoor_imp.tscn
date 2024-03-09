@@ -1024,7 +1024,6 @@ skeleton = NodePath("")
 transform = Transform3D(1.24234, 0, 0, 0, 1.24234, 0, 0, 0, 1.24234, 0, 0.0273862, 0.838457)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="static_env/front_td_ring_collider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_fa3ei")
 
 [node name="env_collider" type="StaticBody3D" parent="static_env"]

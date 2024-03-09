@@ -1,6 +1,8 @@
 extends Node3D
 class_name Card
 
+@onready var front_card_stock = $FrontCardStock
+
 enum State {DEAL, FLOAT, SELECTED, MOVE, PLAY}
 var curState : State
 
@@ -42,6 +44,12 @@ var cardImage #derived from held object
 var cardColor
 
 var selectedHeight : float = 0.5
+
+func _ready():
+	var stockIndex = randi_range(0, CardDataLibrary.cardStocks.size() - 1)
+	front_card_stock.mesh.material.albedo_texture = load(CardDataLibrary.cardStocks[stockIndex][0])
+	front_card_stock.mesh.material.normal_texture = load(CardDataLibrary.cardStocks[stockIndex][1])
+	
 
 func deal():
 	curState = State.DEAL

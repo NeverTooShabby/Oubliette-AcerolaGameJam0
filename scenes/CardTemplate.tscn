@@ -1,10 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://8xvmty8wasie"]
+[gd_scene load_steps=7 format=3 uid="uid://8xvmty8wasie"]
 
-[sub_resource type="Gradient" id="Gradient_s5xqi"]
-colors = PackedColorArray(0, 0.352941, 0.501961, 1, 0.267027, 0.484511, 0.423114, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_wqmk8"]
-gradient = SubResource("Gradient_s5xqi")
+[sub_resource type="ImageTexture" id="ImageTexture_g6frc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6r7ir"]
 font_size = 35
@@ -34,7 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_wqmk8")
+texture = SubResource("ImageTexture_g6frc")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
