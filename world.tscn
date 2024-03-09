@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=30 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cqyrwar0ue25h" path="res://textures/blood-splatter-png-44466.png" id="13_h8n8n"]
 [ext_resource type="Script" path="res://IntroScreen.gd" id="13_use0h"]
 [ext_resource type="PackedScene" uid="uid://bg7n4mq5dp5q8" path="res://assets/trapdoor_imp.tscn" id="15_mp4ee"]
+[ext_resource type="PackedScene" uid="uid://1nhb6kmt7ndh" path="res://assets/room.glb" id="20_alnww"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -28,8 +29,13 @@ ground_bottom_color = Color(0.901961, 0.866667, 0.835294, 1)
 sky_material = SubResource("ProceduralSkyMaterial_2n2dj")
 
 [sub_resource type="Environment" id="Environment_x1u6c"]
-background_mode = 2
+background_mode = 1
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_i41m7")
+ambient_light_energy = 0.0
+reflected_light_source = 1
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.180392, 0.180392, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ivm7"]
 albedo_texture = ExtResource("5_a7qbt")
@@ -37,6 +43,7 @@ roughness_texture = ExtResource("8_gs0nf")
 normal_enabled = true
 normal_texture = ExtResource("7_alfoh")
 ao_enabled = true
+ao_light_affect = 1.0
 ao_texture = ExtResource("6_b45ql")
 uv1_scale = Vector3(6.25, 6.25, 6.25)
 texture_filter = 0
@@ -67,7 +74,7 @@ ease = 2
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.57398)
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.821945)
 cull_mask = 1048573
 current = true
 script = ExtResource("1_3ulpc")
@@ -150,11 +157,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TrapDoor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12298)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.888596)
 script = ExtResource("8_1i166")
 
 [node name="TrapDoorViewCam" type="Node3D" parent="TrapDoor"]
-transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, 0.066651)
 script = ExtResource("8_o783u")
 priority_override = false
 priority = 20
@@ -275,6 +282,23 @@ text = "Press Space To Start"
 visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.571146, 7.39272, -2.8014)
+light_color = Color(1, 0.839216, 0.494118, 1)
+light_energy = 3.309
+light_size = 0.745
+light_cull_mask = 4294967293
+distance_fade_enabled = true
+spot_range = 11.8009
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.343299, 0.939226, 0, -0.939226, 0.343299, 0, 5.78899, 0)
+visible = false
+light_energy = 0.1
+
+[node name="room" parent="." instance=ExtResource("20_alnww")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.65766, 15.8642)
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]

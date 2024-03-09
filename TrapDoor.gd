@@ -18,3 +18,5 @@ func _on_trap_door_view_cam_tween_completed():
 
 func _on_trap_door_view_cam_tween_started():
 	print("tween started")
+	SignalBus.trapDoorViewTweenStarted.emit()
+	

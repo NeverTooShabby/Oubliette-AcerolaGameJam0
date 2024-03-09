@@ -126,13 +126,16 @@ func toggleState(newState : GameState):
 			playerHand.set_process_input(false)
 		GameState.ABERRATIONVIEW:
 			aberrationCamera.set_priority(20)
+			print("switched to aberration view")
 			
 			#cam target the door
 			state = GameState.ABERRATIONVIEW
 			playerField.set_process_input(false)
 			playerHand.set_process_input(false)
 			
+			print("waiting for animation complete")
 			await SignalBus.AberrationAnimationComplete
+			print("animation complete")
 			
 			toggleState(nextState)
 			DealHand()

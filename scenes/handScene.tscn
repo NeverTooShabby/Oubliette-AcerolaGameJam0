@@ -10,6 +10,7 @@ script = ExtResource("1_7xmil")
 cull_mask = 1048566
 
 [node name="Hand" parent="." node_paths=PackedStringArray("leftAberrationRef", "rightAberrationRef") instance=ExtResource("2_8la0q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.650189, -2.5)
 leftAberrationRef = NodePath("../LeftAberrationAnchor")
 rightAberrationRef = NodePath("../RightAberrationAnchor")
 
@@ -18,3 +19,8 @@ transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 
 
 [node name="RightAberrationAnchor" type="Node3D" parent="."]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1, 0, -1.75)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.519445, 0.854504, 0, -0.854504, 0.519445, 0, 2.84734, 0)
+layers = 2
+light_cull_mask = 4294966274

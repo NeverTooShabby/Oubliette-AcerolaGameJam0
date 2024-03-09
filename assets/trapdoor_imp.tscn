@@ -584,7 +584,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_88g5t")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s7p64"]
-size = Vector3(0.0401367, 0.04, 0.4)
+size = Vector3(0.0401367, 0.035625, 0.386523)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_8jd07"]
 _surfaces = [{
@@ -971,7 +971,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72582, 0.0469589, 2.15947)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="trap_door_shape-rigid/RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.997534, -0.0702443, 0, 0.0702443, 0.997534, -0.00922851, 0.00739607, 0)
+transform = Transform3D(1, 0, 0, 0, 0.996563, -0.0828782, 0, 0.0828782, 0.996563, -0.00922851, -0.0411347, 0.0150349)
 shape = SubResource("BoxShape3D_s7p64")
 
 [node name="handle" type="MeshInstance3D" parent="trap_door_shape-rigid/RigidBody3D"]
