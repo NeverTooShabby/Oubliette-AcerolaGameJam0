@@ -18,6 +18,7 @@ func _startAnimation():
 	
 func _input(event):
 	if event.is_action_pressed("select"):
+		prints("turning off", self)
 		turnOff()
 		nextGameState()
 		

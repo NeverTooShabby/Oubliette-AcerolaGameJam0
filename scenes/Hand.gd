@@ -19,7 +19,7 @@ var curDealType : DEAL_TYPE
 enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
 var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
 var selectedSlot : CardSlot
-
+var queueInputsOn : bool = false
 var isPlaying : bool
 
 func setDealType(newDealType : DEAL_TYPE):
@@ -121,7 +121,7 @@ func playCard(slot : CardSlot):
 	slot.queue_free()
 	
 func returnToHandView():
-	
+	queueInputsOn = true
 	isPlaying = false
 	
 	if cardSlots.size() != 0:
@@ -211,6 +211,8 @@ func moveLeft():
 			selectSlot(cardSlots[-1])
 			
 func _physics_process(delta):
+	if queueInputsOn: #hacky bullshit
+		set_process_input(true)
 	if moveQueue != QUEUED_MOVE.NONE:
 		if not isPlaying:
 			handleInputs()

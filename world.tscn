@@ -34,6 +34,9 @@ background_energy_multiplier = 0.0
 sky = SubResource("Sky_i41m7")
 ambient_light_energy = 0.0
 reflected_light_source = 1
+ssil_enabled = true
+glow_enabled = true
+glow_bloom = 0.17
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.180392, 0.180392, 0, 1)
 
@@ -60,6 +63,8 @@ viewport_path = NodePath("SubViewport")
 resource_local_to_scene = true
 transparency = 1
 albedo_texture = SubResource("ViewportTexture_saqbe")
+emission_enabled = true
+emission = Color(0.776471, 0, 0, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_jxwoe"]
 resource_local_to_scene = true
@@ -173,7 +178,7 @@ inactive_update_mode = 0
 camera_3D_resource = null
 
 [node name="trapdoor" parent="TrapDoor" instance=ExtResource("15_mp4ee")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.085, -0.430907, -2.93185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.431, -2.932)
 
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
 script = ExtResource("11_i4rt7")

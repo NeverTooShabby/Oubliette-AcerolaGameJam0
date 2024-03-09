@@ -112,12 +112,12 @@ func toggleState(newState : GameState):
 			aberrationCamera.set_priority(0)
 			
 			state = GameState.HANDVIEW
-			playerHand.set_process_input(true)
 			playerHand.visible = true
 			playerHand.returnToHandView()
 			playerField.set_process_input(false)
 		GameState.FIELDVIEW:
 			aberrationCamera.set_priority(0)
+			print("switched to field view")
 			#cam focus the field
 			#if hand not empty, animate hand lowering
 			state = GameState.FIELDVIEW
