@@ -34,6 +34,8 @@ func turnOn():
 	show()
 	
 	#this is the wrong way to do it. Should use tween_intervals between and use the same tween object. But here's the thing: I won't. Not sure how it works with doing non-tween stuff between
+	#I tried to do it the right way and things got fucky. Not worth trying to fix right now
+	
 	var tween = get_tree().create_tween()
 	tween.tween_property(bg_color, "color", Color(0.333333, 0.0627451, 0, 1), 0.5)
 	await tween.finished
