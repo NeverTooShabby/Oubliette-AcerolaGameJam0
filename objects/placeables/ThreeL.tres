@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://bolae2ly411gt"]
+
+[ext_resource type="Texture2D" uid="uid://d242ye253gy2x" path="res://objects/placeables/textures/4-block.png" id="1_0id82"]
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_0p5o3"]
+
+[resource]
+script = ExtResource("1_0p5o3")
+cardType = 0
+cardName = "3 Block L"
+cardColor = 0
+cardDescription = "Place a COLOR 3 Block L"
+art = ExtResource("1_0id82")
+baseValue = 7
+placeableObjectResourcePath = "res://objects/placeables/ThreeL.tscn"

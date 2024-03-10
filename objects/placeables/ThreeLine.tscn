@@ -1,22 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgr1ni7kcaokb"]
+[gd_scene load_steps=12 format=3 uid="uid://0os4wodx1ivi"]
 
-[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_ikhtu"]
-[ext_resource type="Texture2D" uid="uid://dkj6rvcciuqk1" path="res://objects/placeables/textures/2-line.png" id="2_5xm4c"]
-[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_72ovn"]
-[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_kjmnf"]
-[ext_resource type="Texture2D" uid="uid://ce4ny32ydqnbw" path="res://objects/placeables/textures/2-line_mask.png" id="3_vwt4f"]
+[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_ghwrd"]
+[ext_resource type="Texture2D" uid="uid://dq6vh3cj41sqv" path="res://objects/placeables/textures/3-line.png" id="2_g3u54"]
+[ext_resource type="Texture2D" uid="uid://o553iihev5iv" path="res://objects/placeables/textures/3-line_mask.png" id="3_m2j48"]
+[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="4_btwb8"]
+[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="5_fynna"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
+resource_local_to_scene = true
 transparency = 1
-albedo_texture = ExtResource("2_5xm4c")
+albedo_texture = ExtResource("2_g3u54")
 emission_enabled = true
 emission_energy_multiplier = 0.88
-emission_texture = ExtResource("3_vwt4f")
+emission_texture = ExtResource("3_m2j48")
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_p7c0i")
-size = Vector2(1, 2)
+size = Vector2(3, 1)
 orientation = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
@@ -30,26 +31,27 @@ material = SubResource("StandardMaterial3D_5re78")
 size = Vector3(0.25, 0.1, 0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
-material = ExtResource("2_72ovn")
+material = ExtResource("5_fynna")
 
 [node name="Placeable" type="Node3D"]
-script = ExtResource("1_ikhtu")
+script = ExtResource("1_ghwrd")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
-script = ExtResource("3_kjmnf")
+script = ExtResource("4_btwb8")
 
 [node name="Decal" type="Decal" parent="VisualMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-size = Vector3(1, 1, 2)
-texture_albedo = ExtResource("2_5xm4c")
-texture_emission = ExtResource("3_vwt4f")
+size = Vector3(3, 1, 1)
+texture_albedo = ExtResource("2_g3u54")
+texture_emission = ExtResource("3_m2j48")
 emission_energy = 9.0
 cull_mask = 1047560
 
 [node name="SegmentAreas" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="Area3D" type="Area3D" parent="SegmentAreas"]
 
@@ -62,28 +64,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D2"]
 shape = SubResource("BoxShape3D_qehql")
 
+[node name="Area3D3" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D3"]
+shape = SubResource("BoxShape3D_qehql")
+
 [node name="ghost" type="Node3D" parent="."]
 
 [node name="ghost_pt" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
-visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="ghost_pt3" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="SelectionBorders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="SelectionBorder" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")
 
 [node name="SelectionBorder2" type="MeshInstance3D" parent="SelectionBorders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")
+
+[node name="SelectionBorder3" type="MeshInstance3D" parent="SelectionBorders"]
 mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")

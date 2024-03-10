@@ -9,7 +9,8 @@ const GOOD_PLACEMENT = preload("res://materials/goodPlacement.tres")
 
 @onready var ghost : Node3D = $ghost
 @onready var segment_areas_node : Node3D = $SegmentAreas
-@onready var selectionBorder : MeshInstance3D = $SelectionBorder
+@onready var selectionBorders : Node3D = $SelectionBorders
+var selectionBorderArray : Array
 @onready var visual_mesh : PlaceableVisualMesh = $VisualMesh
 @onready var decal = $VisualMesh/Decal
 
@@ -26,11 +27,14 @@ enum State {NONE, HELD, PLACED, LOCKED}
 var currentState : State = State.NONE
 
 
+
 func selectionBorderColor(goodPlacement : bool = placementValid):
 	if(goodPlacement):
-		selectionBorder.set_surface_override_material(0, GOOD_PLACEMENT)
+		for selectionBorder : MeshInstance3D in selectionBorderArray:
+			selectionBorder.set_surface_override_material(0, GOOD_PLACEMENT)
 	else:
-		selectionBorder.set_surface_override_material(0, BAD_PLACEMENT)
+		for selectionBorder : MeshInstance3D in selectionBorderArray:
+			selectionBorder.set_surface_override_material(0, BAD_PLACEMENT)
 		
 func piecePickedUp():
 	currentState = State.HELD
@@ -38,7 +42,8 @@ func piecePickedUp():
 
 
 func piecePlaced(placedField : Field):
-	selectionBorder.visible=false
+	for selectionBorder : MeshInstance3D in selectionBorderArray:
+		selectionBorder.visible=false
 	currentState = State.PLACED
 	visual_mesh.PutDown()
 	AudioManager.PlaySound(AudioLibrary.positivePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
@@ -56,6 +61,9 @@ func get_fieldSlots() -> Array:
 	return fieldSlots
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for child in selectionBorders.get_children():
+		if child is MeshInstance3D:
+			selectionBorderArray.append(child)
 	selectionBorderColor(true)
 	for obj in segment_areas_node.get_children():
 		if obj is Area3D:
@@ -81,6 +89,9 @@ func setColor(newColor : CardData.CardColor):
 	var color = GameManager.ColorFromCardDataEnum(newColor)
 			
 	visual_mesh.mesh.material.albedo_color = color
+	visual_mesh.mesh.material.emission = color
+	
+	print("visual mesh color changed")
 	decal.modulate = color
 	pass
 

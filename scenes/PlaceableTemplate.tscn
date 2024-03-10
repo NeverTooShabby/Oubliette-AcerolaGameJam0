@@ -1,20 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://djg3p281to7qm"]
+[gd_scene load_steps=12 format=3 uid="uid://djg3p281to7qm"]
 
 [ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_kmfp8"]
 [ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="2_gljq3"]
+[ext_resource type="Texture2D" uid="uid://dkj6rvcciuqk1" path="res://objects/placeables/textures/2-line.png" id="2_wl2cd"]
+[ext_resource type="Texture2D" uid="uid://ce4ny32ydqnbw" path="res://objects/placeables/textures/2-line_mask.png" id="3_3gp2f"]
 [ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="3_lhn7h"]
-[ext_resource type="Texture2D" uid="uid://c1c8tj46l1l4k" path="res://icon.svg" id="4_ioer6"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
-material = ExtResource("2_gljq3")
-size = Vector3(1, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
-albedo_color = Color(0, 0.486275, 1, 1)
+transparency = 1
+albedo_texture = ExtResource("2_wl2cd")
+emission_enabled = true
+emission_energy_multiplier = 0.88
+emission_texture = ExtResource("3_3gp2f")
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_p7c0i")
+size = Vector2(1, 2)
 orientation = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
@@ -27,19 +29,25 @@ albedo_color = Color(1, 0, 1, 1)
 material = SubResource("StandardMaterial3D_5re78")
 size = Vector3(0.25, 0.1, 0.25)
 
+[sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
+material = ExtResource("2_gljq3")
+size = Vector3(1, 1, 2)
+
 [node name="Placeable" type="Node3D"]
 script = ExtResource("1_kmfp8")
 
-[node name="SelectionBorder" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-mesh = SubResource("BoxMesh_oxt4k")
-
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("3_lhn7h")
 
 [node name="Decal" type="Decal" parent="VisualMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(1, 1, 2)
+texture_albedo = ExtResource("2_wl2cd")
+texture_emission = ExtResource("3_3gp2f")
+emission_energy = 9.0
 cull_mask = 1047560
 
 [node name="SegmentAreas" type="Node3D" parent="."]
@@ -60,16 +68,19 @@ shape = SubResource("BoxShape3D_qehql")
 [node name="ghost_pt" type="Node3D" parent="ghost"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
-[node name="Decal" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
-size = Vector3(1, 1, 2)
-texture_albedo = ExtResource("4_ioer6")
-cull_mask = 1047568
+[node name="SelectionBorders" type="Node3D" parent="."]
+
+[node name="SelectionBorder" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")

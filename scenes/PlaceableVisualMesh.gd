@@ -11,19 +11,20 @@ var swayRotAmp : float = 0.025
 var swayVertFreq : float = 0.1
 var swayRotFreq : float = 0.2
 
-const floatPos : Vector3 = Vector3(0, 0.2, 0)
-
+var floatHeight : float = 0.2
+var sinkDepth : float = -0.6
 var undergroundTarget : Vector3 = Vector3(0, -0.6, 0) # used so the piece sinks under the ground and the decal is applied to  the surface of the ground
 
 var inPosition : bool = false
 
 var targetRotation : Vector3
+var initialRotation : Vector3
 var targetPosition : Vector3
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(mesh.orientation) #looking into it
+	initialRotation = rotation
 	pass # Replace with function body.
 
 
@@ -42,11 +43,11 @@ func _physics_process(delta):
 			
 func sway(delta):
 	sway_t += delta * 2 * PI
-	position.y = floatPos.y + swayVertAmp * sin(swayVertFreq * sway_t)
+	position.y = floatHeight + swayVertAmp * sin(swayVertFreq * sway_t)
 	rotation.z = swayRotAmp * sin(swayRotFreq * sway_t)
 	
 func assignNewTarget(newPos : Vector3):
-	targetRotation = Vector3.ZERO
+	targetRotation = initialRotation
 	targetPosition = newPos
 	
 func moveToPosition(delta):
@@ -59,12 +60,12 @@ func moveToPosition(delta):
 		changeState(nextState)
 		
 func PickUp():
-	assignNewTarget(floatPos)
+	assignNewTarget(Vector3(position.x, floatHeight, position.z))
 	nextState = State.FLOAT
 	changeState(State.POSITION)
 	
 func PutDown():
-	assignNewTarget(undergroundTarget)
+	assignNewTarget(Vector3(position.x, sinkDepth, position.z))
 	nextState = State.PLACED
 	changeState(State.POSITION)
 	

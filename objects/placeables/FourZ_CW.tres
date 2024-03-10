@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://3nfasfgthjdw"]
+
+[ext_resource type="Texture2D" uid="uid://bm553q1a3dgmh" path="res://objects/placeables/textures/4-z.png" id="1_7mfnb"]
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="2_3d0i2"]
+
+[resource]
+script = ExtResource("2_3d0i2")
+cardType = 0
+cardName = "4 Block Clockwise Z"
+cardColor = 0
+cardDescription = "Place COLOR 4 Block Clockwise Z"
+art = ExtResource("1_7mfnb")
+baseValue = 7
+placeableObjectResourcePath = "res://objects/placeables/FourL_CW.tscn"

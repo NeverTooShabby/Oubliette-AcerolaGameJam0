@@ -63,6 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="FrontCardStock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0246887)
 layers = 2
 mesh = SubResource("QuadMesh_1jexe")
 

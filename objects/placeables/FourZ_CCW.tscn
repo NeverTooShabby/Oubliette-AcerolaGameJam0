@@ -1,0 +1,127 @@
+[gd_scene load_steps=12 format=3 uid="uid://44wts0s7uuop"]
+
+[ext_resource type="Script" path="res://scenes/Placeable.gd" id="1_wsr4d"]
+[ext_resource type="Texture2D" uid="uid://bm553q1a3dgmh" path="res://objects/placeables/textures/4-z.png" id="2_54uul"]
+[ext_resource type="Texture2D" uid="uid://c06nksfnplq3v" path="res://objects/placeables/textures/4-z_mask.png" id="3_irsj3"]
+[ext_resource type="Script" path="res://scenes/PlaceableVisualMesh.gd" id="4_l0a1i"]
+[ext_resource type="Material" uid="uid://pmlxsaok015g" path="res://materials/goodPlacement.tres" id="5_bh2d0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7c0i"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = ExtResource("2_54uul")
+emission_enabled = true
+emission_energy_multiplier = 0.88
+emission_texture = ExtResource("3_irsj3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_p7c0i")
+size = Vector2(3, 2)
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qehql"]
+size = Vector3(0.9, 0.9, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5re78"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_cieru"]
+material = SubResource("StandardMaterial3D_5re78")
+size = Vector3(0.25, 0.1, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oxt4k"]
+material = ExtResource("5_bh2d0")
+
+[node name="Placeable" type="Node3D"]
+script = ExtResource("1_wsr4d")
+
+[node name="VisualMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-7.54979e-08, 0, -1, 0, 1, 0, -1, 0, 7.54979e-08, 0.5, 0, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_3dcdy")
+script = ExtResource("4_l0a1i")
+
+[node name="Decal" type="Decal" parent="VisualMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(3, 1, 2)
+texture_albedo = ExtResource("2_54uul")
+texture_emission = ExtResource("3_irsj3")
+emission_energy = 9.0
+cull_mask = 1047560
+
+[node name="SegmentAreas" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Area3D" type="Area3D" parent="SegmentAreas"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="Area3D2" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D2"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="Area3D3" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D3"]
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="Area3D4" type="Area3D" parent="SegmentAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_qehql")
+
+[node name="ghost" type="Node3D" parent="."]
+visible = false
+
+[node name="ghost_pt" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="ghost_pt2" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="ghost_pt3" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="ghost_pt4" type="Node3D" parent="ghost"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt4"]
+mesh = SubResource("PrismMesh_cieru")
+
+[node name="SelectionBorders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="SelectionBorder" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1.5)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")
+
+[node name="SelectionBorder2" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")
+
+[node name="SelectionBorder3" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")
+
+[node name="SelectionBorder4" type="MeshInstance3D" parent="SelectionBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0.5)
+mesh = SubResource("BoxMesh_oxt4k")
+skeleton = NodePath("../..")
