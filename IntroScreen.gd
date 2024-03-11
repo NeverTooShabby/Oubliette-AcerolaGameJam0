@@ -10,7 +10,10 @@ func _ready():
 
 func resetGraphics():
 	title.set("theme_override_colors/font_color", Color(1,1,1,0))
+	title.set("theme_override_colors/font_outline_color", Color(0,0,0,0))
+	
 	press_space.set("theme_override_colors/font_color", Color(1,1,1,0))
+	
 	
 func nextGameState():
 	GameManager.toggleState(GameManager.GameState.HANDVIEW)
@@ -22,7 +25,9 @@ func turnOn():
 
 	var tween2 = get_tree().create_tween()
 	tween2.tween_interval(1)
-	tween2.tween_property(title, "theme_override_colors/font_color", Color(1, 1, 1, 1), 2)
+	tween2.parallel().tween_property(title, "theme_override_colors/font_color", Color(1, 1, 1, 1), 2)
+	tween2.parallel().tween_property(title, "theme_override_colors/font_outline_color", Color(0, 0, 0, 1), 2)
+	
 	
 	
 	await get_tree().create_timer(2).timeout

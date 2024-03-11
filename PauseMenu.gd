@@ -18,7 +18,7 @@ func _on_game_manager_toggle_game_paused(isPaused : bool):
 		print("showing pause menu")
 		show()
 	else:
-		print("hiding pause menu")		
+		print("hiding pause menu")
 		hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

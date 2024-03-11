@@ -11,4 +11,4 @@ cardColor = 0
 cardDescription = "Place COLOR 4 Block Counterclockwise Z"
 art = ExtResource("1_crftf")
 baseValue = 7
-placeableObjectResourcePath = "res://objects/placeables/FourL_CW.tscn"
+placeableObjectResourcePath = "res://objects/placeables/FourZ_CW.tscn"

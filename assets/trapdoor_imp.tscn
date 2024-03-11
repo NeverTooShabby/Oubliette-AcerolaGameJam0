@@ -878,7 +878,7 @@ data = PackedVector3Array(-0.860984, -0.0940857, 0.352314, -0.880441, -0.0043179
 [node name="trapdoor" type="Node3D"]
 
 [node name="trap_door_shape-rigid" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72582, 0.0580511, -1.1552)
+transform = Transform3D(1, 0, 0, 0, 0.999895, 0.0144683, 0, -0.0144683, 0.999895, -0.72582, 0.0580511, -1.1552)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="trap_door_shape-rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.718174, -0.058055, 1.16926)
@@ -1033,6 +1033,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0828037, -0.058055, 0.02812
 shape = SubResource("BoxShape3D_jis76")
 
 [node name="JoltHingeJoint3D" type="JoltHingeJoint3D" parent="."]
+limit_enabled = true
 limit_upper = 2.11359
 node_a = NodePath("../trap_door_shape-rigid")
 node_b = NodePath("../static_env/env_collider")

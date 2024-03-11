@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://con1wfa3wg5dy"]
+[gd_scene load_steps=5 format=3 uid="uid://con1wfa3wg5dy"]
 
 [ext_resource type="Script" path="res://PauseMenu.gd" id="1_u7ccl"]
+[ext_resource type="FontFile" uid="uid://c2kauj0kjw4yi" path="res://fonts/EBGaramond-SemiBold.ttf" id="1_y7j8k"]
+
+[sub_resource type="Theme" id="Theme_6pnb7"]
+default_font = ExtResource("1_y7j8k")
 
 [sub_resource type="LabelSettings" id="LabelSettings_xpdxe"]
 line_spacing = 35.0
@@ -14,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_6pnb7")
 script = ExtResource("1_u7ccl")
 
 [node name="Panel" type="Panel" parent="."]
@@ -53,11 +58,6 @@ text = "Resume"
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Quit"
-
-[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Settings (Not Implemented)"
 
 [node name="MasterVolume" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2

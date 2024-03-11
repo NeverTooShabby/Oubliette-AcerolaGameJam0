@@ -81,24 +81,25 @@ shape = SubResource("BoxShape3D_qehql")
 visible = false
 
 [node name="ghost_pt" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt3" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt4" type="Node3D" parent="ghost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt4"]
 mesh = SubResource("PrismMesh_cieru")
