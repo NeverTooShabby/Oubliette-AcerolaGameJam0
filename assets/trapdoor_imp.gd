@@ -1,6 +1,6 @@
 extends Node3D
 @onready var trap_door_shape_rigid : RigidBody3D = $"trap_door_shape-rigid"
-@onready var tdHinge : HingeJoint3D = $"trap_door_shape-rigid/HingeJoint3D"
+@onready var tdHinge : HingeJoint3D = $HingeJoint3D
 @onready var light : MeshInstance3D= $Light
 
 var time : float = 0
@@ -15,7 +15,9 @@ var playForce : float = 1.0
 var checkTimer : float = 0.3
 var checkForce : float = 1.5
 
-var explodeForce : float = 100
+var explodeFlag : bool = false
+
+var explodeForce : float = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,9 +41,10 @@ func check():
 	bumpTimer = bumpTimerMin
 	
 func explode():
-	print(tdHinge.node_a)
-	bumpForce = explodeForce
-	bump()
+	tdHinge.node_a = ""
+	trap_door_shape_rigid.apply_impulse(Vector3(0.0,explodeForce,0.0))
+	bumpTimer = 1000
+	explodeFlag = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -63,7 +66,7 @@ func _physics_process(delta):
 	if bumpTimer < 0:
 		bump()
 		
-	if time > 5:
+	if time > 5 and not explodeFlag:
 		explode()
 
 
