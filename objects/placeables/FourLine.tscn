@@ -37,7 +37,7 @@ material = ExtResource("5_8rsj2")
 script = ExtResource("1_as4a8")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-7.54979e-08, 0, -1, 0, 1, 0, -1, 0, 7.54979e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("4_peh8j")
@@ -51,64 +51,63 @@ emission_energy = 9.0
 cull_mask = 1047560
 
 [node name="SegmentAreas" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="Area3D" type="Area3D" parent="SegmentAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="Area3D2" type="Area3D" parent="SegmentAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D2"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="Area3D3" type="Area3D" parent="SegmentAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D3"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="Area3D4" type="Area3D" parent="SegmentAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SegmentAreas/Area3D4"]
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="ghost" type="Node3D" parent="."]
-visible = false
 
 [node name="ghost_pt" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt3" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt4" type="Node3D" parent="ghost"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt4"]
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="SelectionBorders" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
 [node name="SelectionBorder" type="MeshInstance3D" parent="SelectionBorders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")
 
@@ -117,11 +116,11 @@ mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")
 
 [node name="SelectionBorder3" type="MeshInstance3D" parent="SelectionBorders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")
 
 [node name="SelectionBorder4" type="MeshInstance3D" parent="SelectionBorders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 mesh = SubResource("BoxMesh_oxt4k")
 skeleton = NodePath("../..")

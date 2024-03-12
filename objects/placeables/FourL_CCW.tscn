@@ -13,6 +13,7 @@ albedo_texture = ExtResource("2_c2gsn")
 emission_enabled = true
 emission_energy_multiplier = 0.88
 emission_texture = ExtResource("3_jl3m3")
+uv1_scale = Vector3(1, -1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 resource_local_to_scene = true
@@ -37,13 +38,13 @@ material = ExtResource("5_gmb2y")
 script = ExtResource("1_2lkcw")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-7.54979e-08, 0, -1, 0, 1, 0, -1, 0, 7.54979e-08, 0.5, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("4_e3dgb")
 
 [node name="Decal" type="Decal" parent="VisualMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.5, 0)
 size = Vector3(3, 1, 2)
 texture_albedo = ExtResource("2_c2gsn")
 texture_emission = ExtResource("3_jl3m3")
@@ -77,29 +78,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 shape = SubResource("BoxShape3D_qehql")
 
 [node name="ghost" type="Node3D" parent="."]
-visible = false
 
 [node name="ghost_pt" type="Node3D" parent="ghost"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt3" type="Node3D" parent="ghost"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt4" type="Node3D" parent="ghost"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="SelectionBorders" type="Node3D" parent="."]

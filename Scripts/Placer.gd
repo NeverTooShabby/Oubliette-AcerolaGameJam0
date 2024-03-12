@@ -65,7 +65,8 @@ func handleInputs():
 			GameManager.PlaceablePlaced(heldObj, self.get_parent_node_3d(), heldObj.get_fieldSlots())
 			heldObj = null
 		else:
-			AudioManager.PlaySound(AudioLibrary.negativePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
+			var soundInt : int = randi_range(0,AudioLibrary.negativePlacementSounds.size()-1)
+			AudioManager.PlaySound(AudioLibrary.negativePlacementSounds[soundInt], 1.0, 0.0, 1.0, 0.0, self)
 			#negative effect, shake?
 			pass
 		moveQueue = QUEUED_MOVE.NONE
@@ -99,10 +100,13 @@ func checkMove(move : QUEUED_MOVE) -> bool:
 		targetPosition = position + moveVector
 		targetRotation = heldObj.rotation + rotVector
 		isMoving = true
+		var randInt : int = randi_range(0,AudioLibrary.softWhooshes.size()-1)
+		AudioManager.PlaySound(AudioLibrary.softWhooshes[randInt], 1.0, 0.0, 0.8, 0.0, self)
 		move_t = 0.0
 		return true #not sure if return gets used anywhere
 	
-	AudioManager.PlaySound(AudioLibrary.negativeMoveSound, 1.0, 0.05, 1.0, 0.0, self)
+	var soundInt : int = randi_range(0,AudioLibrary.negativeMoveSound.size()-1)
+	AudioManager.PlaySound(AudioLibrary.negativeMoveSound[soundInt], 1.0, 0.0, 1.0, 0.0, self)
 	return false
 	
 func moveEnd():

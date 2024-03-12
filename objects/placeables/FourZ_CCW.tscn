@@ -13,6 +13,7 @@ albedo_texture = ExtResource("2_54uul")
 emission_enabled = true
 emission_energy_multiplier = 0.88
 emission_texture = ExtResource("3_irsj3")
+uv1_scale = Vector3(-1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3dcdy"]
 resource_local_to_scene = true
@@ -37,7 +38,7 @@ material = ExtResource("5_bh2d0")
 script = ExtResource("1_wsr4d")
 
 [node name="VisualMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-7.54979e-08, 0, -1, 0, 1, 0, -1, 0, 7.54979e-08, 0.5, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_3dcdy")
 script = ExtResource("4_l0a1i")

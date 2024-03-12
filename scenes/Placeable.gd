@@ -46,7 +46,8 @@ func piecePlaced(placedField : Field):
 		selectionBorder.visible=false
 	currentState = State.PLACED
 	visual_mesh.PutDown()
-	AudioManager.PlaySound(AudioLibrary.positivePlacementSound, 1.0, 0.05, 1.0, 0.0, self)
+	var randnum : int = randi_range(0, AudioLibrary.positivePlacementSounds.size()-1)
+	AudioManager.PlaySound(AudioLibrary.positivePlacementSounds[randnum], 1.0, 0.0, 1.0, 0.0, self)
 	#do something to move into position... project texture onto field? probably trigger this from GM
 	await SignalBus.PiecePlaceFinished
 	reparent(placedField)

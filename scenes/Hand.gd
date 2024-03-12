@@ -80,6 +80,8 @@ func dealCards(numCards : int):
 		selectedSlot.deselect()
 	for i : int in range(numCards):
 		addCard(cardGenerator.GenerateCard())
+		var soundInt : int = randi_range(0,AudioLibrary.paperFlicks.size()-1)
+		AudioManager.PlaySound(AudioLibrary.paperFlicks[soundInt], 1.0, 0.0, 0.5, 0.0, self)
 		await SignalBus.CardDelt
 	if(numCards > 1):
 		selectSlot(cardSlots[floor(numCards/2.0)])

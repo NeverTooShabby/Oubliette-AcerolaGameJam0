@@ -1,5 +1,6 @@
-[gd_scene load_steps=66 format=3 uid="uid://bg7n4mq5dp5q8"]
+[gd_scene load_steps=67 format=3 uid="uid://bg7n4mq5dp5q8"]
 
+[ext_resource type="Script" path="res://assets/trapdoor_imp.gd" id="1_c77n3"]
 [ext_resource type="Texture2D" uid="uid://d3lyccmddli5a" path="res://assets/textures/Planks012_4K-JPG_Color.jpg" id="1_xreym"]
 [ext_resource type="Texture2D" uid="uid://j7ew472oysx" path="res://assets/textures/Planks012_4K-JPG_Roughness.jpg" id="2_hydv5"]
 [ext_resource type="Texture2D" uid="uid://dmgftpeccl4x1" path="res://assets/textures/Planks012_4K-JPG_NormalGL.jpg" id="3_tmg3j"]
@@ -876,9 +877,12 @@ data = PackedVector3Array(-0.860984, -0.0940857, 0.352314, -0.880441, -0.0043179
 size = Vector3(1.88501, 0.0524414, 1.9176)
 
 [node name="trapdoor" type="Node3D"]
+script = ExtResource("1_c77n3")
 
 [node name="trap_door_shape-rigid" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72582, 0.0573055, -1.1552)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, -0.72582, 0.0573055, -1.1552)
+max_contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="trap_door_shape-rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.684692, -0.0625551, 1.21681)
@@ -968,7 +972,9 @@ mesh = SubResource("ArrayMesh_qwdyc")
 skeleton = NodePath("")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="trap_door_shape-rigid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72582, 0.0469589, 2.15947)
+transform = Transform3D(1, 0, 0, 0, 0.992997, 0.118144, 0, -0.118144, 0.992997, 0.72582, 0.0642641, 2.16489)
+max_contacts_reported = 1
+contact_monitor = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="trap_door_shape-rigid/RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.996563, -0.0828782, 0, 0.0828782, 0.996563, -0.00922851, -0.0411347, 0.0150349)
@@ -983,6 +989,12 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72582, -0.0580511, 1.1552)
 mesh = SubResource("ArrayMesh_7axib")
 skeleton = NodePath("")
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="trap_door_shape-rigid"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 0.999999, 0, -0.999999, 0, -4.37113e-08, 0.727484, 0, 1.97843)
+node_a = NodePath("../RigidBody3D")
+node_b = NodePath("../plate/StaticBody3D")
+exclude_nodes_from_collision = false
 
 [node name="static_env" type="Node3D" parent="."]
 
@@ -1021,3 +1033,13 @@ shape = SubResource("ConcavePolygonShape3D_fa3ei")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="static_env/env_collider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0828037, -0.0667721, 0.0281234)
 shape = SubResource("BoxShape3D_jis76")
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0562777, -1.15547)
+node_a = NodePath("../trap_door_shape-rigid")
+node_b = NodePath("../static_env/env_collider")
+exclude_nodes_from_collision = false
+
+[connection signal="body_entered" from="trap_door_shape-rigid" to="." method="_on_trap_door_shaperigid_body_entered"]
+[connection signal="body_entered" from="trap_door_shape-rigid/RigidBody3D" to="." method="_on_rigid_body_3d_body_entered"]
+[connection signal="body_shape_entered" from="trap_door_shape-rigid/RigidBody3D" to="." method="_on_rigid_body_3d_body_shape_entered"]

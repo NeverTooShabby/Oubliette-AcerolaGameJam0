@@ -1,8 +1,8 @@
 extends Node3D
 
 class_name Field
-var rows : int = 3
-var cols : int = 3
+var rows : int = 5
+var cols : int = 4
 @onready var boundingBoxArea : Area3D = $boundingBox
 @onready var boundingBoxShape3D : CollisionShape3D = $boundingBox/CollisionShape3D
 var boundingBox : BoxShape3D
@@ -34,8 +34,9 @@ func _ready():
 	boundingBox.size.x = cols * GameManager.gridSize
 	boundingBox.size.z = rows * GameManager.gridSize
 	
-	maxPoint.position = Vector3(boundingBox.size.x/2, 0, boundingBox.size.z/2)
-	minPoint.position = Vector3(-1 * boundingBox.size.x/2, 0, -1 * boundingBox.size.z/2)
+	
+	#maxPoint.position = Vector3(boundingBox.size.x/2, 0, boundingBox.size.z/2)
+	#minPoint.position = Vector3(-1 * boundingBox.size.x/2, 0, -1 * boundingBox.size.z/2)
 	pass # Replace with function body.
 
 

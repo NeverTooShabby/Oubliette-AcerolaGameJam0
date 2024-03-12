@@ -10,6 +10,8 @@ func _process(delta):
 #there is a reason this is in card slot... probably has something to do with animating the card independently
 func select():
 	heldCard.targetPosition.y = heldCard.selectedHeight
+	var soundInt : int = randi_range(0,AudioLibrary.paperFlicks.size()-1)
+	AudioManager.PlaySound(AudioLibrary.paperFlicks[soundInt], 0.8, 0.0, 0.5, 0.0, self)
 	
 func deselect():
 	heldCard.targetPosition.y = 0.0

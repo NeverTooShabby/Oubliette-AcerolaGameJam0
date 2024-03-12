@@ -10,7 +10,7 @@ var cardStocks : Array = [["res://assets/card_textures/card_one.png", "res://ass
 							
 var aberrationStocks : Array = [["res://assets/card_textures/abby_one.png","res://assets/card_textures/abby_one_normal.png"],["res://assets/card_textures/abby_two.png","res://assets/card_textures/abby_two_normal.png"]]
 
-var cardDataList : Array = ["res://objects/placeables/OneBlock.tres",
+var cardDataList : Array = [#"res://objects/placeables/OneBlock.tres",
 							"res://objects/placeables/TwoBlock.tres",
 							"res://objects/placeables/ThreeLine.tres",
 							"res://objects/placeables/ThreeL.tres",
