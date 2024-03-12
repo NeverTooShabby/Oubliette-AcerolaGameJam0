@@ -14,6 +14,15 @@ func resetGraphics():
 	
 	press_space.set("theme_override_colors/font_color", Color(1,1,1,0))
 	
+func _input(event):
+	if event.is_action_pressed("select"):
+		turnOff()
+		GameManager.newScore()
+		
+	
+func turnOff():
+	set_process_input(false)
+	hide()
 	
 func nextGameState():
 	GameManager.toggleState(GameManager.GameState.HANDVIEW)

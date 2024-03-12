@@ -4,7 +4,7 @@ class_name Placer
 var heldObj : Placeable
 
 
-enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW, PLACE} #one button is rot is simpler
+enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_DOWN, ROT_CW, ROT_CCW, PLACE, BACK} #one button is rot is simpler
 var moveQueue : QUEUED_MOVE
 
 enum MOVE_TYPE {TRANSLATE, ROTATE, NONE} #one button is rot is simpler
@@ -50,6 +50,8 @@ func _input(event):
 			moveQueue = QUEUED_MOVE.MOVE_DOWN
 		elif Input.is_action_just_pressed("cwRot"):
 			moveQueue = QUEUED_MOVE.ROT_CW
+		elif Input.is_action_just_pressed("interact"):
+			moveQueue = QUEUED_MOVE.BACK
 			
 		if Input.is_action_just_pressed("select"):
 			moveQueue = QUEUED_MOVE.PLACE
@@ -69,6 +71,11 @@ func handleInputs():
 			AudioManager.PlaySound(AudioLibrary.negativePlacementSounds[soundInt], 1.0, 0.0, 1.0, 0.0, self)
 			#negative effect, shake?
 			pass
+		moveQueue = QUEUED_MOVE.NONE
+	
+	elif moveQueue == QUEUED_MOVE.BACK:
+		heldObj.queue_free()
+		GameManager.backToHand()
 		moveQueue = QUEUED_MOVE.NONE
 			
 	elif moveQueue != QUEUED_MOVE.NONE: #how tf could this be none?

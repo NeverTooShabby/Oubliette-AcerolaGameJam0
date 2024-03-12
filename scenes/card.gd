@@ -86,6 +86,9 @@ func _physics_process(delta):
 		State.PLAY:
 			if moveComplete():
 				SignalBus.CardPlayAnimationComplete.emit()
+				position = Vector3.ZERO
+				rotation = Vector3.ZERO
+				
 	
 func moveComplete() -> bool:
 	var checkMove : bool = position.is_equal_approx(targetPosition) and rotation.is_equal_approx(targetRotation)

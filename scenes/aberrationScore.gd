@@ -8,8 +8,21 @@ var aberrationScore : int:
 	set(value):
 		print("aberration score changed")
 		aberrationScore = value
-		scoreDisplay.text = str(aberrationScore)
+		scoreDisplay.text = str(0)
 		light()
+		
+		AudioManager.PlaySound(AudioLibrary.newAberrationScore, 1.0, 0.0, 0.1, 0.0, self)
+		for i in range(0,3):
+			var tween2 = get_tree().create_tween()
+			tween2.tween_property(scoreDisplay, "theme_override_font_sizes/font_size", 100, 0.05)
+			tween2.tween_interval(0.1)
+			scoreDisplay.text = str(floor(aberrationScore/(3-i)))
+			prints(i,scoreDisplay.text)
+			tween2.tween_property(scoreDisplay, "theme_override_font_sizes/font_size", 300, 0.1)
+			await get_tree().create_timer(0.5).timeout
+			
+		await get_tree().create_timer(0.5).timeout
+		animationFinished()		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,9 +48,8 @@ func light():
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(mesh.material, "albedo_color", Color(1,0,0,1), 1)
-	tween.tween_callback(_tween_finished)
 	
-func _tween_finished():
+func animationFinished():
 	SignalBus.AberrationAnimationComplete.emit()
 	
 func extinguish():

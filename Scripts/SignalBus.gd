@@ -12,3 +12,6 @@ signal GameOverAnimationsOver
 signal GameOverStart
 signal IntroAnimStart
 signal trapDoorViewTweenStart
+signal switchedToFieldView
+signal switchedToHandView
+signal switchedToOtherState

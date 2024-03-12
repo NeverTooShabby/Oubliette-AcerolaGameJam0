@@ -11,3 +11,5 @@ const bigWhooshes : Array = [preload("res://sounds/fx/bigwhoosh-001.wav"),preloa
 const softWhooshes : Array = [preload("res://sounds/fx/softwoosh-001.wav"),preload("res://sounds/fx/softwoosh-002.wav"),preload("res://sounds/fx/softwoosh-003.wav"),preload("res://sounds/fx/softwoosh-004.wav"),preload("res://sounds/fx/softwoosh-005.wav")]
 const clinks : Array = [preload("res://sounds/fx/clink-001.wav"), preload("res://sounds/fx/clink-002.wav"), preload("res://sounds/fx/clink-003.wav"), preload("res://sounds/fx/clink-004.wav"), preload("res://sounds/fx/clink-005.wav"), preload("res://sounds/fx/clink-006.wav")]
 const thumps : Array = [preload("res://sounds/fx/thump-001.wav"), preload("res://sounds/fx/thump-002.wav"), preload("res://sounds/fx/thump-003.wav")]
+
+const newAberrationScore = preload("res://sounds/fx/new_aberration_score.wav")

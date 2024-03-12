@@ -5,6 +5,7 @@ var cardSlots : Array
 var slotTargets : Array
 var cardSpacing : float = 0.2
 var cardWidth : float = 1.0 #might want to pull from card
+var queueDeleteSlot : CardSlot
 
 @export var fixedCardRef : Node3D
 @export var leftAberrationRef : Node3D
@@ -16,7 +17,7 @@ var cardWidth : float = 1.0 #might want to pull from card
 enum DEAL_TYPE {ABERRATION, CARD}
 var curDealType : DEAL_TYPE
 
-enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD} #zoom in on card and view board are stretch goals
+enum QUEUED_MOVE {NONE, MOVE_LEFT, MOVE_RIGHT, SELECT, ZOOM_ON_CARD, VIEW_BOARD, BACK} #zoom in on card and view board are stretch goals
 var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
 var selectedSlot : CardSlot
 var queueInputsOn : bool = false
@@ -119,16 +120,29 @@ func playCard(slot : CardSlot):
 	slot.heldCard.play()
 	await SignalBus.CardPlayAnimationComplete
 	GameManager.PlayCard(slot.heldCard)
-	cardSlots.erase(slot)
-	slot.queue_free()
+	queueDeleteSlot = slot
+	#TODO delete slot and draw new one when returning to hand if card placed
+	#cardSlots.erase(slot)
+	#slot.queue_free()
 	
-func returnToHandView():
+#call before returning to hand if backing out
+func clearDeleteSlotQueue():
+	queueDeleteSlot = null
+
+	
+func returnToHandView(wasCardPlayed : bool = false):
+	if(queueDeleteSlot):
+		cardSlots.erase(queueDeleteSlot)
+		queueDeleteSlot.queue_free()
+		queueDeleteSlot = null
+
 	queueInputsOn = true
 	isPlaying = false
 	
 	if cardSlots.size() != 0:
 		resizeHand(0)
 		selectCenterCard()
+		
 
 func selectSlot(slot : CardSlot):
 	deselectAllSlots()
@@ -152,6 +166,8 @@ func _input(event : InputEvent ):
 			moveQueue = QUEUED_MOVE.MOVE_RIGHT
 		elif Input.is_action_just_pressed("select"):
 			moveQueue = QUEUED_MOVE.SELECT
+		elif Input.is_action_just_pressed("interact"):
+			moveQueue = QUEUED_MOVE.BACK
 			
 func playAberration(slot : CardSlot):
 	isPlaying = true
@@ -177,6 +193,10 @@ func handleInputs():
 				
 		QUEUED_MOVE.MOVE_RIGHT:
 			moveRight()
+			
+		QUEUED_MOVE.BACK:
+			##dialog box for are you sure -> move to check scores
+			pass
 			
 		QUEUED_MOVE.SELECT:
 			if curDealType == DEAL_TYPE.CARD:
@@ -214,7 +234,8 @@ func moveLeft():
 			
 func _physics_process(delta):
 	if queueInputsOn: #hacky bullshit
-		set_process_input(true)
+		self.set_process_input(true)
+		queueInputsOn = false
 	if moveQueue != QUEUED_MOVE.NONE:
 		if not isPlaying:
 			handleInputs()

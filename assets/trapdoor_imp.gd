@@ -1,4 +1,5 @@
 extends Node3D
+class_name TrapDoor
 @onready var trap_door_shape_rigid : RigidBody3D = $"trap_door_shape-rigid"
 @onready var tdHinge : HingeJoint3D = $HingeJoint3D
 @onready var light : MeshInstance3D= $Light
@@ -23,6 +24,7 @@ var explodeForce : float = 10
 func _ready():
 	bumpTimer = bumpTimerMin
 	light.mesh.material.emission_energy_multiplier = 0.0
+	GameManager.trapDoor = self
 	calm()
 	pass # Replace with function body.
 	

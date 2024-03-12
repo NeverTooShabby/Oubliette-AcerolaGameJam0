@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://lry4ck3mn8oe"]
+[gd_scene load_steps=35 format=3 uid="uid://lry4ck3mn8oe"]
 
 [ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
 [ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
@@ -22,6 +22,7 @@
 [ext_resource type="FontFile" uid="uid://c2kauj0kjw4yi" path="res://fonts/EBGaramond-SemiBold.ttf" id="18_mcc21"]
 [ext_resource type="FontFile" uid="uid://c5bs0k2smrqo1" path="res://fonts/UnifrakturCook-Bold.ttf" id="19_6s2eo"]
 [ext_resource type="PackedScene" uid="uid://1nhb6kmt7ndh" path="res://assets/room.glb" id="20_alnww"]
+[ext_resource type="Script" path="res://TextOnScreen.gd" id="23_kvx3b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
 sky_top_color = Color(0.596078, 0.756863, 1, 1)
@@ -307,13 +308,14 @@ text = "Press Space To Start"
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.571146, 7.39272, -2.8014)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.274348, 4.07986, -0.216064)
 light_color = Color(1, 0.839216, 0.494118, 1)
-light_energy = 3.309
-light_size = 0.745
+light_energy = 5.345
+light_size = 0.754
 light_cull_mask = 4294967261
-distance_fade_enabled = true
-spot_range = 11.8009
+distance_fade_begin = 598.55
+spot_range = 11.4641
+spot_angle = 59.4552
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.343299, 0.939226, 0, -0.939226, 0.343299, 0, 5.78899, 0)
@@ -323,6 +325,29 @@ light_cull_mask = 4294966274
 
 [node name="room" parent="." instance=ExtResource("20_alnww")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.65766, 15.8642)
+
+[node name="TextOnScreen" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("23_kvx3b")
+
+[node name="Control" type="Control" parent="TextOnScreen"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TextOnScreen/Control"]
+layout_mode = 0
+offset_left = 793.0
+offset_top = 129.0
+offset_right = 1125.0
+offset_bottom = 169.0
+theme_override_fonts/font = ExtResource("18_mcc21")
+theme_override_font_sizes/font_size = 30
+text = "Press E to Return To Hand"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]
