@@ -84,6 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt2" type="Node3D" parent="ghost"]
@@ -91,6 +92,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt3" type="Node3D" parent="ghost"]
@@ -98,12 +100,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="ghost_pt4" type="Node3D" parent="ghost"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ghost/ghost_pt4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546093, 0)
+visible = false
 mesh = SubResource("PrismMesh_cieru")
 
 [node name="SelectionBorders" type="Node3D" parent="."]

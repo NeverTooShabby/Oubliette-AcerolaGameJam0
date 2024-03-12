@@ -24,7 +24,7 @@ size = Vector3(5, 1, 4)
 script = ExtResource("1_7o6o4")
 
 [node name="FieldViewCam" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.677545, 0.735481, 0, -0.735481, 0.677545, 0, 3.27172, 3.014)
+transform = Transform3D(1, 0, 0, 0, 0.747175, 0.664627, 0, -0.664627, 0.747175, 0, 3.27172, 3.67808)
 script = ExtResource("2_vfx5f")
 priority_override = false
 priority = 10

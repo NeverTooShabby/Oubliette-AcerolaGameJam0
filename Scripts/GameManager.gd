@@ -29,6 +29,10 @@ const gridSize: float = 1.0 #size of boxes making up field grid
 
 signal toggle_game_paused(isPaused : bool)
 
+func _ready():
+	await get_tree().create_timer(0.1).timeout
+	toggleState(GameState.INTRO)
+
 var game_paused : bool = false:
 	get:
 		return game_paused

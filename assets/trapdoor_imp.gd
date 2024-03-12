@@ -8,7 +8,7 @@ var bumpTimer : float
 var bumpTimerMin : float = 1.0
 var bumpForce : float = 0.5
 
-var calmTimer : float = 2.0
+var calmTimer : float = 1000
 var calmForce : float = 0.5
 var playTimer : float = 1.0
 var playForce : float = 1.0
@@ -22,29 +22,41 @@ var explodeForce : float = 10
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	bumpTimer = bumpTimerMin
-	check()
+	light.mesh.material.emission_energy_multiplier = 0.0
+	calm()
 	pass # Replace with function body.
-
+	
+func tween_emission_strength(newStrength : float):
+	var tween2 = get_tree().create_tween()
+	tween2.parallel().tween_property(light.mesh.material, "emission_energy_multiplier", newStrength, 1)
+	
 func calm():
 	bumpForce = calmForce
 	bumpTimerMin = calmTimer
 	bumpTimer = bumpTimerMin
+	tween_emission_strength(0.0)
 	
 func play():
 	bumpForce = playForce
 	bumpTimerMin = playTimer
 	bumpTimer = bumpTimerMin
+	tween_emission_strength(3.0)
+	
 	
 func check():
 	bumpForce = checkForce
 	bumpTimerMin = checkTimer
 	bumpTimer = bumpTimerMin
+	tween_emission_strength(5.0)
+	
 	
 func explode():
 	tdHinge.node_a = ""
 	trap_door_shape_rigid.apply_impulse(Vector3(0.0,explodeForce,0.0))
 	bumpTimer = 1000
 	explodeFlag = true
+	tween_emission_strength(10.0)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -65,9 +77,6 @@ func _physics_process(delta):
 	
 	if bumpTimer < 0:
 		bump()
-		
-	if time > 5 and not explodeFlag:
-		explode()
 
 
 func _on_rigid_body_3d_body_entered(body):
