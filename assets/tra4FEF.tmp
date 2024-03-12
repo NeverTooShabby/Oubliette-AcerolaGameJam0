@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bg7n4mq5dp5q8"]
+[gd_scene load_steps=67 format=3 uid="uid://bg7n4mq5dp5q8"]
 
 [ext_resource type="Script" path="res://assets/trapdoor_imp.gd" id="1_c77n3"]
 [ext_resource type="Texture2D" uid="uid://d3lyccmddli5a" path="res://assets/textures/Planks012_4K-JPG_Color.jpg" id="1_xreym"]
@@ -876,30 +876,6 @@ data = PackedVector3Array(-0.860984, -0.0940857, 0.352314, -0.880441, -0.0043179
 [sub_resource type="BoxShape3D" id="BoxShape3D_jis76"]
 size = Vector3(1.88501, 0.0524414, 1.9176)
 
-[sub_resource type="Gradient" id="Gradient_1yemx"]
-colors = PackedColorArray(0.289539, 5.1524e-05, 0.286109, 1, 0.999996, 0.292253, 0.998215, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_dhau8"]
-noise_type = 0
-frequency = 0.0169
-offset = Vector3(7.55, -1000, 0)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j2aho"]
-color_ramp = SubResource("Gradient_1yemx")
-noise = SubResource("FastNoiseLite_dhau8")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxqe1"]
-transparency = 1
-albedo_color = Color(0, 0, 0, 1)
-emission_enabled = true
-emission_energy_multiplier = 10.01
-emission_texture = SubResource("NoiseTexture2D_j2aho")
-
-[sub_resource type="QuadMesh" id="QuadMesh_eo0y5"]
-material = SubResource("StandardMaterial3D_uxqe1")
-size = Vector2(2, 2)
-orientation = 1
-
 [node name="trapdoor" type="Node3D"]
 script = ExtResource("1_c77n3")
 
@@ -1063,10 +1039,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0
 node_a = NodePath("../trap_door_shape-rigid")
 node_b = NodePath("../static_env/env_collider")
 exclude_nodes_from_collision = false
-
-[node name="Light" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0150249, 0)
-mesh = SubResource("QuadMesh_eo0y5")
 
 [connection signal="body_entered" from="trap_door_shape-rigid" to="." method="_on_trap_door_shaperigid_body_entered"]
 [connection signal="body_entered" from="trap_door_shape-rigid/RigidBody3D" to="." method="_on_rigid_body_3d_body_entered"]
