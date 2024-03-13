@@ -4,8 +4,10 @@ class_name AberrationScore
 
 var isTrapDoorViewTweening : bool = false
 
-var aberrationScore : int:
-	set(value):
+var aberrationScore : int
+
+		
+func setAberrationScore(value : int):
 		print("aberration score changed")
 		aberrationScore = value
 		scoreDisplay.text = str(0)
@@ -22,8 +24,29 @@ var aberrationScore : int:
 			await get_tree().create_timer(0.5).timeout
 			
 		await get_tree().create_timer(0.5).timeout
-		animationFinished()		
+		animationFinished()
 
+func decrementAberrationScore():
+	for i in range(0, GameManager.playerScore):
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(scoreDisplay, "theme_override_font_sizes/font_size", 100, 0.01)
+		AudioManager.PlaySound(AudioLibrary.scoreCount, 1.0, 0.0, 0.5, 0.0, self)	
+		tween2.tween_interval(0.01)
+		aberrationScore -= 1
+		GameManager.playerScore -= 1
+		SignalBus.updateScore.emit()
+		scoreDisplay.text = str(aberrationScore)
+		tween2.tween_property(scoreDisplay, "theme_override_font_sizes/font_size", 300, 0.05)
+		await tween2.finished
+		print("score count finished")
+		if aberrationScore == 0:
+			extinguish()
+			return
+	
+		
+	
+func emitScoreCountFinished():
+	SignalBus.scoreCountFinished.emit()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.aberrationScore = self

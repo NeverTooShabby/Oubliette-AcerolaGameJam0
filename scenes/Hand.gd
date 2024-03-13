@@ -22,6 +22,8 @@ var moveQueue : QUEUED_MOVE = QUEUED_MOVE.NONE
 var selectedSlot : CardSlot
 var queueInputsOn : bool = false
 var isPlaying : bool
+var backTimer : float = 0.0
+var timeToBack : float = 0.2
 
 func setDealType(newDealType : DEAL_TYPE):
 	#other fiddly stuff can go here - turning off inputs or something
@@ -142,7 +144,9 @@ func returnToHandView(wasCardPlayed : bool = false):
 	if cardSlots.size() != 0:
 		resizeHand(0)
 		selectCenterCard()
-		
+		if cardSlots.size() < 5:
+			await get_tree().create_timer(0.5).timeout
+			dealCards(5-cardSlots.size())
 
 func selectSlot(slot : CardSlot):
 	deselectAllSlots()
@@ -169,6 +173,8 @@ func _input(event : InputEvent ):
 		elif Input.is_action_just_pressed("interact"):
 			moveQueue = QUEUED_MOVE.BACK
 			
+	
+			
 func playAberration(slot : CardSlot):
 	isPlaying = true
 	slot.heldCard.play()
@@ -186,7 +192,7 @@ func playAberration(slot : CardSlot):
 	GameManager.PlayAberration(cardToPlay)
 	
 			
-func handleInputs():
+func handleInputs(delta):
 	match moveQueue:
 		QUEUED_MOVE.MOVE_LEFT:
 			moveLeft()
@@ -195,9 +201,12 @@ func handleInputs():
 			moveRight()
 			
 		QUEUED_MOVE.BACK:
-			##dialog box for are you sure -> move to check scores
-			pass
-			
+			for cardslot in cardSlots:
+				cardslot.queue_free()
+	
+			cardSlots.clear()
+			GameManager.CompareScores()
+				#move game manager to score comparison
 		QUEUED_MOVE.SELECT:
 			if curDealType == DEAL_TYPE.CARD:
 				if not selectedSlot: #in case shit isn't getting selected right. This is a hack
@@ -238,6 +247,6 @@ func _physics_process(delta):
 		queueInputsOn = false
 	if moveQueue != QUEUED_MOVE.NONE:
 		if not isPlaying:
-			handleInputs()
+			handleInputs(delta)
 		else:
 			moveQueue = QUEUED_MOVE.NONE #cancel moves entered while play animation is active

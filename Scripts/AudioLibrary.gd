@@ -13,3 +13,7 @@ const clinks : Array = [preload("res://sounds/fx/clink-001.wav"), preload("res:/
 const thumps : Array = [preload("res://sounds/fx/thump-001.wav"), preload("res://sounds/fx/thump-002.wav"), preload("res://sounds/fx/thump-003.wav")]
 
 const newAberrationScore = preload("res://sounds/fx/new_aberration_score.wav")
+const scoreCount = preload("res://sounds/fx/score_count_thwip.wav")
+
+const SCORE_PASS = preload("res://sounds/fx/score_pass.wav")
+const SCORE_FAIL = preload("res://sounds/fx/score_fail.wav")

@@ -30,7 +30,7 @@ func nextGameState():
 	
 func _input(event):
 	if event.is_action_pressed("select"):
-		get_tree().reload_current_scene()
+		await get_tree().reload_current_scene()
 	
 func turnOn():
 	resetGraphics()

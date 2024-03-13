@@ -15,3 +15,5 @@ signal trapDoorViewTweenStart
 signal switchedToFieldView
 signal switchedToHandView
 signal switchedToOtherState
+signal updateScore
+signal scoreCountFinished

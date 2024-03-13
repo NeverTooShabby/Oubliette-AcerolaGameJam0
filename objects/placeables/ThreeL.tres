@@ -10,5 +10,5 @@ cardName = "3 Block L"
 cardColor = 0
 cardDescription = "Place a COLOR 3 Block L"
 art = ExtResource("1_2hxax")
-baseValue = 7
+baseValue = 5
 placeableObjectResourcePath = "res://objects/placeables/ThreeL.tscn"

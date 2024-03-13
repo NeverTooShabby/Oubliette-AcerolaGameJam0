@@ -25,6 +25,20 @@ func FindFieldSlotValues() -> Array[FieldSlot]:
 func playedPiece(newCard : Card):
 	placer.newPlaceable(newCard.data)
 	
+
+func resetField():
+	var eraseQueue : Array [Placeable]
+	for slot : FieldSlot in fieldSlots:
+		if slot.isOccupied:
+			if not eraseQueue.has(slot.pieceInSlot):
+				eraseQueue.append(slot.pieceInSlot)
+			slot.isOccupied = false
+		slot.pieceInSlot = null		
+			
+	for piece : Placeable in eraseQueue:
+		if piece: #how tf you gonna have a null piece?
+			piece.queue_free()
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.fieldViewCamera = $FieldViewCam
