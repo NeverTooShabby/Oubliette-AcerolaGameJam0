@@ -1,15 +1,14 @@
-[gd_scene load_steps=72 format=3 uid="uid://bg7n4mq5dp5q8"]
+[gd_scene load_steps=71 format=3 uid="uid://bg7n4mq5dp5q8"]
 
 [ext_resource type="Script" path="res://assets/trapdoor_imp.gd" id="1_c77n3"]
-[ext_resource type="Texture2D" uid="uid://d3lyccmddli5a" path="res://assets/textures/Planks012_4K-JPG_Color.jpg" id="1_xreym"]
-[ext_resource type="Texture2D" uid="uid://j7ew472oysx" path="res://assets/textures/Planks012_4K-JPG_Roughness.jpg" id="2_hydv5"]
-[ext_resource type="Texture2D" uid="uid://dmgftpeccl4x1" path="res://assets/textures/Planks012_4K-JPG_NormalGL.jpg" id="3_tmg3j"]
+[ext_resource type="Texture2D" uid="uid://dl4irit4ov4lc" path="res://assets/textures/Planks012_2K-JPG_Color.jpg" id="2_ckewu"]
+[ext_resource type="Texture2D" uid="uid://vw1hbvyc47xf" path="res://assets/textures/Planks012_2K-JPG_Roughness.jpg" id="3_whlkn"]
 [ext_resource type="Texture2D" uid="uid://cjm25abchknca" path="res://assets/textures/Metal023_2K-JPG_Color.jpg" id="4_6eitd"]
 [ext_resource type="Texture2D" uid="uid://dvako8y2ifq3h" path="res://assets/textures/Metal023_2K-JPG_NormalGL.jpg" id="5_7nlsd"]
 [ext_resource type="Texture2D" uid="uid://bt68n0vwehrm8" path="res://assets/textures/Metal023_2K-JPG_Roughness.jpg" id="6_quo8o"]
-[ext_resource type="Texture2D" uid="uid://ysgf5h5h7igw" path="res://assets/textures/wood10 diffuse 4k.png" id="7_gtx7d"]
-[ext_resource type="Texture2D" uid="uid://bappa5g74frg0" path="res://assets/textures/wood10 roughness 4k.png" id="8_bqysd"]
-[ext_resource type="Texture2D" uid="uid://toy7rnt0x1kr" path="res://assets/textures/wood10 normal 4k.png" id="9_s3w4g"]
+[ext_resource type="Texture2D" uid="uid://bv03csi0bsfwg" path="res://assets/textures/wood10 diffuse 2k.jpg" id="8_sm8fm"]
+[ext_resource type="Texture2D" uid="uid://1d1q2jyllde6" path="res://assets/textures/wood10 roughness 2k.jpg" id="9_ml1tw"]
+[ext_resource type="Texture2D" uid="uid://mn8lkue63lux" path="res://assets/textures/wood10 normal 2k.jpg" id="10_thtuv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q6ovd"]
 size = Vector3(0.878174, 0.0949707, 0.874344)
@@ -17,13 +16,12 @@ size = Vector3(0.878174, 0.0949707, 0.874344)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddbg1"]
 resource_name = "board"
 cull_mode = 2
-albedo_texture = ExtResource("1_xreym")
-metallic_texture = ExtResource("2_hydv5")
+albedo_texture = ExtResource("2_ckewu")
+metallic_texture = ExtResource("3_whlkn")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("2_hydv5")
+roughness_texture = ExtResource("3_whlkn")
 roughness_texture_channel = 1
 normal_enabled = true
-normal_texture = ExtResource("3_tmg3j")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_du6mo"]
 _surfaces = [{
@@ -658,13 +656,13 @@ shadow_mesh = SubResource("ArrayMesh_4pw1y")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbnk2"]
 resource_name = "rails"
 cull_mode = 2
-albedo_texture = ExtResource("7_gtx7d")
-metallic_texture = ExtResource("8_bqysd")
+albedo_texture = ExtResource("8_sm8fm")
+metallic_texture = ExtResource("9_ml1tw")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("8_bqysd")
+roughness_texture = ExtResource("9_ml1tw")
 roughness_texture_channel = 1
 normal_enabled = true
-normal_texture = ExtResource("9_s3w4g")
+normal_texture = ExtResource("10_thtuv")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_h1hho"]
 _surfaces = [{
