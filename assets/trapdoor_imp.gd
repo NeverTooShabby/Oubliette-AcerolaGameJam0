@@ -84,7 +84,7 @@ func _physics_process(delta):
 func _on_rigid_body_3d_body_entered(body):
 	if(time > 0.1):
 		var randInt : int = randi_range(0,AudioLibrary.clinks.size()-1)
-		AudioManager.PlaySound(AudioLibrary.clinks[randInt], 1.0, 0.0, 0.01, 0.0, self)
+		AudioManager.PlaySound(AudioLibrary.clinks[randInt], 1.0, 0.0, 0.5, 0.0, self)
 
 
 
@@ -92,4 +92,4 @@ func _on_trap_door_shaperigid_body_entered(body):
 	#don't like this shit but clock's a tickin
 	if(body.name == "env_collider" and time > 0.1):
 		var randInt : int = randi_range(0,AudioLibrary.thumps.size()-1)
-		AudioManager.PlaySound(AudioLibrary.thumps[randInt], 1.0, 0.0, 0.01, 0.0, self)
+		AudioManager.PlaySound(AudioLibrary.thumps[randInt], 1.0, 0.0, 0.5, 0.0, self)
