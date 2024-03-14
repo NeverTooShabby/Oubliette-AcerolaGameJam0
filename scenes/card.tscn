@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://decgufyycgfw6"]
+
+[ext_resource type="Script" path="res://scenes/card.gd" id="1_6f86v"]
+[ext_resource type="PackedScene" uid="uid://8xvmty8wasie" path="res://scenes/CardTemplate.tscn" id="2_aqc7t"]
+[ext_resource type="Texture2D" uid="uid://c184hweu7h838" path="res://assets/card_textures/card_one.png" id="2_mx8m4"]
+[ext_resource type="Texture2D" uid="uid://btpt8k7y6xcu6" path="res://assets/card_textures/card_one_normal.png" id="3_jy3os"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wsfcy"]
+viewport_path = NodePath("Front/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vipen"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_wsfcy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ay0bf"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_vipen")
+size = Vector2(1, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xaku"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = ExtResource("2_mx8m4")
+normal_enabled = true
+normal_texture = ExtResource("3_jy3os")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1jexe"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_6xaku")
+size = Vector2(1, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfjpn"]
+transparency = 1
+albedo_texture = ExtResource("2_mx8m4")
+normal_enabled = true
+normal_texture = ExtResource("3_jy3os")
+
+[sub_resource type="QuadMesh" id="QuadMesh_suiqr"]
+material = SubResource("StandardMaterial3D_yfjpn")
+size = Vector2(1, 1.4)
+
+[node name="Card" type="Node3D"]
+script = ExtResource("1_6f86v")
+
+[node name="Front" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("QuadMesh_ay0bf")
+
+[node name="SubViewport" type="SubViewport" parent="Front"]
+transparent_bg = true
+size = Vector2i(500, 698)
+size_2d_override = Vector2i(500, 698)
+render_target_update_mode = 4
+
+[node name="CardTemplate" parent="Front/SubViewport" instance=ExtResource("2_aqc7t")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FrontCardStock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0246887)
+layers = 2
+mesh = SubResource("QuadMesh_1jexe")
+
+[node name="Back" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.0115964)
+layers = 2
+mesh = SubResource("QuadMesh_suiqr")

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://bmhygu3d0bded"]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_0ku1h"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1tujp"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_hmlsa"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_1tujp")
+
+[resource]
+script = ExtResource("1_0ku1h")
+cardType = 0
+cardName = "Place Piece"
+cardColor = 0
+cardDescription = "Place Piece of Color"
+art = SubResource("NoiseTexture3D_hmlsa")
+baseValue = 2
+placeableObjectResourcePath = "res://objects/placeables/TwoBlock.tscn"

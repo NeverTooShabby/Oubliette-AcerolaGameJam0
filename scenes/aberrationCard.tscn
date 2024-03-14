@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://cr6lfpmmrokb7"]
+
+[ext_resource type="Script" path="res://scenes/abberationCard.gd" id="1_my2id"]
+[ext_resource type="PackedScene" uid="uid://b8yj4mduxnh3n" path="res://scenes/AberrationCardTemplate.tscn" id="2_o6ix6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cudgy"]
+viewport_path = NodePath("Front/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ndpa"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_cudgy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_sc0nr"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_1ndpa")
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1swq"]
+resource_local_to_scene = true
+transparency = 1
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_j1fh3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_x1swq")
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uj48s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a0mlb"]
+seamless = true
+noise = SubResource("FastNoiseLite_uj48s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfjpn"]
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_a0mlb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_suiqr"]
+material = SubResource("StandardMaterial3D_yfjpn")
+size = Vector2(1.4, 1.4)
+
+[node name="AberrationCard" type="Node3D"]
+script = ExtResource("1_my2id")
+
+[node name="Front" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("QuadMesh_sc0nr")
+
+[node name="SubViewport" type="SubViewport" parent="Front"]
+transparent_bg = true
+size = Vector2i(584, 584)
+size_2d_override = Vector2i(584, 584)
+render_target_update_mode = 4
+
+[node name="AberrationTemplate" parent="Front/SubViewport" instance=ExtResource("2_o6ix6")]
+
+[node name="cardStock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0119569)
+layers = 2
+mesh = SubResource("QuadMesh_j1fh3")
+
+[node name="Back" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+layers = 2
+mesh = SubResource("QuadMesh_suiqr")

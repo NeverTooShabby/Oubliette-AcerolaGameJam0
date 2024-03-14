@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://ce3e4487id5wl"]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_0cydm"]
+[ext_resource type="Texture2D" uid="uid://clhm0v3tyw7pk" path="res://objects/placeables/textures/one_block.png" id="1_mkmmt"]
+
+[resource]
+script = ExtResource("1_0cydm")
+cardType = 0
+cardName = "Single Piece"
+cardColor = 2
+cardDescription = "Place a COLOR single block"
+art = ExtResource("1_mkmmt")
+baseValue = 1
+placeableObjectResourcePath = "res://objects/placeables/OneBlock.tscn"

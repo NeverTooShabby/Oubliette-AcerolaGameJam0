@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://dibsgkjfrt6n0"]
+
+[ext_resource type="Texture2D" uid="uid://d242ye253gy2x" path="res://objects/placeables/textures/4-block.png" id="1_lb4jk"]
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_s5a2a"]
+
+[resource]
+script = ExtResource("1_s5a2a")
+cardType = 0
+cardName = "4 Block Square"
+cardColor = 0
+cardDescription = "Place a COLOR 4 Block Square"
+art = ExtResource("1_lb4jk")
+baseValue = 7
+placeableObjectResourcePath = "res://objects/placeables/FourSquare.tscn"

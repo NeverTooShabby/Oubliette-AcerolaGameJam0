@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://detfg3heqs1ln"]
+
+[ext_resource type="Script" path="res://scenes/Hand.gd" id="1_wkdpg"]
+[ext_resource type="PackedScene" uid="uid://cln1tu23sw47c" path="res://scenes/card_generator.tscn" id="6_njl6d"]
+
+[node name="Hand" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+script = ExtResource("1_wkdpg")
+
+[node name="CardGenerator" parent="." instance=ExtResource("6_njl6d")]

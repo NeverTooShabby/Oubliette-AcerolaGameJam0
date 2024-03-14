@@ -1,22 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://dij7r1m3g0jo1"]
+[gd_scene load_steps=10 format=3 uid="uid://dij7r1m3g0jo1"]
 
 [ext_resource type="Script" path="res://scenes/Field.gd" id="1_7o6o4"]
 [ext_resource type="PackedScene" uid="uid://c0m5iynptdc4g" path="res://scenes/FieldSlot.tscn" id="2_oqik8"]
 [ext_resource type="PackedScene" uid="uid://d2akpyxyi326g" path="res://scenes/Placer.tscn" id="2_srd8f"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="2_vfx5f"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3D_resource.gd" id="3_g7gv0"]
+
+[sub_resource type="Resource" id="Resource_a3a4g"]
+script = ExtResource("3_g7gv0")
+cull_mask = 1048573
+h_offset = 0.0
+v_offset = 0.0
+fov = 75.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5gl44"]
+size = Vector3(5, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r7js2"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_5bd3q"]
 
 [node name="Field" type="Node3D"]
 script = ExtResource("1_7o6o4")
 
+[node name="FieldViewCam" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.772387, 0.635151, 0, -0.635151, 0.772387, 0, 3.69219, 4.48995)
+script = ExtResource("2_vfx5f")
+priority_override = false
+priority = 10
+follow_mode = 0
+look_at_mode = 3
+look_at_group = Array[NodePath]([NodePath("../maxPoint"), NodePath("../minPoint")])
+look_at_parameters/look_at_target_offset = Vector3(0, 0, 0)
+tween_parameters = null
+tween_on_load = false
+inactive_update_mode = 0
+camera_3D_resource = SubResource("Resource_a3a4g")
+
 [node name="Placer" parent="." instance=ExtResource("2_srd8f")]
 
 [node name="FieldSlot" parent="." instance=ExtResource("2_oqik8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00481033, -0.98843)
 
 [node name="FieldSlot2" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 
 [node name="FieldSlot3" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="FieldSlot10" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="FieldSlot11" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.00481033, -1.98843)
+
+[node name="FieldSlot12" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
 
 [node name="FieldSlot4" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
@@ -27,10 +66,102 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="FieldSlot7" parent="." instance=ExtResource("2_oqik8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.00481033, 1.01157)
+
+[node name="FieldSlot16" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+
+[node name="FieldSlot17" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.00481033, -1.98843)
+
+[node name="FieldSlot19" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="FieldSlot20" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.00481033, 1.01157)
+
+[node name="FieldSlot18" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
+
+[node name="FieldSlot29" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.00481033, -1.98843)
+
+[node name="FieldSlot30" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="FieldSlot31" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.00481033, 1.01157)
+
+[node name="FieldSlot21" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+
+[node name="FieldSlot22" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.00481033, -1.98843)
+
+[node name="FieldSlot24" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="FieldSlot25" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.00481033, 1.01157)
+
+[node name="FieldSlot23" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="FieldSlot26" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -0.00481033, -1.98843)
+
+[node name="FieldSlot27" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="FieldSlot28" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -0.00481033, 1.01157)
 
 [node name="FieldSlot8" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="FieldSlot9" parent="." instance=ExtResource("2_oqik8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="FieldSlot13" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.00481033, 2.01157)
+
+[node name="FieldSlot32" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.00481033, 2.01157)
+
+[node name="FieldSlot33" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.00481033, 2.01157)
+
+[node name="FieldSlot34" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.00481033, 2.01157)
+
+[node name="FieldSlot35" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -0.00481033, 2.01157)
+
+[node name="FieldSlot14" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="FieldSlot15" parent="." instance=ExtResource("2_oqik8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="boundingBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="boundingBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_5gl44")
+
+[node name="maxPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 2.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="maxPoint"]
+visible = false
+mesh = SubResource("BoxMesh_r7js2")
+
+[node name="minPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -2.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="minPoint"]
+visible = false
+mesh = SubResource("PrismMesh_5bd3q")
+
+[connection signal="tween_completed" from="FieldViewCam" to="." method="_on_field_view_cam_tween_completed"]
+[connection signal="tween_started" from="FieldViewCam" to="." method="_on_field_view_cam_tween_started"]

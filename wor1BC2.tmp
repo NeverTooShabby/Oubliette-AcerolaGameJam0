@@ -1,0 +1,275 @@
+[gd_scene load_steps=25 format=3 uid="uid://lry4ck3mn8oe"]
+
+[ext_resource type="PackedScene" uid="uid://dij7r1m3g0jo1" path="res://scenes/Field.tscn" id="1_1mvll"]
+[ext_resource type="Script" path="res://mainCam.gd" id="1_3ulpc"]
+[ext_resource type="PackedScene" uid="uid://bm66n6bsum1cc" path="res://scenes/handScene.tscn" id="1_nwjo1"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_82stg"]
+[ext_resource type="Script" path="res://debug_ui/DebugButtons.gd" id="3_7d7uj"]
+[ext_resource type="PackedScene" uid="uid://con1wfa3wg5dy" path="res://pause_menu.tscn" id="5_iutai"]
+[ext_resource type="PackedScene" uid="uid://fen8wqb4wug6" path="res://scenes/aberrationScore.tscn" id="6_b0dl5"]
+[ext_resource type="Script" path="res://TrapDoor.gd" id="8_1i166"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="8_o783u"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_6wea4"]
+[ext_resource type="Script" path="res://GameOverScreen.gd" id="11_i4rt7"]
+[ext_resource type="Texture2D" uid="uid://cjy88146d6df0" path="res://textures/blood-splatter-png-44464.png" id="12_1f4m0"]
+[ext_resource type="Texture2D" uid="uid://cqyrwar0ue25h" path="res://textures/blood-splatter-png-44466.png" id="13_h8n8n"]
+[ext_resource type="Script" path="res://IntroScreen.gd" id="13_use0h"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2n2dj"]
+sky_top_color = Color(0.596078, 0.756863, 1, 1)
+ground_bottom_color = Color(0.901961, 0.866667, 0.835294, 1)
+
+[sub_resource type="Sky" id="Sky_i41m7"]
+sky_material = SubResource("ProceduralSkyMaterial_2n2dj")
+
+[sub_resource type="Environment" id="Environment_x1u6c"]
+background_mode = 2
+sky = SubResource("Sky_i41m7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v35fx"]
+albedo_color = Color(0.509804, 0.788235, 0.698039, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6n83a"]
+material = SubResource("StandardMaterial3D_v35fx")
+size = Vector2(10, 10)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_saqbe"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6gb6"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_saqbe")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jxwoe"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_r6gb6")
+
+[sub_resource type="Resource" id="Resource_tcfvw"]
+script = ExtResource("10_6wea4")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_s1gcg"]
+size = Vector3(2, 1, 2)
+subdivide_width = 2
+subdivide_height = 2
+
+[node name="World" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
+cull_mask = 1048573
+script = ExtResource("1_3ulpc")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("2_82stg")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Camera3D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Hand" parent="Camera3D/SubViewportContainer/SubViewport" instance=ExtResource("1_nwjo1")]
+
+[node name="FixedCardRef" type="Node3D" parent="Camera3D/SubViewportContainer/SubViewport"]
+
+[node name="Field" parent="." instance=ExtResource("1_1mvll")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x1u6c")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
+layers = 9
+mesh = SubResource("QuadMesh_6n83a")
+
+[node name="AberrationScore" parent="." instance=ExtResource("6_b0dl5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.794609, -2.88724)
+mesh = SubResource("QuadMesh_jxwoe")
+skeleton = NodePath("../CanvasLayer")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_7d7uj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 269.0
+offset_bottom = 342.0
+
+[node name="Deal Hand" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Deal Hand (5 Cards)"
+
+[node name="Deal Aberration" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Deal Aberration Choice"
+
+[node name="Add Card" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Add Card To Hand"
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Test Game Over Screen"
+
+[node name="GameMode" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "test"
+horizontal_alignment = 1
+
+[node name="PlayerScore" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentTarget" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="TrapDoor" type="Node3D" parent="."]
+script = ExtResource("8_1i166")
+
+[node name="TrapDoorViewCam" type="Node3D" parent="TrapDoor"]
+transform = Transform3D(1, 0, 0, 0, 0.986572, 0.163326, 0, -0.163326, 0.986573, 0, 1.2, -0.451)
+script = ExtResource("8_o783u")
+priority_override = false
+priority = 20
+follow_mode = 0
+look_at_mode = 0
+tween_parameters = SubResource("Resource_tcfvw")
+tween_on_load = false
+inactive_update_mode = 0
+camera_3D_resource = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TrapDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.820547, -3)
+mesh = SubResource("BoxMesh_s1gcg")
+
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+script = ExtResource("11_i4rt7")
+
+[node name="Control" type="Control" parent="GameOverScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BgColor" type="ColorRect" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.333333, 0.0627451, 0, 1)
+
+[node name="Splatters" type="ColorRect" parent="GameOverScreen"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+clip_children = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Blood-splatter-png-44464" type="Sprite2D" parent="GameOverScreen/Splatters"]
+position = Vector2(208, 219)
+rotation = 1.51924
+scale = Vector2(0.628002, 0.589938)
+texture = ExtResource("12_1f4m0")
+
+[node name="Blood-splatter-png-44466" type="Sprite2D" parent="GameOverScreen/Splatters"]
+position = Vector2(983, 429)
+rotation = -0.0565604
+scale = Vector2(-1, 1)
+texture = ExtResource("13_h8n8n")
+
+[node name="GameOver" type="Label" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 150
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpace" type="Label" parent="GameOverScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = 90.0
+offset_right = 87.5
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+text = "Press Space To Restart"
+
+[node name="IntroScreen" type="CanvasLayer" parent="."]
+script = ExtResource("13_use0h")
+
+[node name="Control" type="Control" parent="IntroScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="IntroScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 150
+text = "OUBLIETTE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpace" type="Label" parent="IntroScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = 90.0
+offset_right = 87.5
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+text = "Press Space To Start"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_iutai")]
+
+[connection signal="pressed" from="Control/VBoxContainer/Deal Hand" to="Control" method="_on_deal_hand_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Deal Aberration" to="Control" method="_on_deal_aberration_pressed"]
+[connection signal="button_down" from="Control/VBoxContainer/Add Card" to="Control" method="_on_add_card_button_down"]
+[connection signal="button_down" from="Control/VBoxContainer/Button2" to="Control" method="_on_button_2_button_down"]
+[connection signal="tween_completed" from="TrapDoor/TrapDoorViewCam" to="TrapDoor" method="_on_trap_door_view_cam_tween_completed"]
+[connection signal="tween_started" from="TrapDoor/TrapDoorViewCam" to="TrapDoor" method="_on_trap_door_view_cam_tween_started"]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://cw5e0jfrg5v7m"]
+
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_mb5s0"]
+[ext_resource type="Texture2D" uid="uid://dkj6rvcciuqk1" path="res://objects/placeables/textures/2-line.png" id="1_wrffe"]
+
+[resource]
+script = ExtResource("1_mb5s0")
+cardType = 0
+cardName = "Double Piece"
+cardColor = 0
+cardDescription = "Place a double COLOR block"
+art = ExtResource("1_wrffe")
+baseValue = 2
+placeableObjectResourcePath = "res://objects/placeables/TwoBlock.tscn"

@@ -1,0 +1,19 @@
+extends Node
+
+
+signal CardDelt
+
+signal CardMoveComplete
+signal CardPlayAnimationComplete
+signal PiecePlaceFinished
+signal AberrationAnimationComplete
+signal trapDoorViewTweenComplete
+signal GameOverAnimationsOver
+signal GameOverStart
+signal IntroAnimStart
+signal trapDoorViewTweenStart
+signal switchedToFieldView
+signal switchedToHandView
+signal switchedToOtherState
+signal updateScore
+signal scoreCountFinished

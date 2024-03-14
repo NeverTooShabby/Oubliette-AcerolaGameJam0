@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://dihpcxfvbwkv5"]
+
+[ext_resource type="Texture2D" uid="uid://dq6vh3cj41sqv" path="res://objects/placeables/textures/3-line.png" id="1_cyl60"]
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="1_tvnid"]
+
+[resource]
+script = ExtResource("1_tvnid")
+cardType = 0
+cardName = "3 Block Line"
+cardColor = 0
+cardDescription = "Place a COLOR 3 block line"
+art = ExtResource("1_cyl60")
+baseValue = 5
+placeableObjectResourcePath = "res://objects/placeables/ThreeLine.tscn"
